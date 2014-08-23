@@ -1,6 +1,15 @@
-var World = function(attrs, thinger) {
+var World = function(attrs, thingers) {
   this.attrs = attrs;
-  this.objects = new Thinger(thinger);
+  this.objects = [];
+  for(var thinger in thingers) {
+    this.objects.push(_makeObject(thinger));
+  }
+
+  var _makeObject = function(thinger) {
+    if(thinger.type === "platform") {
+      return new Platform(thinger);
+    }
+  };
 };
 
 // Takes in a different world as a parameter
