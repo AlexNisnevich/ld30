@@ -10,8 +10,8 @@ function _game()
 		stage,
 		world,
 		player,
-		w = $(document).width() - 100,
-		h = $(document).height() - 100,
+		w = 800,
+		h = 600,
 		assets = [],
 		keyDown = false;
 
@@ -63,10 +63,8 @@ function _game()
 
 		// creating the Hero, and assign an image
 		// also position the hero in the middle of the screen
-		player = new Player(assets[HERO_IMAGE]);
-		player.x = w/2
-		player.y = h/2;
-		world.addChild(player);
+		player = new Player(assets[HERO_IMAGE], w/2, h/2);
+		world.addChild(player.image);
 
 		// add a platform for the hero to collide with
 		self.addPlatform(w/2 - assets[PLATFORM_IMAGE].width/2, h/1.25);

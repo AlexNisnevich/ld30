@@ -3,21 +3,19 @@ var KEYCODE_LEFT = 37;
 var KEYCODE_RIGHT = 39;
 
 (function (window) {
-    function Player(image) {
-        this.initialize(image);
+    function Player(image, x, y) {
+        this.initialize(image, x, y);
     }
 
-    Player.prototype = new createjs.Bitmap();
-
-    Player.prototype.Bitmap_initialize = Player.prototype.initialize;
-
-    Player.prototype.initialize = function (image) {
-       	this.velocity = {x:0,y:25};
+    Player.prototype.initialize = function (image, x, y) {
+       	this.velocity = {x:0, y:0};
        	this.onGround = false;
 		this.doubleJump = false;
 
-        this.Bitmap_initialize(image);
-        this.snapToPixel = true;
+        this.image = new createjs.Bitmap(image);
+
+		this.image.x = x;
+		this.image.y = y;
 
         this.canDoubleJump = true;
         this.jumpHeight = 15;
@@ -32,7 +30,7 @@ var KEYCODE_RIGHT = 39;
 		var c = 0,
 			cc = 0,
 			addY = this.velocity.y,
-			bounds = getBounds(this),
+			bounds = getBounds(this.image),
 			cbounds,
 			collision = null,
 			collideables = Game.getCollideables();
@@ -66,16 +64,18 @@ var KEYCODE_RIGHT = 39;
 		// if no collision was to be found, just
 		//  move the Player to it's new position
 		if ( !collision ) {
-			this.y += addY;
+			this.image.y += addY;
 			if ( this.onGround ) {
 				this.onGround = false;
-				this.doubleJump = true;
+				if (this.canDoubleJump) {
+					this.doubleJump = true;
+				}
 			}
 		// else move the Player as far as possible
 		// and then make it stop and tell the
 		// game, that the Player is now "an the ground"
 		} else {
-			this.y += addY - collision.height;
+			this.image.y += addY - collision.height;
 			if ( addY > 0 ) {
 				this.onGround = true;
 				this.doubleJump = false;
@@ -84,13 +84,17 @@ var KEYCODE_RIGHT = 39;
 		}
     }
 
+    Player.prototype.isVisible = function () {
+    	return this.image.isVisible();
+    }
+
     Player.prototype.handleKey = function (keyCode) {
     	if (keyCode == KEYCODE_UP) {
     		this.jump();
     	} else if (keyCode == KEYCODE_LEFT) {
-    		this.x -= this.moveSpeed;
+    		this.image.x -= this.moveSpeed;
     	} else if (keyCode == KEYCODE_RIGHT) {
-    		this.x += 10;
+    		this.image.x += 10;
     	}
     }
 
