@@ -1,6 +1,7 @@
 // Example params
 // attrs = {
-//   gravityCoefficient: 0
+//   gravityCoefficient: 0,
+//   goal: [50,50]
 // }
 // thingers = [
 //   {
@@ -18,6 +19,7 @@
 // ]
 var World = function(attrs, thingers) {
   this.attrs = attrs;
+  this.goal = attrs.goal;
   this.objects = [];
   for(var thinger in thingers) {
     this.objects.push(_makeObject(thinger));
@@ -36,7 +38,9 @@ var World = function(attrs, thingers) {
 // from both worlds
 World.prototype.combine = function(otherWorld) {
   for(var attr in attrs) {
-    this[attr] = avg(this[attr], otherWorld[attr]);
+    if(!isNaN(this[attr])) {
+      this[attr] = avg(this[attr], otherWorld[attr]);
+    }
   }
 
   this.objects = this.objects + otherWorld.objects;
