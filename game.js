@@ -1,4 +1,6 @@
-var ShatteredWorlds = new Game();
+var ShatteredWorlds = function() {
+  return new Game();
+};
 
 var Game = function() {};
 
