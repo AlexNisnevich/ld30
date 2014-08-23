@@ -13,7 +13,7 @@
 //     img: 'img/platform1.png'
 //   },
 //   {
-//     type: "moving_platform",
+//     type: "movingPlatform",
 //     x: 10,
 //     y: 15,
 //     length: 20,
@@ -34,6 +34,8 @@ var World = function(attrs, thingers) {
   var _makeObject = function(thinger) {
     if(thinger.type === "platform") {
       return new Platform(thinger);
+    } else if(thinger.type == "movingPlatform") {
+      return new MovingPlatform(thinger);
     }
   };
 };
