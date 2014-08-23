@@ -1,9 +1,10 @@
-ShatteredWorlds = function() {
-  new Game();
+var ShatteredWorlds = function() {
+  return new Game();
 };
 
-Game = function() {};
+var Game = function() {};
 
 Game.setup = function() {
   // Shit goes here
 };
+  
