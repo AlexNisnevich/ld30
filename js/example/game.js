@@ -9,9 +9,9 @@ function _game()
 		canvas,
 		stage,
 		world,
-		hero,
-		w = getWidth(),
-		h = getHeight(),
+		player,
+		w = $(document).width() - 100,
+		h = $(document).height() - 100,
 		assets = [],
 		keyDown = false;
 
@@ -63,10 +63,10 @@ function _game()
 
 		// creating the Hero, and assign an image
 		// also position the hero in the middle of the screen
-		hero = new Hero(assets[HERO_IMAGE]);
-		hero.x = w/2
-		hero.y = h/2;
-		world.addChild(hero);
+		player = new Player(assets[HERO_IMAGE]);
+		player.x = w/2
+		player.y = h/2;
+		world.addChild(player);
 
 		// add a platform for the hero to collide with
 		self.addPlatform(w/2 - assets[PLATFORM_IMAGE].width/2, h/1.25);
@@ -76,15 +76,8 @@ function _game()
 			canvas.addEventListener('touchstart', function(e) {
 				self.handleKeyDown();
 			}, false);
-
-			canvas.addEventListener('touchend', function(e) {
-				self.handleKeyUp();
-			}, false);
 		} else {
 			document.onkeydown = self.handleKeyDown;
-			document.onkeyup = self.handleKeyUp;
-			document.onmousedown = self.handleKeyDown;
-			document.onmouseup = self.handleKeyUp;
 		}
 
 		createjs.Ticker.setFPS(30);
@@ -94,7 +87,7 @@ function _game()
 	this.tick = function(e)
 	{
 		ticks++;
-		hero.tick();
+		player.tick();
 		stage.update();
 	}
 
@@ -116,15 +109,7 @@ function _game()
 
 	this.handleKeyDown = function(e)
 	{
-		if ( !keyDown ) {
-			keyDown = true;
-			hero.jump();
-		}
-	}
-
-	this.handleKeyUp = function(e)
-	{
-		keyDown = false;
+		player.handleKey(e.keyCode);
 	}
 
 	self.preloadResources();

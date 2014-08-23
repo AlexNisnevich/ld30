@@ -1,23 +1,32 @@
+var KEYCODE_UP = 38;
+var KEYCODE_LEFT = 37;
+var KEYCODE_RIGHT = 39;
+
 (function (window) {
-    function Hero(image) {
+    function Player(image) {
         this.initialize(image);
     }
-    Hero.prototype = new createjs.Bitmap();
 
-    Hero.prototype.Bitmap_initialize = Hero.prototype.initialize;
+    Player.prototype = new createjs.Bitmap();
 
-    Hero.prototype.initialize = function (image) {
+    Player.prototype.Bitmap_initialize = Player.prototype.initialize;
+
+    Player.prototype.initialize = function (image) {
        	this.velocity = {x:0,y:25};
        	this.onGround = false;
 		this.doubleJump = false;
 
         this.Bitmap_initialize(image);
-        this.name = 'Hero';
         this.snapToPixel = true;
+
+        this.canDoubleJump = true;
+        this.jumpHeight = 15;
+        this.fallSpeed = 0.8;
+        this.moveSpeed = 10;
     }
 
-    Hero.prototype.tick = function () {
-        this.velocity.y += 1;
+    Player.prototype.tick = function () {
+        this.velocity.y += this.fallSpeed;
 
         // preparing the variables
 		var c = 0,
@@ -31,7 +40,7 @@
 		cc=0;
 		// for each collideable object we will calculate the
 		// bounding-rectangle and then check for an intersection
-		// of the hero's future position's bounding-rectangle
+		// of the Player's future position's bounding-rectangle
 		while ( !collision && cc < collideables.length ) {
 			cbounds = getBounds(collideables[cc]);
 			if ( collideables[cc].isVisible ) {
@@ -40,9 +49,9 @@
 
 			if ( !collision && collideables[cc].isVisible ) {
 				// if there was NO collision detected, but somehow
-				// the hero got onto the "other side" of an object (high velocity e.g.),
+				// the Player got onto the "other side" of an object (high velocity e.g.),
 				// then we will detect this here, and adjust the velocity according to
-				// it to prevent the Hero from "ghosting" through objects
+				// it to prevent the Player from "ghosting" through objects
 				// try messing with the 'this.velocity = {x:0,y:25};'
 				// -> it should still collide even with very high values
 				if ( ( bounds.y < cbounds.y && bounds.y + addY > cbounds.y )
@@ -55,16 +64,16 @@
 		}
 
 		// if no collision was to be found, just
-		//  move the hero to it's new position
+		//  move the Player to it's new position
 		if ( !collision ) {
 			this.y += addY;
 			if ( this.onGround ) {
 				this.onGround = false;
 				this.doubleJump = true;
 			}
-		// else move the hero as far as possible
+		// else move the Player as far as possible
 		// and then make it stop and tell the
-		// game, that the hero is now "an the ground"
+		// game, that the Player is now "an the ground"
 		} else {
 			this.y += addY - collision.height;
 			if ( addY > 0 ) {
@@ -75,22 +84,34 @@
 		}
     }
 
-    Hero.prototype.jump = function() {
-    	// if the hero is "on the ground"
+    Player.prototype.handleKey = function (keyCode) {
+    	if (keyCode == KEYCODE_UP) {
+    		this.jump();
+    	} else if (keyCode == KEYCODE_LEFT) {
+    		this.x -= this.moveSpeed;
+    	} else if (keyCode == KEYCODE_RIGHT) {
+    		this.x += 10;
+    	}
+    }
+
+    Player.prototype.jump = function() {
+    	// if the Player is "on the ground"
     	// let him jump, physically correct!
 		if ( this.onGround ) {
-			this.velocity.y = -17;
+			this.velocity.y = - this.jumpHeight;
 			this.onGround = false;
-			this.doubleJump = true;
-		// we want the hero to be able to
+			if (this.canDoubleJump) {
+				this.doubleJump = true;
+			}
+		// we want the Player to be able to
 		// jump once more when he is in the
 		// air - after that, he has to wait
 		// to lang somewhere on the ground
 		} else if ( this.doubleJump ) {
-			this.velocity.y = -17;
+			this.velocity.y = - this.jumpHeight;
 			this.doubleJump = false;
 		}
 	}
 
-    window.Hero = Hero;
+    window.Player = Player;
 } (window));
