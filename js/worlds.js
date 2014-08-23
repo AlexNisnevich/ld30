@@ -1,3 +1,21 @@
+// Example params
+// attrs = {
+//   gravity_coefficient: 0
+// }
+// thingers = [
+//   {
+//     type: "platform",
+//     x: 10,
+//     y: 15,
+//     length: 20
+//   },
+//   {
+//     type: "monster",
+//     x: 10,
+//     y: 30,
+//     speed: 2
+//   }
+// ]
 var World = function(attrs, thingers) {
   this.attrs = attrs;
   this.objects = [];
