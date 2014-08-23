@@ -41,12 +41,12 @@ var World = function(attrs, thingers) {
 };
 
 // Takes in a different world as a parameter
-// Averages the attributes of both worlds and
-// adds together the different objects in
+// Averages the number attributes of both worlds
+// and adds together the different objects in
 // from both worlds
 World.prototype.combine = function(otherWorld) {
   for(var attr in attrs) {
-    if(!isNaN(this[attr])) {
+    if(!isNaN(this[attr])) { // Averages the numbers
       this[attr] = avg(this[attr], otherWorld[attr]);
     }
   }
