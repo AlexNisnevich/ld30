@@ -74,8 +74,13 @@ function _game()
 			canvas.addEventListener('touchstart', function(e) {
 				self.handleKeyDown();
 			}, false);
+
+			canvas.addEventListener('touchend', function(e) {
+				self.handleKeyUp();
+			}, false);
 		} else {
 			document.onkeydown = self.handleKeyDown;
+			document.onkeyup = self.handleKeyUp;
 		}
 
 		createjs.Ticker.setFPS(30);
@@ -107,7 +112,12 @@ function _game()
 
 	this.handleKeyDown = function(e)
 	{
-		player.handleKey(e.keyCode);
+		player.handleKeyDown(e.keyCode);
+	}
+
+	this.handleKeyUp = function(e)
+	{
+		player.handleKeyUp(e.keyCode);
 	}
 
 	self.preloadResources();
