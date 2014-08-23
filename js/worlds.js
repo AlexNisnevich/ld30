@@ -1,6 +1,9 @@
-var World = function(attrs, thinger) {
+var World = function(attrs, thingers) {
   this.attrs = attrs;
-  this.objects = _makeObject(thinger);
+  this.objects = [];
+  for(var thinger in thingers) {
+    this.objects.push(_makeObject(thinger));
+  }
 
   var _makeObject = function(thinger) {
     if(thinger.type === "platform") {
@@ -24,4 +27,3 @@ World.prototype.combine = function(otherWorld) {
     return (obj1 + obj2) / 2;
   }
 };
-
