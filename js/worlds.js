@@ -1,6 +1,12 @@
 var World = function(attrs, thinger) {
   this.attrs = attrs;
-  this.objects = new Thinger(thinger);
+  this.objects = _makeObject(thinger);
+
+  var _makeObject = function(thinger) {
+    if(thinger.type === "platform") {
+      return new Platform(thinger);
+    }
+  };
 };
 
 // Takes in a different world as a parameter
@@ -18,3 +24,4 @@ World.prototype.combine = function(otherWorld) {
     return (obj1 + obj2) / 2;
   }
 };
+
