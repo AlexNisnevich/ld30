@@ -1,4 +1,4 @@
-World = function(attrs) {
+var World = function(attrs) {
   this.attrs = attrs;
 };
 
