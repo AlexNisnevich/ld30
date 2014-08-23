@@ -1,5 +1,6 @@
 // Example params
 // attrs = {
+//   playerStart: [0,0]
 //   gravityCoefficient: 0,
 //   goal: [50,50]
 // }
@@ -8,17 +9,22 @@
 //     type: "platform",
 //     x: 10,
 //     y: 15,
-//     length: 20
+//     length: 20,
+//     img: 'img/platform1.png'
 //   },
 //   {
-//     type: "monster",
+//     type: "moving_platform",
 //     x: 10,
-//     y: 30,
+//     y: 15,
+//     length: 20,
+//     img: 'img/platform1.png',
+//     direction: 'left',
 //     speed: 2
 //   }
 // ]
 var World = function(attrs, thingers) {
   this.attrs = attrs;
+  this.playerStart = attrs.playerStart;
   this.goal = attrs.goal;
   this.objects = [];
   for(var thinger in thingers) {
