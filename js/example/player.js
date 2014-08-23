@@ -17,7 +17,7 @@ var KEYCODE_RIGHT = 39;
 		this.image.x = x;
 		this.image.y = y;
 
-        this.canDoubleJump = true;
+        this.canDoubleJump = false;
         this.jumpHeight = 15;
         this.fallSpeed = 0.8;
         this.moveSpeed = 10;
@@ -82,19 +82,29 @@ var KEYCODE_RIGHT = 39;
 			}
 			this.velocity.y = 0;
 		}
+
+		this.image.x += this.velocity.x;
     }
 
     Player.prototype.isVisible = function () {
     	return this.image.isVisible();
     }
 
-    Player.prototype.handleKey = function (keyCode) {
+    Player.prototype.handleKeyDown = function (keyCode) {
     	if (keyCode == KEYCODE_UP) {
     		this.jump();
     	} else if (keyCode == KEYCODE_LEFT) {
-    		this.image.x -= this.moveSpeed;
+    		this.velocity.x = - this.moveSpeed;
     	} else if (keyCode == KEYCODE_RIGHT) {
-    		this.image.x += 10;
+    		this.velocity.x = this.moveSpeed;
+    	}
+    }
+
+    Player.prototype.handleKeyUp = function (keyCode) {
+    	if (keyCode == KEYCODE_LEFT) {
+    		this.velocity.x = 0;
+    	} else if (keyCode == KEYCODE_RIGHT) {
+    		this.velocity.x = 0;
     	}
     }
 
