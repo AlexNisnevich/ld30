@@ -1,3 +1,21 @@
+// Example params
+// attrs = {
+//   gravityCoefficient: 0
+// }
+// thingers = [
+//   {
+//     type: "platform",
+//     x: 10,
+//     y: 15,
+//     length: 20
+//   },
+//   {
+//     type: "monster",
+//     x: 10,
+//     y: 30,
+//     speed: 2
+//   }
+// ]
 var World = function(attrs, thingers) {
   this.attrs = attrs;
   this.objects = [];
@@ -13,8 +31,8 @@ var World = function(attrs, thingers) {
 };
 
 // Takes in a different world as a parameter
-// Averages the attributes of both worlds
-// Adds together the different objects in
+// Averages the attributes of both worlds and
+// adds together the different objects in
 // from both worlds
 World.prototype.combine = function(otherWorld) {
   for(var attr in attrs) {
