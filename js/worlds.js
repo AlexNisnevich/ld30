@@ -116,7 +116,6 @@ var CombinedWorld = function(baseWorld, otherWorld) {
   };
 
   _updateAttrs(baseWorld, otherWorld);
-  console.log(this.objects);
 };
 
 CombinedWorld.prototype.tick = function() {
