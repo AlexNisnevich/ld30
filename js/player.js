@@ -119,9 +119,9 @@ var KEYCODE_RIGHT = 39;
 
       if (collideable.obj.shatterVelocity && this.velocity.y > collideable.obj.shatterVelocity) {
         collideable.obj.shatter();
+      } else {
+        this.velocity.y = 0;
       }
-
-      this.velocity.y = 0;
     }
 
     this.image.x += this.velocity.x;
