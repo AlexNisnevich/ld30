@@ -41,12 +41,18 @@ var KEYCODE_RIGHT = 39;
 		// bounding-rectangle and then check for an intersection
 		// of the Player's future position's bounding-rectangle
 		while ( !collision && cc < collideables.length ) {
-			cbounds = getBounds(collideables[cc]);
-			if ( collideables[cc].isVisible ) {
+			var obj = collideables[cc];
+
+			cbounds = getBounds(obj);
+			if ( obj.isVisible ) {
 				collision = calculateIntersection(bounds, cbounds, 0, addY);
 			}
 
-			if ( !collision && collideables[cc].isVisible ) {
+			if (collision && obj.name == 'exit') {
+				alert('Yay!');
+			}
+
+			if ( !collision && obj.isVisible ) {
 				// if there was NO collision detected, but somehow
 				// the Player got onto the "other side" of an object (high velocity e.g.),
 				// then we will detect this here, and adjust the velocity according to

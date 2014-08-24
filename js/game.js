@@ -5,7 +5,8 @@ var ShatteredWorlds = function() {
 var Game = function(w, h) {
 	var assetsToLoad = {
 		'hero': 'assets/hero.png',
-		'platform': 'assets/platform.png'
+		'platform': 'assets/platform.png',
+		'portal': 'assets/portal.jpg'
 	};
 
 	var self = this,
@@ -89,6 +90,14 @@ var Game = function(w, h) {
 	};
 
 	this.loadLevel = function(world) {
+		// place exit
+		var exit = new createjs.Bitmap(assets['portal']);
+		exit.x = world.goal[0];
+		exit.y = world.goal[1];
+		exit.name = "exit";
+		container.addChild(exit);
+		collideables.push(exit);
+
 		// place player
 		player = new Player(assets['hero'], world.playerStart[0], world.playerStart[1], self);
 		container.addChild(player.image);
