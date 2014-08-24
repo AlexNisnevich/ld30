@@ -97,6 +97,11 @@ var KEYCODE_RIGHT = 39;
         this.doubleJump = false;
       }
 
+      if (collideable.obj.shatterVelocity && this.velocity.y > collideable.obj.shatterVelocity) {
+        console.log('shatter!');
+        collideable.obj.shatter();
+      }
+
       this.velocity.y = 0;
 
       this.speedMultiplier = 1;
@@ -126,6 +131,8 @@ var KEYCODE_RIGHT = 39;
     this.image.x = this.startX;
     this.image.y = this.startY;
     this.velocity = {x: 0, y: 0};
+
+    game.resetLevel();
   }
 
   Player.prototype.isVisible = function () {

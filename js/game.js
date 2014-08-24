@@ -23,7 +23,6 @@ var Game = function(w, h) {
   };
 
   var currentLevelNum = 1;
-  this.getCurrentLevelNum = function () { return currentLevelNum; };
 
   var self = this;
   var ticks = 0;
@@ -150,6 +149,15 @@ var Game = function(w, h) {
       obj.draw(self);
     });
   };
+
+  this.resetLevel = function() {
+    console.log(collideables);
+    collideables.forEach(function (c) {
+      if (c.obj && c.obj.reset) {
+        c.obj.reset();
+      }
+    });
+  }
 
   this.overlayWorld = function(newWorld) {
     world = world.combine(newWorld);

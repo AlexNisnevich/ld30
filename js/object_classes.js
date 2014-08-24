@@ -48,6 +48,15 @@ var MovingPlatform = function(attrs) {
 var Ice = function(attrs) {
   Thinger.apply(this, [attrs]);
   this.effectOnPlayer = "speedUp";
+  this.shatterVelocity = 15;
+
+  this.shatter = function () {
+  	this.image.scaleX = 0;
+  };
+
+  this.reset = function () {
+  	this.image.scaleX = attrs.length / this.image.getBounds().width;
+  };
 };
 
 // Makes player die

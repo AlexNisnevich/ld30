@@ -32,12 +32,12 @@ var LevelTwo = new World({
 
 var LevelThree = new World({
   name: "C",
-  start: [465, 270],
+  start: [365, 270],
   goal: [695, 450],
   gravityCoefficient: 1
 }, [{
   type: "ice",
-  x: 445,
+  x: 345,
   y: 300,
   length: 70,
   img: 'assets/ice.png'
