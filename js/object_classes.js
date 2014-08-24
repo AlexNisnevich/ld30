@@ -56,6 +56,11 @@ var DeadlyThinger = function(attrs) {
   this.effectOnPlayer = "kill";
 };
 
+var ImmobilizeThinger = function(attrs) {
+  Thinger.apply(this, [attrs]);
+  this.effectOnPlayer = "stop";
+};
+
 MovingPlatform.prototype.move = function() {
   switch(this.direction) {
     case 'left':
