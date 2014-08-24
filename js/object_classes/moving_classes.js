@@ -7,40 +7,53 @@
 //   maxRadius: 10,
 //   speed: 2
 // }
-var MovingBeeHive = function(attrs) {
+var MovingBeehive = function(attrs) {
   // Until radius stuff is implemented
   attrs.length = attrs.radius;
   DeadlyThinger.apply(this, [attrs]);
   this.radius = attrs.radius;
   this.minRadius = attrs.radius;
   this.maxRadius = attrs.maxRadius;
-  // Alex implement draw thingy here
+  this.senseRadius = attrs.senseRadius;
+  this.speedOut = attrs.speedOut;
+  this.speedIn = attrs.speedIn;
+  this.centerX = attrs.x;
+  this.centerY = attrs.y;
+
+  this.draw = function(game) {
+    // Until radius stuff is implemented
+    this.image.x -= this.radius / 2;
+    this.image.y -= this.radius / 2;
+    this.image.scaleX = this.radius / this.image.getBounds().width;
+    this.image.scaleY = this.radius / this.image.getBounds().height;
+    game.addObject(this.image);
+  }
 
   this.move = function(playerPos) {
-    function distanceFromPlayer() {
-      return _euclideanDistance({x: this.image.x, y: this.image.y}, playerPos);
-    }
+    var distanceFromPlayer = _euclideanDistance({x: this.image.x, y: this.image.y}, playerPos);
 
-    if(distanceFromPlayer < this.maxRadius) {
+    if(distanceFromPlayer < this.senseRadius) {
       this.moveOutward();
     } else {
       this.moveInward();
     }
+
+    // For now
+    this.image.scaleX = this.radius / this.image.getBounds().width;
+    this.image.scaleY = this.radius / this.image.getBounds().height;
+    this.image.x = this.centerX - this.radius / 2;
+    this.image.y = this.centerY - this.radius / 2;
   };
 
   this.moveOutward = function() {
-    if(this.maxRadius < this.radius) {
-      this.radius += this.speed;
-      // Until radius stuff is implemented
-      this.length = this.radius;
+    if(this.maxRadius > this.radius) {
+      this.radius += this.speedOut;
     }
   };
 
   this.moveInward = function() {
-    if(this.minRadius > this.radius) {
-      this.radius -= this.speed;
-      // Until radius stuff is implemented
-      this.length = this.radius;
+    if(this.minRadius < this.radius) {
+      this.radius -= this.speedIn;
     }
   };
 };
@@ -58,11 +71,9 @@ var MovingZombie = function(attrs) {
   DeadlyThinger.apply(this, [attrs]);
 
   this.move = function(playerPos) {
-    function distanceFromPlayer() {
-      return _euclideanDistance({x: this.image.x, y: this.image.y}, playerPos);
-    }
+    var distanceFromPlayer = _euclideanDistance({x: this.image.x, y: this.image.y}, playerPos);
 
-    if(distanceFromPlayer(playerPos) < this.distance) {
+    if(distanceFromPlayer < this.distance) {
       this.moveTowardPlayer(playerPos);
     }
   };
@@ -116,5 +127,5 @@ var MovingPolarBear = function(attrs) {
 var _euclideanDistance = function (pos1, pos2) {
   xDistance = Math.abs(pos1.x - pos2.x);
   yDistance = Math.abs(pos1.y - pos2.y);
-  return Math.sqrt(Math.pow(xDistance,2) + Math.sqrt(yDistance,2));
+  return Math.sqrt(Math.pow(xDistance,2) + Math.pow(yDistance,2));
 };

@@ -25,7 +25,7 @@ var Game = function(w, h) {
     5: LevelFive
   };
 
-  var currentLevelNum = 1;
+  var currentLevelNum = 4;
 
   var self = this;
   var ticks = 0;
@@ -170,10 +170,10 @@ var Game = function(w, h) {
     var oldWorld = world;
     world = world.combine(newWorld);
     this.updateLevel(world);
-    setTimeout(function () { self.updateLevel(oldWorld); console.log(oldWorld) }, 50);
-    setTimeout(function () { self.updateLevel(world); console.log(world)  }, 100);
-    setTimeout(function () { self.updateLevel(oldWorld); console.log(3)  }, 150);
-    setTimeout(function () { self.updateLevel(world); console.log(4)  }, 200);
+    setTimeout(function () { self.updateLevel(oldWorld); }, 50);
+    setTimeout(function () { self.updateLevel(world); }, 100);
+    setTimeout(function () { self.updateLevel(oldWorld); }, 150);
+    setTimeout(function () { self.updateLevel(world); }, 200);
   };
 
   this.addObject = function(obj) {

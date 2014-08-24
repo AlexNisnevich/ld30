@@ -73,6 +73,28 @@ var LevelFour = new World({
   y: 370,
   length: 145,
   img: 'assets/branch.png'
+},{
+  type: "bouncyThinger",
+  x: 650,
+  y: 150,
+  length: 70,
+  img: 'assets/branch.png'
+},{
+  type: "bouncyThinger",
+  x: 650,
+  y: 565,
+  length: 140,
+  img: 'assets/branch.png'
+},{
+  type: "movingBeehive",
+  x: 550,
+  y: 400,
+  radius: 20,
+  img: 'assets/bees.png',
+  maxRadius: 100,
+  senseRadius: 200,
+  speedOut: 1,
+  speedIn: 0.4
 }]);
 
 var LevelFive = new World({

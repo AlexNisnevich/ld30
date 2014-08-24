@@ -62,8 +62,8 @@ var World = function(attrs, thingers) {
   };
 };
 
-World.prototype.tick = function() {
-  this.moveObjects();
+World.prototype.tick = function(playerPos) {
+  this.moveObjects(playerPos);
 };
 
 // Combines this world with a different world
@@ -113,7 +113,7 @@ var CombinedWorld = function(baseWorld, otherWorld) {
   _updateAttrs(baseWorld, otherWorld);
 };
 
-CombinedWorld.prototype.tick = function() {
-  this.baseWorld.tick();
-  this.otherWorld.tick();
+CombinedWorld.prototype.tick = function(playerPos) {
+  this.baseWorld.tick(playerPos);
+  this.otherWorld.tick(playerPos);
 };
