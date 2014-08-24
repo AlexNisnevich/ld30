@@ -66,8 +66,11 @@ World.prototype.tick = function() {
   this.moveObjects();
 };
 
+// Combines this world with a different world
 World.prototype.combine = function(otherWorld) {
-  return new CombinedWorld(this, otherWorld);
+  if(otherWorld !== this) {
+    return new CombinedWorld(this, otherWorld);
+  }
 };
 
 // Gets its attributes from two different worlds
@@ -94,4 +97,16 @@ var CombinedWorld = function(baseWorld, newWorld) {
 CombinedWorld.prototype.tick = function() {
   this.baseWorld.tick();
   this.newWorld.tick();
+};
+
+// Combines the base world with another world
+// unless the 'otherWorld' is the one of the
+// worlds this class combines (in which case,
+// it returns the baseWorld).
+CombinedWorld.prototype.combine = function(otherWorld) {
+  if(otherWorld === this.newWorld || otherWorld === this.baseWorld) {
+    return this.baseWorld;
+  } else {
+    return new CombinedWorld(this.baseWorld, otherWorld);
+  }
 };
