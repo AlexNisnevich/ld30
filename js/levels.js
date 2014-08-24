@@ -1,6 +1,6 @@
 var LevelOne = new World({
   name: "A",
-  start: [390, 440],
+  start: [390, 430],
   goal: [260, 380],
   gravityCoefficient: 1
 }, [{
@@ -12,7 +12,7 @@ var LevelOne = new World({
 },{
   type: "platform",
   x: 360,
-  y: 460,
+  y: 450,
   length: 80,
   img: 'assets/platform.png'
 }]);
@@ -33,7 +33,7 @@ var LevelTwo = new World({
 var LevelThree = new World({
   name: "C",
   start: [365, 270],
-  goal: [695, 450],
+  goal: [795, 450],
   gravityCoefficient: 1
 }, [{
   type: "ice",
@@ -45,6 +45,6 @@ var LevelThree = new World({
   type: "ice",
   x: 515,
   y: 465,
-  length: 70,
+  length: 100,
   img: 'assets/ice.png'
 }]);

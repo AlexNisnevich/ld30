@@ -23,7 +23,7 @@ var KEYCODE_RIGHT = 39;
     this.canDoubleJump = false;
     this.jumpHeight = 12;
     this.fallSpeed = 1.2;
-    this.moveSpeed = 6;
+    this.moveSpeed = 4;
     this.speedMultiplier = 1;
   };
 

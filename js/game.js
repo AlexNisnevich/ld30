@@ -5,7 +5,7 @@ var ShatteredWorlds = function() {
 var world;
 var Game = function(w, h) {
   var assetsToLoad = {
-    'hero': 'assets/hero.png',
+    'hero': 'assets/magicStar.png',
     'platform': 'assets/platform.png',
     'portal': 'assets/magicKey.png'
   };
