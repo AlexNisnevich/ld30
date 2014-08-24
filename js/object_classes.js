@@ -3,19 +3,23 @@
 //   x: 10,
 //   y: 15,
 //   length: 20,
-//   img: 'img/platform1.png'
+//   img: 'img/thinger1.png'
 // }
+var Thinger = function(attrs) {
+  this.length = attrs.length;
+
+  this.image = new createjs.Bitmap(attrs.img);
+  this.image.x = attrs.x;
+  this.image.y = attrs.y;
+
+  this.draw = function (game) {
+    this.image.scaleX = attrs.length / this.image.getBounds().width;
+    game.addObject(this.image);
+  };
+};
+
 var Platform = function(attrs) {
-	this.length = attrs.length;
-
-	this.image = new createjs.Bitmap(attrs.img);
-	this.image.x = attrs.x;
-	this.image.y = attrs.y;
-
-	this.draw = function (game) {
-		this.image.scaleX = attrs.length / this.image.getBounds().width;
-		game.addObject(this.image);
-	}
+  Thinger.apply(this, [attrs]);
 };
 
 // Example params
@@ -37,6 +41,18 @@ var MovingPlatform = function(attrs) {
   this.rightBound = attrs.rightBound;
   this.upBound = attrs.upBound;
   this.downBound = attrs.downBound;
+};
+
+// Makes player move faster
+var Ice = function() {
+  Thinger.apply(this, [attrs]);
+  this.effectOnPlayer = "speedUp";
+};
+
+// Makes player die
+var DeadlyThinger = function() {
+  Thinger.apply(this, [attrs]);
+  this.effectOnPlayer = "kill";
 };
 
 MovingPlatform.prototype.move = function() {
