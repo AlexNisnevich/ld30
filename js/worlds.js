@@ -98,9 +98,7 @@ var CombinedWorld = function(baseWorld, otherWorld) {
     if(otherWorld === this.otherWorld || otherWorld === this.baseWorld) {
       return this.baseWorld;
     } else {
-      this.otherWorld = otherWorld;
-      _updateAttrs(this.baseWorld, otherWorld);
-      return this;
+      return new CombinedWorld(this.baseWorld, otherWorld);
     }
   };
 
