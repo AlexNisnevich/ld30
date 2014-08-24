@@ -7,13 +7,13 @@ var Game = function(w, h) {
   var assetsToLoad = {
     'hero': 'assets/hero.png',
     'platform': 'assets/platform.png',
-    'portal': 'assets/portal.jpg'
+    'portal': 'assets/magicKey.png'
   };
 
   var levelHotkeys = {
-  	49: 1,  // 1
-  	50: 2,  // 2
-  	51: 3   // 3
+    49: 1,  // 1
+    50: 2,  // 2
+    51: 3   // 3
   };
 
   var levels = {
@@ -23,7 +23,6 @@ var Game = function(w, h) {
   };
 
   var currentLevelNum = 1;
-  this.getCurrentLevelNum = function () { return currentLevelNum; };
 
   var self = this;
   var ticks = 0;
@@ -93,10 +92,11 @@ var Game = function(w, h) {
       } else {
         player.handleKeyDown(e.keyCode);
       }
-    }
+    };
+
     document.onkeyup = function (e) {
       player.handleKeyUp(e.keyCode);
-    }
+    };
 
     createjs.Ticker.setFPS(30);
     createjs.Ticker.addEventListener('tick', self.tick);
@@ -105,7 +105,7 @@ var Game = function(w, h) {
   this.tick = function(e) {
     ticks++;
     player.tick();
-    world.tick();
+    world.tick({x: player.image.x, y: player.image.y});
     stage.update();
   };
 
@@ -116,8 +116,10 @@ var Game = function(w, h) {
 
     currentLevelNum++;
     world = levels[currentLevelNum];
-    this.loadLevel(world);
-  }
+    if(world !== null) {
+      this.loadLevel(world);
+    }
+  };
 
   this.loadLevel = function(world) {
     // place exit
@@ -144,18 +146,24 @@ var Game = function(w, h) {
     // place exit
     this.addObject(exit);
 
-  	// place objects
+    // place objects
     world.objects.forEach(function (obj) {
       obj.draw(self);
     });
-
-    console.log(world.attrs)
   };
 
+  this.resetLevel = function() {
+    console.log(collideables);
+    collideables.forEach(function (c) {
+      if (c.obj && c.obj.reset) {
+        c.obj.reset();
+      }
+    });
+  }
+
   this.overlayWorld = function(newWorld) {
-    console.log(world.attrs);
-  	world = world.combine(newWorld, self);
-  	this.updateLevel(world);
+    world = world.combine(newWorld);
+    this.updateLevel(world);
   };
 
   this.addObject = function(obj) {

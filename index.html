@@ -7,7 +7,7 @@
 	<meta property="og:description" content="Description Goes Here" />
 	<meta name="Description" content="Description Goes Here">
 </head>
-<body style="background: black">
+<body>
 	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script src="http://code.createjs.com/easeljs-0.7.1.min.js"></script>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
@@ -24,5 +24,17 @@
 			game.setup();
 		});
 	</script>
+	<style>
+		body {
+			background: #333;
+		}
+
+		canvas {
+			margin: auto;
+			position: absolute;
+			top: 0; left: 0; bottom: 0; right: 0;
+			background: url(assets/gradientSky.png);
+		}
+	</style>
 </body>
 </html>
