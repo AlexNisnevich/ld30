@@ -118,17 +118,21 @@ var LevelFive = new World({
   gravityCoefficient: 0.1,
   cantOverlap: []
 }, [{
-  type: "platform",
+  type: "movingHeavyPlatform",
   x: 45,
   y: 45,
   length: 135,
-  img: 'assets/platform.png'
+  img: 'assets/platform.png',
+  gravityThreshold: 0.5,
+  fallSpeed: 1
 },{
-  type: "platform",
+  type: "movingHeavyPlatform",
   x: 900,
   y: 495,
   length: 80,
-  img: 'assets/platform.png'
+  img: 'assets/platform.png',
+  gravityThreshold: 0.5,
+  fallSpeed: 1
 }]);
 
 var BlankFinalLevel = new World({

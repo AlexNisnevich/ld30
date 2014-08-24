@@ -26,7 +26,7 @@ var Game = function(w, h) {
     6: BlankFinalLevel // For now
   };
 
-  var currentLevelNum = 4;
+  var currentLevelNum = 5;
 
   var self = this;
   var ticks = 0;
