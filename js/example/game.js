@@ -1,8 +1,7 @@
 var		HERO_IMAGE = 'assets/hero.png',
 		PLATFORM_IMAGE = 'assets/platform.png';
 
-function _game()
-{
+function _game() {
 	window.Game = this;
 	var self = this,
 		ticks = 0,
@@ -70,17 +69,11 @@ function _game()
 		self.addPlatform(w/2 - assets[PLATFORM_IMAGE].width/2, h/1.25);
 
 		// Setting the listeners
-		if ('ontouchstart' in document.documentElement) {
-			canvas.addEventListener('touchstart', function(e) {
-				self.handleKeyDown();
-			}, false);
-
-			canvas.addEventListener('touchend', function(e) {
-				self.handleKeyUp();
-			}, false);
-		} else {
-			document.onkeydown = self.handleKeyDown;
-			document.onkeyup = self.handleKeyUp;
+		document.onkeydown = function (e) {
+			player.handleKeyDown(e.keyCode);
+		}
+		document.onkeyup = function (e) {
+			player.handleKeyUp(e.keyCode);
 		}
 
 		createjs.Ticker.setFPS(30);
@@ -108,16 +101,6 @@ function _game()
 
 		world.addChild(platform);
 		collideables.push(platform);
-	}
-
-	this.handleKeyDown = function(e)
-	{
-		player.handleKeyDown(e.keyCode);
-	}
-
-	this.handleKeyUp = function(e)
-	{
-		player.handleKeyUp(e.keyCode);
 	}
 
 	self.preloadResources();
