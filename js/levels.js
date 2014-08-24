@@ -86,6 +86,11 @@ var LevelFour = new World({
   length: 140,
   img: 'assets/branch.png'
 },{
+  type: "visuals",
+  x: 520,
+  y: 370,
+  img: 'assets/beehive.png'
+},{
   type: "movingBeehive",
   x: 550,
   y: 400,
