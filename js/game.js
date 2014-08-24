@@ -11,9 +11,9 @@ var Game = function(w, h) {
   };
 
   var levelHotkeys = {
-  	49: 1,  // 1
-  	50: 2,  // 2
-  	51: 3   // 3
+    49: 1,  // 1
+    50: 2,  // 2
+    51: 3   // 3
   };
 
   var levels = {
@@ -144,7 +144,7 @@ var Game = function(w, h) {
     // place exit
     this.addObject(exit);
 
-  	// place objects
+    // place objects
     world.objects.forEach(function (obj) {
       obj.draw(self);
     });
@@ -154,8 +154,8 @@ var Game = function(w, h) {
 
   this.overlayWorld = function(newWorld) {
     console.log(world.attrs);
-  	world = world.combine(newWorld, self);
-  	this.updateLevel(world);
+    world = world.combine(newWorld, self);
+    this.updateLevel(world);
   };
 
   this.addObject = function(obj) {
