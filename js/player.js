@@ -19,9 +19,9 @@ var KEYCODE_RIGHT = 39;
 		this.image.y = y;
 
         this.canDoubleJump = false;
-        this.jumpHeight = 15;
-        this.fallSpeed = 0.8;
-        this.moveSpeed = 10;
+        this.jumpHeight = 10;
+        this.fallSpeed = 0.9;
+        this.moveSpeed = 6;
     }
 
     Player.prototype.tick = function () {

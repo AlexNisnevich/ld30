@@ -67,7 +67,7 @@ var Game = function(w, h) {
 		container = new createjs.Container();
 		stage.addChild(container);
 
-		world = levels[1];
+		world = levels[2];
 		this.loadLevel(world);
 
 		// Setting the listeners
@@ -99,11 +99,12 @@ var Game = function(w, h) {
 		collideables.push(exit);
 
 		// place player
-		player = new Player(assets['hero'], world.playerStart[0], world.playerStart[1], self);
+		player = new Player(assets['hero'], world.start[0], world.start[1], self);
 		container.addChild(player.image);
 
 		// place objects
 		_.each(world.objects, function (obj) {
+			console.log(obj);
 			obj.draw(self);
 		});
 	}

@@ -1,8 +1,8 @@
 // Example params
 // attrs = {
-//   playerStart: [0,0]
-//   gravityCoefficient: 0,
-//   goal: [50,50]
+//   start: [0,0],
+//   goal: [50,50],
+//   gravityCoefficient: 0
 // }
 // thingers = [
 //   {
@@ -27,7 +27,7 @@
 
 var World = function(attrs, thingers) {
   this.attrs = attrs;
-  this.playerStart = attrs.playerStart;
+  this.start = attrs.start;
   this.goal = attrs.goal;
   var movingObjects = [];
 
@@ -71,13 +71,13 @@ World.prototype.tick = function() {
 // and adds together the different objects in
 // from both worlds
 World.prototype.combine = function(otherWorld) {
-  for(var attr in attrs) {
-    if(!isNaN(this[attr])) { // Averages the numbers
-      this[attr] = avg(this[attr], otherWorld[attr]);
+  for(var attr in this.attrs) {
+    if(!isNaN(this.attrs[attr])) { // Averages the numbers
+      this.attrs[attr] = avg(this.attrs[attr], otherWorld.attrs[attr]);
     }
   }
 
-  this.objects = this.objects + otherWorld.objects;
+  this.objects = this.objects.concat(otherWorld.objects);
 
   function avg(obj1, obj2) {
     return (obj1 + obj2) / 2;
