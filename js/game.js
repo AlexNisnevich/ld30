@@ -2,28 +2,28 @@ var ShatteredWorlds = function() {
   return new Game(1000, 600);
 };
 
-var world;
 var Game = function(w, h) {
   var assetsToLoad = {
-    'hero': 'assets/hero.png',
+    'hero': 'assets/magicStar.png',
     'platform': 'assets/platform.png',
-    'portal': 'assets/portal.jpg'
+    'portal': 'assets/magicKey.png'
   };
 
   var levelHotkeys = {
     49: 1,  // 1
     50: 2,  // 2
-    51: 3   // 3
+    51: 3,  // 3
+    52: 4   // 4
   };
 
   var levels = {
     1: LevelOne,
     2: LevelTwo,
-    3: LevelThree
+    3: LevelThree,
+    4: LevelFour
   };
 
   var currentLevelNum = 1;
-  this.getCurrentLevelNum = function () { return currentLevelNum; };
 
   var self = this;
   var ticks = 0;
@@ -33,6 +33,9 @@ var Game = function(w, h) {
   var player;
   var exit;
   var assets = [];
+
+  var world;
+  this.getWorld = function() { return world; };
 
   // holds all collideable objects
   var collideables = [];
@@ -106,7 +109,7 @@ var Game = function(w, h) {
   this.tick = function(e) {
     ticks++;
     player.tick();
-    world.tick();
+    world.tick({x: player.image.x, y: player.image.y});
     stage.update();
   };
 
@@ -117,7 +120,9 @@ var Game = function(w, h) {
 
     currentLevelNum++;
     world = levels[currentLevelNum];
-    this.loadLevel(world);
+    if(world !== null) {
+      this.loadLevel(world);
+    }
   };
 
   this.loadLevel = function(world) {
@@ -150,6 +155,14 @@ var Game = function(w, h) {
       obj.draw(self);
     });
   };
+
+  this.resetLevel = function() {
+    collideables.forEach(function (c) {
+      if (c.obj && c.obj.reset) {
+        c.obj.reset();
+      }
+    });
+  }
 
   this.overlayWorld = function(newWorld) {
     world = world.combine(newWorld);

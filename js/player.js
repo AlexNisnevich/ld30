@@ -22,13 +22,17 @@ var KEYCODE_RIGHT = 39;
 
     this.canDoubleJump = false;
     this.jumpHeight = 12;
-    this.fallSpeed = 0.9;
-    this.moveSpeed = 6;
+    this.baseFallSpeed = 1.2;
+    this.moveSpeed = 4;
     this.speedMultiplier = 1;
   };
 
+  Player.prototype.getFallSpeed = function () {
+    return this.baseFallSpeed * this.game.getWorld().attrs.gravityCoefficient;
+  }
+
   Player.prototype.tick = function () {
-    this.velocity.y += this.fallSpeed;
+    this.velocity.y += this.getFallSpeed();
 
     // preparing the variables
     var addY = this.velocity.y;
@@ -91,15 +95,6 @@ var KEYCODE_RIGHT = 39;
       // and then make it stop and tell the
       // game, that the Player is now "an the ground"
     } else {
-      this.image.y += addY - collision.height;
-      if ( addY > 0 ) {
-        this.onGround = true;
-        this.doubleJump = false;
-      }
-
-      this.velocity.y = 0;
-
-      this.speedMultiplier = 1;
       // Handle special objects
       if (collideable && collideable.obj) {
         switch(collideable.obj.effectOnPlayer) {
@@ -111,22 +106,47 @@ var KEYCODE_RIGHT = 39;
             this.velocity.x *= 2;
           }
           break;
+        case 'stop':
+          this.velocity = {x:0, y:0};
+          this.image.y -= this.getFallSpeed() / 2;
+          return;
+        case 'bounce':
+          this.velocity.x = -1 * this.velocity.x;
+          this.velocity.y = -1 * this.velocity.y;
         }
+      }
+
+      this.image.y += addY - collision.height;
+      if ( addY > 0 ) {
+        this.onGround = true;
+        this.doubleJump = false;
+      }
+
+      if (collideable.obj.shatterVelocity && this.velocity.y > collideable.obj.shatterVelocity) {
+        collideable.obj.shatter();
+      } else {
+        this.velocity.y = 0;
       }
     }
 
-    this.image.x += this.velocity.x * this.speedMultiplier;
+    this.image.x += this.velocity.x;
 
-    if (this.image.y > 600) {
+    if (this.isOffscreen()) {
       this.die();
     }
+  };
+
+  Player.prototype.isOffscreen = function() {
+    return this.image.x < 0 || this.image.y < 0 || this.image.x > 1000 || this.image.y > 600;
   };
 
   Player.prototype.die = function () {
     this.image.x = this.startX;
     this.image.y = this.startY;
     this.velocity = {x: 0, y: 0};
-  }
+
+    game.resetLevel();
+  };
 
   Player.prototype.isVisible = function () {
     return this.image.isVisible();
