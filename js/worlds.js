@@ -101,6 +101,20 @@ World.prototype.combine = function(otherWorld) {
   }
 };
 
+World.prototype.reset = function() {
+  this.objects.forEach(function(obj) {
+    if(obj.reset) {
+      obj.reset();
+    }
+  });
+
+  if(this.goal.reset) {
+    this.goal.reset();
+  }
+  
+  return this;
+};
+
 // A container for two world objects that gets
 // almost all of its attributes from the base world
 // and the `attrs` and `objects` attributes from both
@@ -146,4 +160,10 @@ var CombinedWorld = function(baseWorld, otherWorld) {
 CombinedWorld.prototype.tick = function(playerPos) {
   this.baseWorld.tick(playerPos, this);
   this.otherWorld.tick(playerPos, this);
+};
+
+CombinedWorld.prototype.reset = function() {
+  this.baseWorld.reset();
+  this.otherWorld.reset();
+  return this.baseWorld;
 };

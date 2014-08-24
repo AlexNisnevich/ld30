@@ -164,11 +164,8 @@ var Game = function(w, h) {
   };
 
   this.resetLevel = function() {
-    collideables.forEach(function (c) {
-      if (c.obj && c.obj.reset) {
-        c.obj.reset();
-      }
-    });
+    world = world.reset();
+    this.updateLevel(world);
   };
 
   this.overlayWorld = function(newWorld) {
