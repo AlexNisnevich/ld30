@@ -88,6 +88,7 @@ var Game = function(w, h) {
 	this.tick = function(e) {
 		ticks++;
 		player.tick();
+    world.tick();
 		stage.update();
 	};
 

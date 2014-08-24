@@ -34,14 +34,20 @@ var World = function(attrs, thingers) {
     this.objects.push(_makeObject(thinger));
   }
 
+  // Creates a new object based on the
+  // thinger's object type (capitalizing
+  // the first letter to get the class name)
+  // and adds the object to the movingObject
+  // array if the type includes the word
+  // "moving"
   var _makeObject = function(thinger) {
-    if(thinger.type === "platform") {
-      return new Platform(thinger);
-    } else if(thinger.type == "movingPlatform") {
-      movingPlatform = new MovingPlatform(thinger);
-      movingObjects.push(movingPlatform);
-      return movingPlatform;
+    var type = thinger.type;
+    capitalize(type);
+    obj = new window[type]();
+    if(type.indexOf("Moving") > -1) {
+      movingObjects.push(obj);
     }
+    return obj;
   };
 
   // Moves all the moving objects
@@ -50,6 +56,15 @@ var World = function(attrs, thingers) {
       obj.move();
     });
   };
+
+  function capitalize(str) {
+    str[0] = str[0].toUpperCase();
+    return str;
+  }
+};
+
+World.prototype.tick = function() {
+  this.moveObjects();
 };
 
 // Takes in a different world as a parameter
