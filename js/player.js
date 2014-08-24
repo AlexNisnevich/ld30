@@ -21,7 +21,7 @@ var KEYCODE_RIGHT = 39;
     this.startY = y;
 
     this.canDoubleJump = false;
-    this.jumpHeight = 15;
+    this.jumpHeight = 12;
     this.fallSpeed = 0.8;
     this.moveSpeed = 10;
     this.speedMultiplier = 1;
@@ -31,47 +31,48 @@ var KEYCODE_RIGHT = 39;
     this.velocity.y += this.fallSpeed;
 
     // preparing the variables
-    var addY = this.velocity.y,
-    collision = null,
-    collideable = null,
-    _this = this;
+    var addY = this.velocity.y;
+    var collision = null;
+    var collideable = null;
+    var _this = this;
 
-    function checkCollision() {
-      var cc = 0,
-      bounds = getBounds(_this.image),
-      cbounds,
-      collideables = _this.game.getCollideables();
-      // for each collideable object we will calculate the
-      // bounding-rectangle and then check for an intersection
-      // of the Player's future position's bounding-rectangle
-      while ( !collision && cc < collideables.length ) {
-        var obj = collideables[cc];
+    var cc = 0;
+    var bounds = getBounds(_this.image);
+    var cbounds;
+    var collideables = _this.game.getCollideables();
 
-        cbounds = getBounds(obj);
-        collision = calculateIntersection(bounds, cbounds, 0, addY);
+    // for each collideable object we will calculate the
+    // bounding-rectangle and then check for an intersection
+    // of the Player's future position's bounding-rectangle
+    while ( !collision && cc < collideables.length ) {
+      var obj = collideables[cc];
 
-        if (collision && obj.name == 'exit') {
-        } else if (collision) {
-          collideable = obj;
-        }
+      cbounds = getBounds(obj);
+      collision = calculateIntersection(bounds, cbounds, 0, addY);
 
-        if (!collision) {
-          // if there was NO collision detected, but somehow
-          // the Player got onto the "other side" of an object (high velocity e.g.),
-          // then we will detect this here, and adjust the velocity according to
-          // it to prevent the Player from "ghosting" through objects
-          // try messing with the 'this.velocity = {x:0,y:25};'
-          // -> it should still collide even with very high values
-          if ( ( bounds.y < cbounds.y && bounds.y + addY > cbounds.y )
-               || ( bounds.y > cbounds.y && bounds.y + addY < cbounds.y ) ) {
-            addY = cbounds.y - bounds.y;
-          } else {
-            cc++;
-          }
+      if (collision && obj.name == 'exit') {
+        _this.game.moveToNextLevel();
+        return;
+      } else if (collision) {
+        collideable = obj;
+      }
+
+      if (!collision) {
+        // if there was NO collision detected, but somehow
+        // the Player got onto the "other side" of an object (high velocity e.g.),
+        // then we will detect this here, and adjust the velocity according to
+        // it to prevent the Player from "ghosting" through objects
+        // try messing with the 'this.velocity = {x:0,y:25};'
+        // -> it should still collide even with very high values
+        if ( ( bounds.y < cbounds.y && bounds.y + addY > cbounds.y )
+             || ( bounds.y > cbounds.y && bounds.y + addY < cbounds.y ) ) {
+          addY = cbounds.y - bounds.y;
+        } else {
+          cc++;
         }
       }
     }
-    checkCollision();
+
     this.move(collision, collideable, addY);
   };
 
@@ -103,8 +104,7 @@ var KEYCODE_RIGHT = 39;
       if (collideable && collideable.obj) {
         switch(collideable.obj.effectOnPlayer) {
         case 'kill':
-          this.image.x = this.startX;
-          this.image.y = this.startY;
+          this.die();
           break;
         case 'speedUp':
           if (Math.abs(this.velocity.x) == this.moveSpeed) {
@@ -116,7 +116,17 @@ var KEYCODE_RIGHT = 39;
     }
 
     this.image.x += this.velocity.x * this.speedMultiplier;
+
+    if (this.image.y > 600) {
+      this.die();
+    }
   };
+
+  Player.prototype.die = function () {
+    this.image.x = this.startX;
+    this.image.y = this.startY;
+    this.velocity = {x: 0, y: 0};
+  }
 
   Player.prototype.isVisible = function () {
     return this.image.isVisible();

@@ -1,4 +1,5 @@
 var LevelOne = new World({
+  name: "A",
   start: [240, 500],
   goal: [20, 370],
   gravityCoefficient: 1
@@ -17,6 +18,7 @@ var LevelOne = new World({
 }]);
 
 var LevelTwo = new World({
+  name: "B",
   start: [430, 265],
   goal: [65, 435],
   gravityCoefficient: 1
@@ -29,6 +31,7 @@ var LevelTwo = new World({
 }]);
 
 var LevelThree = new World({
+  name: "C",
   start: [710, 520],
   goal: [910, 520],
   gravityCoefficient: 1
@@ -45,9 +48,3 @@ var LevelThree = new World({
   length: 90,
   img: 'assets/ice.png'
 }]);
-
-var levels = {
-  1: LevelOne,
-  2: LevelTwo,
-  3: LevelThree
-};

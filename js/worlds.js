@@ -67,7 +67,7 @@ World.prototype.tick = function() {
 };
 
 // Combines this world with a different world
-World.prototype.combine = function(otherWorld) {
+World.prototype.combine = function(otherWorld, game) {
   if (otherWorld !== this) {
     return new CombinedWorld(this, otherWorld);
   } else {
