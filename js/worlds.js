@@ -69,7 +69,7 @@ var World = function(attrs, thingers) {
   };
 
   var _cantOverlap = function(otherWorld) {
-    return _contains(attrs.cantOverlap, otherWorld.levelNum);
+    return _.contains(attrs.cantOverlap, otherWorld.levelNum);
   };
 };
 
