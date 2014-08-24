@@ -105,16 +105,10 @@ var CombinedWorld = function(baseWorld, otherWorld) {
   };
 
   // Updates its attributes from two different worlds
-  // Averages the number attributes of both worlds
-  // and concats the different objects in from both worlds
+  // Uses the attributes of the other world and concats
+  // the different objects in from both worlds
   var _updateAttrs = function(baseWorld, otherWorld) {
-    that.attrs = {};
-    for(var attr in baseWorld.attrs) {
-      if(!isNaN(baseWorld.attrs[attr])) { // Averages the numbers
-        that.attrs[attr] = avg(baseWorld.attrs[attr], otherWorld.attrs[attr]);
-      }
-    }
-
+    that.attrs = otherWorld.attrs[attr];
     that.objects = baseWorld.objects.slice(0).concat(otherWorld.objects);
   };
 
