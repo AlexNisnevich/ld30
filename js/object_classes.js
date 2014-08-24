@@ -56,6 +56,13 @@ var DeadlyThinger = function(attrs) {
   this.effectOnPlayer = "kill";
 };
 
+// Player bounces off of object
+var BounceThinger = function(attrs) {
+  Thinger.apply(this, [attrs]);
+  this.effectOnPlayer = "bounce";
+};
+
+// Makes player stop moving
 var ImmobilizeThinger = function(attrs) {
   Thinger.apply(this, [attrs]);
   this.effectOnPlayer = "stop";
