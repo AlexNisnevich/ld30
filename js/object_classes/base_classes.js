@@ -61,6 +61,12 @@ var DeadlyThinger = function(attrs) {
   this.effectOnPlayer = "kill";
 };
 
+// Makes player die
+var DeadlyTallThinger = function(attrs) {
+  TallThinger.apply(this, [attrs]);
+  this.effectOnPlayer = "kill";
+};
+
 // Player bounces off of object
 var BouncyThinger = function(attrs) {
   Thinger.apply(this, [attrs]);
