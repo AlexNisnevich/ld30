@@ -12,8 +12,9 @@ var Game = function(w, h) {
 		ticks = 0,
 		canvas,
 		stage,
-		world,
+		container,
 		player,
+		world,
 		assets = [],
 		keyDown = false;
 
@@ -62,10 +63,11 @@ var Game = function(w, h) {
 
 		// initializing the stage
 		stage = new createjs.Stage(canvas);
-		world = new createjs.Container();
-		stage.addChild(world);
+		container = new createjs.Container();
+		stage.addChild(container);
 
-		this.loadLevel(levels[1]);
+		world = levels[1];
+		this.loadLevel(world);
 
 		// Setting the listeners
 		document.onkeydown = function (e) {
@@ -82,22 +84,23 @@ var Game = function(w, h) {
 	this.tick = function(e) {
 		ticks++;
 		player.tick();
+    	world.tick();
 		stage.update();
 	};
 
-	this.loadLevel = function(level) {
+	this.loadLevel = function(world) {
 		// place player
-		player = new Player(assets['hero'], level.playerStart[0], level.playerStart[1], self);
-		world.addChild(player.image);
+		player = new Player(assets['hero'], world.playerStart[0], world.playerStart[1], self);
+		container.addChild(player.image);
 
 		// place objects
-		_.each(level.objects, function (obj) {
+		_.each(world.objects, function (obj) {
 			obj.draw(self);
 		});
 	}
 
 	this.addObject = function(obj) {
-		world.addChild(obj);
+		container.addChild(obj);
 		collideables.push(obj);
 	};
 
