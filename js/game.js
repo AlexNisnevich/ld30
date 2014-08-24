@@ -164,7 +164,7 @@ var Game = function(w, h) {
         c.obj.reset();
       }
     });
-  }
+  };
 
   this.overlayWorld = function(newWorld) {
     var oldWorld = world;
@@ -178,7 +178,9 @@ var Game = function(w, h) {
 
   this.addObject = function(obj) {
     container.addChild(obj);
-    collideables.push(obj);
+    if(!obj.visual) {
+      collideables.push(obj);
+    }
   };
 
   this.setup = function () {
