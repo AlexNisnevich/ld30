@@ -7,7 +7,7 @@ var Game = function(w, h) {
   var assetsToLoad = {
     'hero': 'assets/hero.png',
     'platform': 'assets/platform.png',
-    'portal': 'assets/portal.jpg'
+    'portal': 'assets/magicKey.png'
   };
 
   var levelHotkeys = {

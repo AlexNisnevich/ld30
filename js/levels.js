@@ -1,50 +1,50 @@
 var LevelOne = new World({
   name: "A",
-  start: [240, 500],
-  goal: [20, 370],
+  start: [390, 440],
+  goal: [260, 380],
   gravityCoefficient: 1
 }, [{
   type: "platform",
-  x: 30,
-  y: 490,
-  length: 90,
+  x: 265,
+  y: 420,
+  length: 75,
   img: 'assets/platform.png'
 },{
   type: "platform",
-  x: 150,
-  y: 560,
-  length: 140,
+  x: 360,
+  y: 460,
+  length: 80,
   img: 'assets/platform.png'
 }]);
 
 var LevelTwo = new World({
   name: "B",
-  start: [430, 265],
-  goal: [65, 435],
+  start: [515, 300],
+  goal: [260, 380],
   gravityCoefficient: 1
 }, [{
   type: "platform",
-  x: 435,
-  y: 315,
-  length: 35,
+  x: 515,
+  y: 300,
+  length: 30,
   img: 'assets/platform.png'
 }]);
 
 var LevelThree = new World({
   name: "C",
-  start: [710, 520],
-  goal: [910, 520],
+  start: [465, 270],
+  goal: [695, 450],
   gravityCoefficient: 1
 }, [{
   type: "ice",
-  x: 690,
-  y: 560,
-  length: 80,
+  x: 445,
+  y: 300,
+  length: 70,
   img: 'assets/ice.png'
 },{
   type: "ice",
-  x: 890,
-  y: 560,
-  length: 90,
+  x: 515,
+  y: 465,
+  length: 70,
   img: 'assets/ice.png'
 }]);
