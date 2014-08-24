@@ -37,8 +37,7 @@ var KEYCODE_RIGHT = 39;
     _this = this;
 
     function checkCollision() {
-      var c = 0,
-      cc = 0,
+      var cc = 0,
       bounds = getBounds(_this.image),
       cbounds,
       collideables = _this.game.getCollideables();
