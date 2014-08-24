@@ -9,6 +9,7 @@ var Thinger = function(attrs) {
   this.length = attrs.length;
 
   this.image = new createjs.Bitmap(attrs.img);
+  this.image.obj = this;
   this.image.x = attrs.x;
   this.image.y = attrs.y;
 
