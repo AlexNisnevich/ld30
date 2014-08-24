@@ -73,7 +73,9 @@ World.prototype.combine = function(otherWorld) {
   }
 };
 
-// 
+// A container for two world objects that gets
+// almost all of its attributes from the base world
+// and the `attrs` and `objects` attributes from both
 var CombinedWorld = function(baseWorld, newWorld) {
   this.start = baseWorld.start;
   this.goal = baseWorld.goal;
