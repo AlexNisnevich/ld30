@@ -50,9 +50,9 @@ var MovingPlatform = function(attrs) {
 //   y: 15,
 //   length: 2,
 //   height: 20,
-//   img: 'img/wall1.png'
+//   img: 'img/tall_thinger1.png'
 // }
-var Wall = function(attrs) {
+var TallThinger = function(attrs) {
   Thinger.apply(this, [attrs]);
   this.height = attrs.height;
   var _draw = this.draw.bind(this);
@@ -91,8 +91,8 @@ var BounceThinger = function(attrs) {
 };
 
 // Makes player stop moving
-var ImmobilizeThinger = function(attrs) {
-  Thinger.apply(this, [attrs]);
+var Tree = function(attrs) {
+  TallThinger.apply(this, [attrs]);
   this.effectOnPlayer = "stop";
 };
 
