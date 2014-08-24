@@ -22,13 +22,17 @@ var KEYCODE_RIGHT = 39;
 
     this.canDoubleJump = false;
     this.jumpHeight = 12;
-    this.fallSpeed = 1.2;
+    this.baseFallSpeed = 1.2;
     this.moveSpeed = 4;
     this.speedMultiplier = 1;
   };
 
+  Player.prototype.getFallSpeed = function () {
+    return this.baseFallSpeed * this.game.getWorld().attrs.gravityCoefficient;
+  }
+
   Player.prototype.tick = function () {
-    this.velocity.y += this.fallSpeed;
+    this.velocity.y += this.getFallSpeed();
 
     // preparing the variables
     var addY = this.velocity.y;
@@ -104,7 +108,7 @@ var KEYCODE_RIGHT = 39;
           break;
         case 'stop':
           this.velocity = {x:0, y:0};
-          this.image.y -= this.fallSpeed / 2;
+          this.image.y -= this.getFallSpeed() / 2;
           return;
         case 'bounce':
           this.velocity.x = -1 * this.velocity.x;

@@ -2,7 +2,6 @@ var ShatteredWorlds = function() {
   return new Game(1000, 600);
 };
 
-var world;
 var Game = function(w, h) {
   var assetsToLoad = {
     'hero': 'assets/magicStar.png',
@@ -13,13 +12,15 @@ var Game = function(w, h) {
   var levelHotkeys = {
     49: 1,  // 1
     50: 2,  // 2
-    51: 3   // 3
+    51: 3,  // 3
+    52: 4   // 4
   };
 
   var levels = {
     1: LevelOne,
     2: LevelTwo,
-    3: LevelThree
+    3: LevelThree,
+    4: LevelFour
   };
 
   var currentLevelNum = 1;
@@ -32,6 +33,9 @@ var Game = function(w, h) {
   var player;
   var exit;
   var assets = [];
+
+  var world;
+  this.getWorld = function() { return world; };
 
   // holds all collideable objects
   var collideables = [];
