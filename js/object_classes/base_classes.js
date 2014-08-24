@@ -32,9 +32,9 @@ var TallThinger = function(attrs) {
   this.height = attrs.height;
   var _draw = this.draw.bind(this);
 
-  this.draw = function() {
+  this.draw = function(game) {
     this.image.scaleY = attrs.height / this.image.getBounds().height;
-    _draw();
+    _draw(game);
   };
 };
 
