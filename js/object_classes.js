@@ -51,11 +51,11 @@ var Ice = function(attrs) {
   this.shatterVelocity = 15;
 
   this.shatter = function () {
-  	this.image.scaleX = 0;
+    this.image.scaleX = 0;
   };
 
   this.reset = function () {
-  	this.image.scaleX = attrs.length / this.image.getBounds().width;
+    this.image.scaleX = attrs.length / this.image.getBounds().width;
   };
 };
 
