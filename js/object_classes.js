@@ -44,6 +44,25 @@ var MovingPlatform = function(attrs) {
   this.downBound = attrs.downBound;
 };
 
+// Example params
+// attrs = {
+//   x: 10,
+//   y: 15,
+//   length: 2,
+//   height: 20,
+//   img: 'img/wall1.png'
+// }
+var Wall = function(attrs) {
+  Thinger.apply(this, [attrs]);
+  this.height = attrs.height;
+  var _draw = this.draw.bind(this);
+
+  this.draw = function() {
+    this.image.scaleX = attrs.height / this.image.getBounds().height;
+    _draw();
+  };
+};
+
 // Makes player move faster
 var Ice = function(attrs) {
   Thinger.apply(this, [attrs]);
@@ -51,11 +70,11 @@ var Ice = function(attrs) {
   this.shatterVelocity = 15;
 
   this.shatter = function () {
-  	this.image.scaleX = 0;
+    this.image.scaleX = 0;
   };
 
   this.reset = function () {
-  	this.image.scaleX = attrs.length / this.image.getBounds().width;
+    this.image.scaleX = attrs.length / this.image.getBounds().width;
   };
 };
 
@@ -77,23 +96,56 @@ var ImmobilizeThinger = function(attrs) {
   this.effectOnPlayer = "stop";
 };
 
+// Example params
+// attrs = {
+//   x: 10,
+//   y: 15,
+//   length: 20,
+//   img: 'img/platform1.png',
+//   distance: 15,
+//   speed: 2
+// }
+var MovingZombie = function(attrs) {
+  DeadlyThinger.apply(this, [attrs]);
+
+  this.move = function(playerPos) {
+    function distanceFromPlayer(playerPos) {
+      xDistance = Math.abs(playerPos.x - this.image.x);
+      yDistance = Math.abs(playerPos.y - this.image.y);
+      return xDistance + yDistance;
+    }
+
+    if(distanceFromPlayer(playerPos) < this.distance) {
+      this.moveTowardPlayer(playerPos);
+    }
+  };
+
+  this.moveTowardPlayer = function(playerPos) {
+    if(playerPos.x < this.image.x) {
+      this.image.x -= this.speed;
+    } else {
+      this.image.y -= this.speed;
+    }
+  };
+};
+
 MovingPlatform.prototype.move = function() {
   switch(this.direction) {
     case 'left':
-      this.x -= this.speed;
-      if(this.leftBound === this.x) { this.direction = 'right'; }
+      this.image.x -= this.speed;
+      if(this.leftBound === this.image.x) { this.direction = 'right'; }
       break;
     case 'right':
-      this.x += this.speed;
-      if(this.rightBound === this.x) { this.direction = 'left'; }
+      this.image.x += this.speed;
+      if(this.rightBound === this.image.x) { this.direction = 'left'; }
       break;
     case 'up':
-      this.y -= this.speed;
-      if(this.upBound === this.y) { this.direction = 'down'; }
+      this.image.y -= this.speed;
+      if(this.upBound === this.image.y) { this.direction = 'down'; }
       break;
     case 'down':
-      this.y += this.speed;
-      if(this.downBound === this.y) { this.direction = 'up'; }
+      this.image.y += this.speed;
+      if(this.downBound === this.image.y) { this.direction = 'up'; }
       break;
   }
 };

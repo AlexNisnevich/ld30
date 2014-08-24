@@ -105,7 +105,7 @@ var Game = function(w, h) {
   this.tick = function(e) {
     ticks++;
     player.tick();
-    world.tick();
+    world.tick({x: player.image.x, y: player.image.y});
     stage.update();
   };
 
@@ -116,7 +116,9 @@ var Game = function(w, h) {
 
     currentLevelNum++;
     world = levels[currentLevelNum];
-    this.loadLevel(world);
+    if(world !== null) {
+      this.loadLevel(world);
+    }
   };
 
   this.loadLevel = function(world) {

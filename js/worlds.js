@@ -55,9 +55,9 @@ var World = function(attrs, thingers) {
   });
 
   // Moves all the moving objects
-  this.moveObjects = function() {
+  this.moveObjects = function(playerPos) {
     movingObjects.forEach(function (obj) {
-      obj.move();
+      obj.move(playerPos);
     });
   };
 };
