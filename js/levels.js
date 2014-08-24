@@ -2,7 +2,12 @@ var LevelOne = new World({
   name: "Zombie1",
   levelNum: 1,
   start: [390, 430],
-  goal: [260, 380],
+  goal: {
+    type: 'exit',
+    x: 260,
+    y: 380,
+    img: 'assets/magicKey.png',
+  },
   gravityCoefficient: 1,
   cantOverlap: []
 }, [{
@@ -135,9 +140,9 @@ var LevelFive = new World({
   fallSpeed: 1
 }]);
 
-var BlankFinalLevel = new World({
+/*var BlankFinalLevel = new World({
   name: "PlaceholderCredits",
   levelNum: 15,
   cantOverlap: []
 }, [
-]);
+]);*/

@@ -98,7 +98,7 @@ var KEYCODE_RIGHT = 39;
           addY = -4 * this.velocity.y;
           break;
         case 'exit':
-          _this.game.moveToNextLevel();
+          this.game.moveToNextLevel();
           return;
         }
       }

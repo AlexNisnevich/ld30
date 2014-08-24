@@ -32,6 +32,8 @@
 //   }
 // ]
 var World = function(attrs, thingers) {
+  var that = this;
+
   this.attrs = attrs;
   this.start = attrs.start;
   this.levelNum = attrs.levelNum;
@@ -58,7 +60,8 @@ var World = function(attrs, thingers) {
 
   var _setGoal = function() {
     if(attrs.goal.type) {
-      this.goal = _makeObject(attrs.goal);
+      that.goal = _makeObject(attrs.goal);
+      console.log(that.goal);
     }
   };
 
