@@ -66,20 +66,47 @@ World.prototype.tick = function() {
   this.moveObjects();
 };
 
-// Takes in a different world as a parameter
+// Combines this world with a different world
+World.prototype.combine = function(otherWorld) {
+  if(otherWorld !== this) {
+    return new CombinedWorld(this, otherWorld);
+  }
+};
+
+// Gets its attributes from two different worlds
 // Averages the number attributes of both worlds
 // and adds together the different objects in
 // from both worlds
-World.prototype.combine = function(otherWorld) {
-  for(var attr in this.attrs) {
-    if(!isNaN(this.attrs[attr])) { // Averages the numbers
-      this.attrs[attr] = avg(this.attrs[attr], otherWorld.attrs[attr]);
+var CombinedWorld = function(baseWorld, newWorld) {
+  this.attrs = {};
+  for(var attr in baseWorld.attrs) {
+    if(!isNaN(baseWorld.attrs[attr])) { // Averages the numbers
+      this.attrs[attr] = avg(baseWorld.attrs[attr], newWorld.attrs[attr]);
     }
   }
 
   this.objects = this.objects.concat(otherWorld.objects);
+  this.baseWorld = baseWorld;
+  this.newWorld = newWorld;
 
   function avg(obj1, obj2) {
     return (obj1 + obj2) / 2;
+  }
+};
+
+CombinedWorld.prototype.tick = function() {
+  this.baseWorld.tick();
+  this.newWorld.tick();
+};
+
+// Combines the base world with another world
+// unless the 'otherWorld' is the one of the
+// worlds this class combines (in which case,
+// it returns the baseWorld).
+CombinedWorld.prototype.combine = function(otherWorld) {
+  if(otherWorld === this.newWorld || otherWorld === this.baseWorld) {
+    return this.baseWorld;
+  } else {
+    return new CombinedWorld(this.baseWorld, otherWorld);
   }
 };
