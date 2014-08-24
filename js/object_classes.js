@@ -50,15 +50,15 @@ var MovingPlatform = function(attrs) {
 //   y: 15,
 //   length: 2,
 //   height: 20,
-//   img: 'img/wall1.png'
+//   img: 'img/tall_thinger1.png'
 // }
-var Wall = function(attrs) {
+var TallThinger = function(attrs) {
   Thinger.apply(this, [attrs]);
   this.height = attrs.height;
   var _draw = this.draw.bind(this);
 
   this.draw = function() {
-    this.image.scaleX = attrs.height / this.image.getBounds().height;
+    this.image.scaleY = attrs.height / this.image.getBounds().height;
     _draw();
   };
 };
@@ -91,8 +91,8 @@ var BounceThinger = function(attrs) {
 };
 
 // Makes player stop moving
-var ImmobilizeThinger = function(attrs) {
-  Thinger.apply(this, [attrs]);
+var Tree = function(attrs) {
+  TallThinger.apply(this, [attrs]);
   this.effectOnPlayer = "stop";
 };
 
@@ -126,6 +126,43 @@ var MovingZombie = function(attrs) {
     } else {
       this.image.y -= this.speed;
     }
+  };
+};
+
+// Example params
+// attrs = {
+//   x: 10,
+//   y: 15,
+//   length: 20,
+//   img: 'img/platform1.png',
+//   interval: 30,
+//   activeLength: 15
+// }
+var MovingPolarBear = function(attrs) {
+  DeadlyThinger.apply(this, [attrs]);
+  this.interval = attrs.interval;
+  this.activeLength = attrs.activeLength;
+  var tick = 0;
+  var visible = false;
+
+  this.move = function() {
+    tick++;
+    if(tick > this.interval && !visible) {
+      this.appear();
+      visible = true;
+    } else if (tick > (this.interval+this.activeLength)) {
+      this.disappear();
+      visible = false;
+      tick = 0;
+    }
+  };
+
+  this.appear = function() {
+    this.image.scaleX = attrs.length / this.image.getBounds().width;
+  };
+
+  this.disappear = function() {
+    this.image.scaleX = 0;
   };
 };
 

@@ -104,6 +104,7 @@ var KEYCODE_RIGHT = 39;
           break;
         case 'stop':
           this.velocity = {x:0, y:0};
+          this.image.y -= this.fallSpeed / 2;
           return;
         case 'bounce':
           this.velocity.x = -1 * this.velocity.x;
