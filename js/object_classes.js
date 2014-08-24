@@ -9,6 +9,7 @@ var Thinger = function(attrs) {
   this.length = attrs.length;
 
   this.image = new createjs.Bitmap(attrs.img);
+  this.image.obj = this;
   this.image.x = attrs.x;
   this.image.y = attrs.y;
 
@@ -44,13 +45,13 @@ var MovingPlatform = function(attrs) {
 };
 
 // Makes player move faster
-var Ice = function() {
+var Ice = function(attrs) {
   Thinger.apply(this, [attrs]);
   this.effectOnPlayer = "speedUp";
 };
 
 // Makes player die
-var DeadlyThinger = function() {
+var DeadlyThinger = function(attrs) {
   Thinger.apply(this, [attrs]);
   this.effectOnPlayer = "kill";
 };

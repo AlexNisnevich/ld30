@@ -1,8 +1,8 @@
 // Example params
 // attrs = {
-//   playerStart: [0,0]
-//   gravityCoefficient: 0,
-//   goal: [50,50]
+//   start: [0,0],
+//   goal: [50,50],
+//   gravityCoefficient: 0
 // }
 // thingers = [
 //   {
@@ -27,7 +27,7 @@
 
 var World = function(attrs, thingers) {
   this.attrs = attrs;
-  this.playerStart = attrs.playerStart;
+  this.start = attrs.start;
   this.goal = attrs.goal;
   var movingObjects = [];
 
@@ -66,20 +66,62 @@ World.prototype.tick = function() {
   this.moveObjects();
 };
 
-// Takes in a different world as a parameter
-// Averages the number attributes of both worlds
-// and adds together the different objects in
-// from both worlds
-World.prototype.combine = function(otherWorld) {
-  for(var attr in attrs) {
-    if(!isNaN(this[attr])) { // Averages the numbers
-      this[attr] = avg(this[attr], otherWorld[attr]);
-    }
+// Combines this world with a different world
+World.prototype.combine = function(otherWorld, game) {
+  if (otherWorld !== this) {
+    return new CombinedWorld(this, otherWorld);
+  } else {
+    return this;
   }
+};
 
-  this.objects = this.objects + otherWorld.objects;
+// A container for two world objects that gets
+// almost all of its attributes from the base world
+// and the `attrs` and `objects` attributes from both
+var CombinedWorld = function(baseWorld, otherWorld) {
+  var that = this;
+
+  this.start = baseWorld.start;
+  this.goal = baseWorld.goal;
+  this.baseWorld = baseWorld;
+  this.otherWorld = otherWorld;
 
   function avg(obj1, obj2) {
     return (obj1 + obj2) / 2;
   }
+
+  // Combines the base world with another world
+  // unless the 'otherWorld' is the one of the
+  // worlds this class combines (in which case,
+  // it returns the baseWorld).
+  this.combine = function(otherWorld) {
+    if(otherWorld === this.otherWorld || otherWorld === this.baseWorld) {
+      return this.baseWorld;
+    } else {
+      this.otherWorld = otherWorld;
+      _updateAttrs(this.baseWorld, otherWorld);
+      return this;
+    }
+  };
+
+  // Updates its attributes from two different worlds
+  // Averages the number attributes of both worlds
+  // and concats the different objects in from both worlds
+  var _updateAttrs = function(baseWorld, otherWorld) {
+    that.attrs = {};
+    for(var attr in baseWorld.attrs) {
+      if(!isNaN(baseWorld.attrs[attr])) { // Averages the numbers
+        that.attrs[attr] = avg(baseWorld.attrs[attr], otherWorld.attrs[attr]);
+      }
+    }
+
+    that.objects = baseWorld.objects.slice(0).concat(otherWorld.objects);
+  };
+
+  _updateAttrs(baseWorld, otherWorld);
+};
+
+CombinedWorld.prototype.tick = function() {
+  this.baseWorld.tick();
+  this.otherWorld.tick();
 };

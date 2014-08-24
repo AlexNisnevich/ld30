@@ -1,119 +1,167 @@
 var ShatteredWorlds = function() {
-	return new Game(1000, 600);
+  return new Game(1000, 600);
 };
 
+var world;
 var Game = function(w, h) {
-	var assetsToLoad = {
-		'hero': 'assets/hero.png',
-		'platform': 'assets/platform.png',
-		'portal': 'assets/portal.jpg'
-	};
+  var assetsToLoad = {
+    'hero': 'assets/hero.png',
+    'platform': 'assets/platform.png',
+    'portal': 'assets/portal.jpg'
+  };
 
-	var self = this,
-		ticks = 0,
-		canvas,
-		stage,
-		container,
-		player,
-		world,
-		assets = [],
-		keyDown = false;
+  var levelHotkeys = {
+    49: 1,  // 1
+    50: 2,  // 2
+    51: 3   // 3
+  };
 
-	// holds all collideable objects
-	var collideables = [];
-	this.getCollideables = function() { return collideables; };
+  var levels = {
+    1: LevelOne,
+    2: LevelTwo,
+    3: LevelThree
+  };
 
-	// starts to load all the assets
-	this.preloadResources = function() {
-		var requestedAssets = 0,
-			loadedAssets = 0;
+  var currentLevelNum = 1;
+  this.getCurrentLevelNum = function () { return currentLevelNum; };
 
-		// loads the assets and keeps track
-		// of how many assets where there to
-		// be loaded
-		loadImage = function(name, path) {
-			var img = new Image();
-			img.onload = onLoadedAsset;
-			img.src = path;
+  var self = this;
+  var ticks = 0;
+  var canvas;
+  var stage;
+  var container;
+  var player;
+  var exit;
+  var assets = [];
 
-			assets[name] = img;
+  // holds all collideable objects
+  var collideables = [];
+  this.getCollideables = function() { return collideables; };
 
-			++requestedAssets;
-		}
-		// each time an asset is loaded
-		// check if all assets are complete
-		// and initialize the game, if so
-		onLoadedAsset = function(e) {
-			++loadedAssets;
-			if ( loadedAssets == requestedAssets ) {
-				self.initializeGame();
-			}
-		}
+  // starts to load all the assets
+  this.preloadResources = function() {
+    var requestedAssets = 0;
+    var loadedAssets = 0;
 
-		for (asset in assetsToLoad) {
-			loadImage(asset, assetsToLoad[asset]);
-		}
-	};
+    // loads the assets and keeps track
+    // of how many assets where there to
+    // be loaded
+    loadImage = function(name, path) {
+      var img = new Image();
+      img.onload = onLoadedAsset;
+      img.src = path;
 
-	this.initializeGame = function() {
-		// creating the canvas-element
-		canvas = document.createElement('canvas');
-		canvas.width = w;
-		canvas.height = h;
-		document.body.appendChild(canvas);
+      assets[name] = img;
 
-		// initializing the stage
-		stage = new createjs.Stage(canvas);
-		container = new createjs.Container();
-		stage.addChild(container);
+      ++requestedAssets;
+    }
+    // each time an asset is loaded
+    // check if all assets are complete
+    // and initialize the game, if so
+    onLoadedAsset = function(e) {
+      ++loadedAssets;
+      if ( loadedAssets == requestedAssets ) {
+        self.initializeGame();
+      }
+    }
 
-		world = levels[1];
-		this.loadLevel(world);
+    for (asset in assetsToLoad) {
+      loadImage(asset, assetsToLoad[asset]);
+    }
+  };
 
-		// Setting the listeners
-		document.onkeydown = function (e) {
-			player.handleKeyDown(e.keyCode);
-		}
-		document.onkeyup = function (e) {
-			player.handleKeyUp(e.keyCode);
-		}
+  this.initializeGame = function() {
+    // creating the canvas-element
+    canvas = document.createElement('canvas');
+    canvas.width = w;
+    canvas.height = h;
+    document.body.appendChild(canvas);
 
-		createjs.Ticker.setFPS(30);
-		createjs.Ticker.addEventListener('tick', self.tick);
-	};
+    // initializing the stage
+    stage = new createjs.Stage(canvas);
+    container = new createjs.Container();
+    stage.addChild(container);
 
-	this.tick = function(e) {
-		ticks++;
-		player.tick();
-    	world.tick();
-		stage.update();
-	};
+    world = levels[1];
+    this.loadLevel(world);
 
-	this.loadLevel = function(world) {
-		// place exit
-		var exit = new createjs.Bitmap(assets['portal']);
-		exit.x = world.goal[0];
-		exit.y = world.goal[1];
-		exit.name = "exit";
-		container.addChild(exit);
-		collideables.push(exit);
+    // Setting the listeners
+    document.onkeydown = function (e) {
+      if (levelHotkeys[e.keyCode] && levelHotkeys[e.keyCode] < currentLevelNum) {
+        var newWorld = levels[levelHotkeys[e.keyCode]];
+        self.overlayWorld(newWorld);
+      } else {
+        player.handleKeyDown(e.keyCode);
+      }
+    };
 
-		// place player
-		player = new Player(assets['hero'], world.playerStart[0], world.playerStart[1], self);
-		container.addChild(player.image);
+    document.onkeyup = function (e) {
+      player.handleKeyUp(e.keyCode);
+    };
 
-		// place objects
-		_.each(world.objects, function (obj) {
-			obj.draw(self);
-		});
-	}
+    createjs.Ticker.setFPS(30);
+    createjs.Ticker.addEventListener('tick', self.tick);
+  };
 
-	this.addObject = function(obj) {
-		container.addChild(obj);
-		collideables.push(obj);
-	};
+  this.tick = function(e) {
+    ticks++;
+    player.tick();
+    world.tick();
+    stage.update();
+  };
 
-	this.setup = function () {
-		self.preloadResources();
-	};
+  this.moveToNextLevel = function() {
+    container.removeAllChildren();
+    player = null;
+    collideables = [];
+
+    currentLevelNum++;
+    world = levels[currentLevelNum];
+    this.loadLevel(world);
+  };
+
+  this.loadLevel = function(world) {
+    // place exit
+    exit = new createjs.Bitmap(assets['portal']);
+    exit.x = world.goal[0];
+    exit.y = world.goal[1];
+    exit.name = "exit";
+    this.addObject(exit);
+
+    // place player
+    player = new Player(assets['hero'], world.start[0], world.start[1], self);
+    container.addChild(player.image);
+
+    this.updateLevel(world);
+  };
+
+  this.updateLevel = function(world) {
+    // remove existing objects
+    collideables.forEach(function (obj) {
+      container.removeChild(obj);
+    });
+    collideables = [];
+
+    // place exit
+    this.addObject(exit);
+
+    // place objects
+    world.objects.forEach(function (obj) {
+      obj.draw(self);
+    });
+  };
+
+  this.overlayWorld = function(newWorld) {
+    world = world.combine(newWorld);
+    this.updateLevel(world);
+  };
+
+  this.addObject = function(obj) {
+    container.addChild(obj);
+    collideables.push(obj);
+  };
+
+  this.setup = function () {
+    self.preloadResources();
+  };
 };
