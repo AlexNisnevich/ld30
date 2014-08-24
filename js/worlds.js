@@ -122,7 +122,7 @@ var CombinedWorld = function(baseWorld, otherWorld) {
   };
 
   this.canOverlap = function(otherWorld) {
-    return this.baseWorld.canOverlap(other);
+    return this.baseWorld.canOverlap(otherWorld);
   };
 
   _updateAttrs(baseWorld, otherWorld);
