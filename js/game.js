@@ -67,7 +67,7 @@ var Game = function(w, h) {
 		container = new createjs.Container();
 		stage.addChild(container);
 
-		world = levels[2];
+		world = levels[3];
 		this.loadLevel(world);
 
 		// Setting the listeners

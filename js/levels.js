@@ -28,9 +28,29 @@ var LevelTwo = new World({
 	img: 'assets/platform.png'
 }]);
 
-LevelTwo.combine(LevelOne);
+var LevelThree = new World({
+	start: [710, 520],
+  	goal: [910, 520],
+  	gravityCoefficient: 1
+}, [{
+	type: "ice",
+	x: 690,
+	y: 560,
+	length: 80,
+	img: 'assets/ice.png'
+},{
+	type: "ice",
+	x: 890,
+	y: 560,
+	length: 90,
+	img: 'assets/ice.png'
+}]);
+
+
+// LevelTwo.combine(LevelOne);
 
 var levels = {
 	1: LevelOne,
-	2: LevelTwo
+	2: LevelTwo,
+	3: LevelThree
 };

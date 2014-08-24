@@ -44,13 +44,13 @@ var MovingPlatform = function(attrs) {
 };
 
 // Makes player move faster
-var Ice = function() {
+var Ice = function(attrs) {
   Thinger.apply(this, [attrs]);
   this.effectOnPlayer = "speedUp";
 };
 
 // Makes player die
-var DeadlyThinger = function() {
+var DeadlyThinger = function(attrs) {
   Thinger.apply(this, [attrs]);
   this.effectOnPlayer = "kill";
 };
