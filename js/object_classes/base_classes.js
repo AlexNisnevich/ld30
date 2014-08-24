@@ -1,3 +1,9 @@
+// Example params
+// attrs = {
+//   x: 10,
+//   y: 15,
+//   img: 'img/thinger1.png'
+// }
 var Visuals = function(attrs) {
   this.image = new createjs.Bitmap(attrs.img);
   this.image.x = attrs.x;
