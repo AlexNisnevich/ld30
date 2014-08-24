@@ -1,3 +1,7 @@
+var grounded = false;
+var width    = 1000;
+var height   = 500;
+
 function go() {
 
   var settings = {
@@ -7,28 +11,49 @@ function go() {
   }
 
   Physics(settings, function (world) {
-    world.add(Physics.body('circle', {
+    var ball = Physics.body('circle', {
       x      : 50,
-      y      : 30,
+      y      : height - 50,
       vx     : 0,
       vy     : 0,
       radius : 20
-    }));
+    });
+    world.add(ball);
 
     world.add(Physics.behavior('edge-collision-detection', {
-      aabb        : Physics.aabb(0, 0, 500, 300),
-      restitution : 0.99,
+      aabb        : Physics.aabb(0, 0, width, height),
+      restitution : 0.1,
       cof         : 0.99
     }));
 
-    world.add( Physics.behavior('body-impulse-response'));
-    world.add( Physics.behavior('body-collision-detection'));
-    world.add( Physics.behavior('sweep-prune'));
+    world.add(Physics.behavior('body-impulse-response'));
+    world.add(Physics.behavior('body-collision-detection'));
+    world.add(Physics.behavior('sweep-prune'));
+
+    var gravity = Physics.behavior('constant-acceleration', {
+      acc: { x : 0, y: 0.0004 } // this is the default
+    });
+    world.add(gravity);
+
+    var control = Physics.behavior('control').applyTo([ball]);
+    world.add(control);
+
+
+    world.on('collisions:detected', function (data) {
+      for (var i = 0, l = data.collisions.length; i < l; i++) {
+        var c = data.collisions[i];
+
+        if ((c.bodyA == ball || c.bodyB == ball) && c.norm.y == 1 && c.norm.x == 0) {
+          grounded = true;
+        }
+      }
+    });
+
 
     var renderer = Physics.renderer('canvas', {
       el     : 'viewport',
-      width  : 500,
-      height : 300,
+      width  : width,
+      height : height,
       meta   : false,
       styles : {
         'circle' : {
@@ -49,3 +74,62 @@ function go() {
     Physics.util.ticker.start();
   });
 }
+
+Physics.behavior('control', function (parent) {
+  return {
+    init : function (options) {
+      parent.init.call(this);
+
+      var that = this;
+
+      that.vx   = 0;
+      that.jump = false;
+
+      document.addEventListener('keydown', function (e) {
+        switch (e.keyCode) {
+        case 37: // ←
+          that.vx = -0.15;
+          break;
+        case 39: // →
+          that.vx = 0.15;
+          break;
+          
+        case 38:
+          that.jump = true;
+          break;
+        }
+      });
+
+      document.addEventListener('keyup', function (e) {
+        switch (e.keyCode) {
+        case 37:
+        case 39:
+          that.vx = 0;
+          break;
+        }
+      });
+    },
+
+    behave : function (data) {
+      var bodies  = this.getTargets();
+      var scratch = Physics.scratchpad();
+
+      for (var i = 0, l = bodies.length; i < l; i++) {
+        if (grounded) {
+          bodies[i].state.vel.set(this.vx, bodies[i].state.vel.y);
+        }
+
+        var jumpSize = -0.05;
+
+        if (this.jump && grounded) {
+          bodies[i].accelerate(scratch.vector().set(0, jumpSize));
+          this.jump = false;
+        }
+      }
+
+      scratch.done();
+      grounded = false;
+    }
+  };
+});
+
