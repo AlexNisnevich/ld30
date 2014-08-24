@@ -93,10 +93,11 @@ var Game = function(w, h) {
       } else {
         player.handleKeyDown(e.keyCode);
       }
-    }
+    };
+
     document.onkeyup = function (e) {
       player.handleKeyUp(e.keyCode);
-    }
+    };
 
     createjs.Ticker.setFPS(30);
     createjs.Ticker.addEventListener('tick', self.tick);
@@ -117,7 +118,7 @@ var Game = function(w, h) {
     currentLevelNum++;
     world = levels[currentLevelNum];
     this.loadLevel(world);
-  }
+  };
 
   this.loadLevel = function(world) {
     // place exit
