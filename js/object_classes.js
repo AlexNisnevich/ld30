@@ -77,6 +77,25 @@ var ImmobilizeThinger = function(attrs) {
   this.effectOnPlayer = "stop";
 };
 
+// Example params
+// attrs = {
+//   x: 10,
+//   y: 15,
+//   length: 2,
+//   height: 20,
+//   img: 'img/wall1.png'
+// }
+var Wall = function(attrs) {
+  Thinger.apply(this, [attrs]);
+  this.height = attrs.height;
+  var _draw = this.draw.bind(this);
+
+  this.draw = function() {
+    this.image.scaleX = attrs.height / this.image.getBounds().height;
+    _draw();
+  };
+};
+
 MovingPlatform.prototype.move = function() {
   switch(this.direction) {
     case 'left':
