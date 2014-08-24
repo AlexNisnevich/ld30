@@ -15,7 +15,9 @@
 	<script src="js/player.js"></script>
 	<script src="js/game.js"></script>
 	<script src="js/worlds.js"></script>
-	<script src="js/object_classes.js"></script>
+	<script src="js/object_classes/base_classes.js"></script>
+	<script src="js/object_classes/platform_classes.js"></script>
+	<script src="js/object_classes/moving_classes.js"></script>
 	<script src="js/levels.js"></script>
 	<script>
 		var game;
@@ -24,17 +26,6 @@
 			game.setup();
 		});
 	</script>
-	<style>
-		body {
-			background: #333;
-		}
-
-		canvas {
-			margin: auto;
-			position: absolute;
-			top: 0; left: 0; bottom: 0; right: 0;
-			background: url(assets/gradientSky.png);
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="stylesheet.css">
 </body>
 </html>

@@ -108,11 +108,10 @@ var KEYCODE_RIGHT = 39;
           break;
         case 'stop':
           this.velocity = {x:0, y:0};
-          this.image.y -= this.getFallSpeed() / 2;
+          this.image.y += this.getFallSpeed() / 2;
           return;
         case 'bounce':
-          this.velocity.x = -1 * this.velocity.x;
-          this.velocity.y = -1 * this.velocity.y;
+          addY = -4 * this.velocity.y;
         }
       }
 
