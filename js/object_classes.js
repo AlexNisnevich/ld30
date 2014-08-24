@@ -6,10 +6,16 @@
 //   img: 'img/platform1.png'
 // }
 var Platform = function(attrs) {
-  this.x = attrs.x;
-  this.y = attrs.y;
-  this.length = attrs.length;
-  this.img = attrs.img;
+	this.length = attrs.length;
+
+	this.image = new createjs.Bitmap(attrs.img);
+	this.image.x = attrs.x;
+	this.image.y = attrs.y;
+
+	this.draw = function (game) {
+		this.image.scaleX = attrs.length / this.image.getBounds().width;
+		game.addObject(this.image);
+	}
 };
 
 // Example params

@@ -1,5 +1,5 @@
 var ShatteredWorlds = function() {
-	return new Game(800, 600);
+	return new Game(1000, 600);
 };
 
 var Game = function(w, h) {
@@ -65,13 +65,7 @@ var Game = function(w, h) {
 		world = new createjs.Container();
 		stage.addChild(world);
 
-		// creating the Hero, and assign an image
-		// also position the hero in the middle of the screen
-		player = new Player(assets['hero'], w/2, h/2, self);
-		world.addChild(player.image);
-
-		// add a platform for the hero to collide with
-		self.addPlatform(w/2 - assets['platform'].width/2, h/1.25);
+		this.loadLevel(levels[1]);
 
 		// Setting the listeners
 		document.onkeydown = function (e) {
@@ -91,20 +85,20 @@ var Game = function(w, h) {
 		stage.update();
 	};
 
-	// this method adds a platform at the
-	// given x- and y-coordinates and adds
-	// it to the collideables-array
-	this.addPlatform = function(x,y) {
-		x = Math.round(x);
-		y = Math.round(y);
+	this.loadLevel = function(level) {
+		// place player
+		player = new Player(assets['hero'], level.playerStart[0], level.playerStart[1], self);
+		world.addChild(player.image);
 
-		var platform = new createjs.Bitmap(assets['platform']);
-		platform.x = x;
-		platform.y = y;
-		platform.snapToPixel = true;
+		// place objects
+		_.each(level.objects, function (obj) {
+			obj.draw(self);
+		});
+	}
 
-		world.addChild(platform);
-		collideables.push(platform);
+	this.addObject = function(obj) {
+		world.addChild(obj);
+		collideables.push(obj);
 	};
 
 	this.setup = function () {

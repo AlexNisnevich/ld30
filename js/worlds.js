@@ -22,14 +22,11 @@
 //     speed: 2
 //   }
 // ]
+
 var World = function(attrs, thingers) {
   this.attrs = attrs;
   this.playerStart = attrs.playerStart;
   this.goal = attrs.goal;
-  this.objects = [];
-  for(var thinger in thingers) {
-    this.objects.push(_makeObject(thinger));
-  }
 
   var _makeObject = function(thinger) {
     if(thinger.type === "platform") {
@@ -38,6 +35,10 @@ var World = function(attrs, thingers) {
       return new MovingPlatform(thinger);
     }
   };
+
+  this.objects = _.map(thingers, function (thinger) {
+    return _makeObject(thinger);
+  });
 };
 
 // Takes in a different world as a parameter
