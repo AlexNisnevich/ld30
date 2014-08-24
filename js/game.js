@@ -22,7 +22,8 @@ var Game = function(w, h) {
     2: LevelTwo,
     3: LevelThree,
     4: LevelFour,
-    5: LevelFive
+    5: LevelFive,
+    6: BlankFinalLevel // For now
   };
 
   var currentLevelNum = 5;
