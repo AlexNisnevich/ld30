@@ -77,6 +77,8 @@ World.prototype.combine = function(otherWorld) {
 // almost all of its attributes from the base world
 // and the `attrs` and `objects` attributes from both
 var CombinedWorld = function(baseWorld, newWorld) {
+  var that = this;
+
   this.start = baseWorld.start;
   this.goal = baseWorld.goal;
   this.baseWorld = baseWorld;
@@ -102,18 +104,19 @@ var CombinedWorld = function(baseWorld, newWorld) {
   // Updates its attributes from two different worlds
   // Averages the number attributes of both worlds
   // and concats the different objects in from both worlds
-  var _updateAttrs = function() {
-    this.attrs = {};
+  var _updateAttrs = function(baseWorld, otherWorld) {
+    that.attrs = {};
     for(var attr in baseWorld.attrs) {
       if(!isNaN(baseWorld.attrs[attr])) { // Averages the numbers
-        this.attrs[attr] = avg(baseWorld.attrs[attr], newWorld.attrs[attr]);
+        that.attrs[attr] = avg(baseWorld.attrs[attr], newWorld.attrs[attr]);
       }
     }
-    
-    this.objects = this.objects.concat(otherWorld.objects);
+
+    that.objects = baseWorld.objects.concat(otherWorld.objects);
   };
 
-  _updateAttrs();
+  _updateAttrs(baseWorld, newWorld);
+  console.log(this.objects);
 };
 
 CombinedWorld.prototype.tick = function() {
