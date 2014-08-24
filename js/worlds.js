@@ -68,21 +68,23 @@ World.prototype.tick = function() {
 
 // Combines this world with a different world
 World.prototype.combine = function(otherWorld) {
-  if(otherWorld !== this) {
+  if (otherWorld !== this) {
     return new CombinedWorld(this, otherWorld);
+  } else {
+    return this;
   }
 };
 
 // A container for two world objects that gets
 // almost all of its attributes from the base world
 // and the `attrs` and `objects` attributes from both
-var CombinedWorld = function(baseWorld, newWorld) {
+var CombinedWorld = function(baseWorld, otherWorld) {
   var that = this;
 
   this.start = baseWorld.start;
   this.goal = baseWorld.goal;
   this.baseWorld = baseWorld;
-  this.newWorld = newWorld;
+  this.otherWorld = otherWorld;
 
   function avg(obj1, obj2) {
     return (obj1 + obj2) / 2;
@@ -93,9 +95,10 @@ var CombinedWorld = function(baseWorld, newWorld) {
   // worlds this class combines (in which case,
   // it returns the baseWorld).
   this.combine = function(otherWorld) {
-    if(otherWorld === this.newWorld || otherWorld === this.baseWorld) {
+    if(otherWorld === this.otherWorld || otherWorld === this.baseWorld) {
       return this.baseWorld;
     } else {
+      this.otherWorld = otherWorld;
       _updateAttrs(this.baseWorld, otherWorld);
       return this;
     }
@@ -108,18 +111,17 @@ var CombinedWorld = function(baseWorld, newWorld) {
     that.attrs = {};
     for(var attr in baseWorld.attrs) {
       if(!isNaN(baseWorld.attrs[attr])) { // Averages the numbers
-        that.attrs[attr] = avg(baseWorld.attrs[attr], newWorld.attrs[attr]);
+        that.attrs[attr] = avg(baseWorld.attrs[attr], otherWorld.attrs[attr]);
       }
     }
 
-    that.objects = baseWorld.objects.concat(otherWorld.objects);
+    that.objects = baseWorld.objects.slice(0).concat(otherWorld.objects);
   };
 
-  _updateAttrs(baseWorld, newWorld);
-  console.log(this.objects);
+  _updateAttrs(baseWorld, otherWorld);
 };
 
 CombinedWorld.prototype.tick = function() {
   this.baseWorld.tick();
-  this.newWorld.tick();
+  this.otherWorld.tick();
 };

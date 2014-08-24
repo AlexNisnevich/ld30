@@ -46,9 +46,6 @@ var LevelThree = new World({
   img: 'assets/ice.png'
 }]);
 
-
-// LevelTwo.combine(LevelOne);
-
 var levels = {
   1: LevelOne,
   2: LevelTwo,
