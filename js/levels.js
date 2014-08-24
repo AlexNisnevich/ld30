@@ -51,9 +51,9 @@ var LevelThree = new World({
 
 var LevelFour = new World({
   name: "Space1",
-  start: [925, 465],
+  start: [925, 470],
   goal: [95, 70],
-  gravityCoefficient: 0.2
+  gravityCoefficient: 0.1
 }, [{
   type: "platform",
   x: 45,
