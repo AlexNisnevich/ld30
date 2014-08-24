@@ -10,32 +10,50 @@
 //   speedIn: .5
 // }
 var MovingBeehive = function(attrs) {
-  // Until radius stuff is implemented
+  var that = this;
+
   attrs.length = attrs.radius;
-  DeadlyThinger.apply(this, [attrs]);
   this.centerX = attrs.x;
   this.centerY = attrs.y;
   this.minRadius = attrs.radius;
   this.radius = attrs.radius;
   this.maxRadius = attrs.maxRadius;
-  var that = this;
+
+  this.bees = []
+  for (var i=0; i<5; i++) {
+    var bee = new createjs.Bitmap('assets/nature_bee.png');
+    bee.x = this.centerX;
+    bee.y = this.centerY;
+    bee.angle = Math.random() * 360;
+    bee.obj = {
+      effectOnPlayer: "kill"
+    };
+    this.bees.push(bee);
+  }
 
   this.draw = function(game) {
-    // For now
-    setupRadius();
-    game.addObject(this.image);
+    this.bees.forEach(game.addObject);
   };
 
   this.move = function(playerPos) {
-    var distanceFromPlayer = _euclideanDistance({x: this.image.x, y: this.image.y}, playerPos);
+    var distanceFromPlayer = _euclideanDistance({x: this.centerX, y: this.centerY}, playerPos);
 
     if(distanceFromPlayer < attrs.senseRadius) {
       this.moveOutward();
     } else {
       this.moveInward();
     }
-    // For now
-    setupRadius();
+
+    this.bees.forEach(function (bee) {
+      bee.speed = that.radius / that.minRadius;
+      bee.x += Math.cos(bee.angle) * bee.speed;
+      bee.y += Math.sin(bee.angle) * bee.speed;
+      if (_euclideanDistance({x: that.centerX, y: that.centerY}, bee) > that.radius) {
+        bee.x += (that.centerX - bee.x) / 10;
+        bee.y += (that.centerY - bee.y) / 10;
+        bee.angle += 180 + Math.random() * 30;
+      }
+    });
   };
 
   this.moveOutward = function() {
@@ -53,15 +71,6 @@ var MovingBeehive = function(attrs) {
   this.reset = function () {
     this.radius = this.minRadius;
     setupRadius();
-  };
-
-  // For now
-  // Makes the initial radius the center radius
-  var setupRadius = function() {
-    that.image.scaleX = that.radius / that.image.getBounds().width;
-    that.image.scaleY = that.radius / that.image.getBounds().height;
-    that.image.x = that.centerX - that.radius / 2;
-    that.image.y = that.centerY - that.radius / 2;
   };
 };
 

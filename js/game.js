@@ -4,9 +4,7 @@ var ShatteredWorlds = function() {
 
 var Game = function(w, h) {
   var assetsToLoad = {
-    'hero': 'assets/magicStar.png',
-    'platform': 'assets/platform.png',
-    'portal': 'assets/magicKey.png'
+    'hero': 'assets/magicStar.png'
   };
 
   var levelHotkeys = {
@@ -25,7 +23,7 @@ var Game = function(w, h) {
     5: LevelFive
   };
 
-  var currentLevelNum = 5;
+  var currentLevelNum = 4;
 
   var self = this;
   var ticks = 0;
