@@ -78,6 +78,43 @@ var Ice = function(attrs) {
   };
 };
 
+// Example params
+// attrs = {
+//   x: 10,
+//   y: 15,
+//   length: 20,
+//   img: 'img/platform1.png',
+//   interval: 30,
+//   activeLength: 15
+// }
+var MovingPolarBear = function(attrs) {
+  DeadlyThinger.apply(this, [attrs]);
+  this.interval = attrs.interval;
+  this.activeLength = attrs.activeLength;
+  var tick = 0;
+  var visible = false;
+
+  this.move = function() {
+    tick++;
+    if(tick > this.interval && !visible) {
+      this.appear();
+      visible = true;
+    } else if (tick > (this.interval+this.activeLength)) {
+      this.disappear();
+      visible = false;
+      tick = 0;
+    }
+  };
+
+  this.appear = function() {
+    this.image.scaleX = attrs.length / this.image.getBounds().width;
+  };
+
+  this.disappear = function() {
+    this.image.scaleX = 0;
+  };
+};
+
 // Makes player die
 var DeadlyThinger = function(attrs) {
   Thinger.apply(this, [attrs]);
