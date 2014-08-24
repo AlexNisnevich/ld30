@@ -2,7 +2,7 @@ var ShatteredWorlds = function() {
   return new Game(1000, 600);
 };
 
-var lvl;
+var world;
 var Game = function(w, h) {
   var assetsToLoad = {
     'hero': 'assets/hero.png',
@@ -82,8 +82,8 @@ var Game = function(w, h) {
     container = new createjs.Container();
     stage.addChild(container);
 
-    lvl = levels[1];
-    this.loadLevel(lvl);
+    world = levels[1];
+    this.loadLevel(world);
 
     // Setting the listeners
     document.onkeydown = function (e) {
@@ -105,36 +105,36 @@ var Game = function(w, h) {
   this.tick = function(e) {
     ticks++;
     player.tick();
-    lvl.tick();
+    world.tick();
     stage.update();
   };
 
-  this.moveToNextLevel = function(lvl) {
+  this.moveToNextLevel = function() {
     container.removeAllChildren();
     player = null;
     collideables = [];
 
     currentLevelNum++;
-    lvl = levels[currentLevelNum];
-    this.loadLevel(lvl);
+    world = levels[currentLevelNum];
+    this.loadLevel(world);
   }
 
-  this.loadLevel = function(lvl) {
+  this.loadLevel = function(world) {
     // place exit
     exit = new createjs.Bitmap(assets['portal']);
-    exit.x = lvl.goal[0];
-    exit.y = lvl.goal[1];
+    exit.x = world.goal[0];
+    exit.y = world.goal[1];
     exit.name = "exit";
     this.addObject(exit);
 
     // place player
-    player = new Player(assets['hero'], lvl.start[0], lvl.start[1], self);
+    player = new Player(assets['hero'], world.start[0], world.start[1], self);
     container.addChild(player.image);
 
-    this.updateLevel(lvl);
+    this.updateLevel(world);
   };
 
-  this.updateLevel = function(lvl) {
+  this.updateLevel = function(world) {
     // remove existing objects
     collideables.forEach(function (obj) {
       container.removeChild(obj);
@@ -145,17 +145,17 @@ var Game = function(w, h) {
     this.addObject(exit);
 
   	// place objects
-    lvl.objects.forEach(function (obj) {
+    world.objects.forEach(function (obj) {
       obj.draw(self);
     });
 
-    console.log(lvl.attrs)
+    console.log(world.attrs)
   };
 
   this.overlayWorld = function(newWorld) {
-    console.log(lvl.attrs);
-  	lvl = lvl.combine(newWorld, self);
-  	this.updateLevel(lvl);
+    console.log(world.attrs);
+  	world = world.combine(newWorld, self);
+  	this.updateLevel(world);
   };
 
   this.addObject = function(obj) {
