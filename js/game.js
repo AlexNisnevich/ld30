@@ -167,13 +167,18 @@ var Game = function(w, h) {
   };
 
   this.overlayWorld = function(newWorld) {
-    var oldWorld = world;
-    world = world.combine(newWorld);
-    this.updateLevel(world);
-    setTimeout(function () { self.updateLevel(oldWorld); }, 50);
-    setTimeout(function () { self.updateLevel(world); }, 100);
-    setTimeout(function () { self.updateLevel(oldWorld); }, 150);
-    setTimeout(function () { self.updateLevel(world); }, 200);
+    if (world.canOverlap(newWorld)) {
+      var oldWorld = world;
+      world = world.combine(newWorld);
+      this.updateLevel(world);
+      setTimeout(function () { self.updateLevel(oldWorld); }, 50);
+      setTimeout(function () { self.updateLevel(world); }, 100);
+      setTimeout(function () { self.updateLevel(oldWorld); }, 150);
+      setTimeout(function () { self.updateLevel(world); }, 200);
+    } else {
+      // Do something
+      // Flicker then make noise?
+    }
   };
 
   this.addObject = function(obj) {
