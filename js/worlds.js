@@ -19,7 +19,9 @@
 //     length: 20,
 //     img: 'img/platform1.png',
 //     direction: 'left',
-//     speed: 2
+//     speed: 2,
+//     leftBound: 6,
+//     rightBound: 10
 //   }
 // ]
 var World = function(attrs, thingers) {
@@ -27,6 +29,7 @@ var World = function(attrs, thingers) {
   this.playerStart = attrs.playerStart;
   this.goal = attrs.goal;
   this.objects = [];
+  var movingObjects = [];
   for(var thinger in thingers) {
     this.objects.push(_makeObject(thinger));
   }
@@ -35,8 +38,17 @@ var World = function(attrs, thingers) {
     if(thinger.type === "platform") {
       return new Platform(thinger);
     } else if(thinger.type == "movingPlatform") {
-      return new MovingPlatform(thinger);
+      movingPlatform = new MovingPlatform(thinger);
+      movingObjects.push(movingPlatform);
+      return movingPlatform;
     }
+  };
+
+  // Moves all the moving objects
+  this.moveObjects = function() {
+    movingObjects.forEach(function (obj) {
+      obj.move();
+    });
   };
 };
 
