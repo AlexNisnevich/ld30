@@ -148,13 +148,10 @@ var Game = function(w, h) {
     world.objects.forEach(function (obj) {
       obj.draw(self);
     });
-
-    console.log(world.attrs)
   };
 
   this.overlayWorld = function(newWorld) {
-    console.log(world.attrs);
-    world = world.combine(newWorld, self);
+    world = world.combine(newWorld);
     this.updateLevel(world);
   };
 
