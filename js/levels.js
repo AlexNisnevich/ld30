@@ -1,8 +1,10 @@
 var LevelOne = new World({
   name: "Zombie1",
+  levelNum: 1,
   start: [390, 430],
   goal: [260, 380],
-  gravityCoefficient: 1
+  gravityCoefficient: 1,
+  cantOverlap: []
 }, [{
   type: "platform",
   x: 265,
@@ -19,9 +21,11 @@ var LevelOne = new World({
 
 var LevelTwo = new World({
   name: "Zombie2",
+  levelNum: 2,
   start: [515, 300],
   goal: [260, 380],
-  gravityCoefficient: 1
+  gravityCoefficient: 1,
+  cantOverlap: []
 }, [{
   type: "platform",
   x: 515,
@@ -32,9 +36,11 @@ var LevelTwo = new World({
 
 var LevelThree = new World({
   name: "Ice1",
+  levelNum: 3,
   start: [365, 270],
   goal: [775, 450],
-  gravityCoefficient: 1
+  gravityCoefficient: 1,
+  cantOverlap: []
 }, [{
   type: "ice",
   x: 325,
@@ -50,52 +56,54 @@ var LevelThree = new World({
 }]);
 
 var LevelFour = new World({
-  name: "Tree1",
+  name: "Nature1",
+  levelNum: 4,
   start: [600, 225],
   goal: [600, 555],
-  gravityCoefficient: 1
+  gravityCoefficient: 1,
+  cantOverlap: []
 }, [{
   type: "tree",
   x: 625,
   y: 105,
   length: 25,
   height: 495,
-  img: 'assets/tree.png'
+  img: 'assets/nature_trunk.png'
 },{
   type: "bouncyThinger",
-  x: 560,
+  x: 565,
   y: 250,
   length: 70,
-  img: 'assets/branch.png'
+  img: 'assets/nature_branch1.png'
 },{
   type: "bouncyThinger",
-  x: 480,
+  x: 490,
   y: 370,
   length: 145,
-  img: 'assets/branch.png'
+  img: 'assets/nature_branch2.png'
 },{
   type: "bouncyThinger",
-  x: 650,
+  x: 707,
   y: 150,
-  length: 70,
-  img: 'assets/branch.png'
+  length: -70,
+  img: 'assets/nature_branch1.png'
 },{
   type: "bouncyThinger",
-  x: 650,
+  x: 645,
   y: 565,
   length: 140,
-  img: 'assets/branch.png'
+  img: 'assets/nature_branch3.png'
 },{
   type: "visuals",
   x: 520,
   y: 370,
-  img: 'assets/beehive.png'
+  img: 'assets/nature_hive.png'
 },{
   type: "movingBeehive",
   x: 550,
   y: 400,
   radius: 20,
-  img: 'assets/bees.png',
+  img: 'assets/nature_bee.png',
   maxRadius: 100,
   senseRadius: 200,
   speedOut: 1,
@@ -104,9 +112,11 @@ var LevelFour = new World({
 
 var LevelFive = new World({
   name: "Space1",
+  levelNum: 5,
   start: [925, 470],
   goal: [95, 70],
-  gravityCoefficient: 0.1
+  gravityCoefficient: 0.1,
+  cantOverlap: []
 }, [{
   type: "platform",
   x: 45,
@@ -120,3 +130,10 @@ var LevelFive = new World({
   length: 80,
   img: 'assets/platform.png'
 }]);
+
+var BlankFinalLevel = new World({
+  name: "PlaceholderCredits",
+  levelNum: 15,
+  cantOverlap: []
+}, [
+]);

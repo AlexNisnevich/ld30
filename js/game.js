@@ -59,7 +59,7 @@ var Game = function(w, h) {
       assets[name] = img;
 
       ++requestedAssets;
-    }
+    };
     // each time an asset is loaded
     // check if all assets are complete
     // and initialize the game, if so
@@ -68,9 +68,9 @@ var Game = function(w, h) {
       if ( loadedAssets == requestedAssets ) {
         self.initializeGame();
       }
-    }
+    };
 
-    for (asset in assetsToLoad) {
+    for (var asset in assetsToLoad) {
       loadImage(asset, assetsToLoad[asset]);
     }
   };
@@ -167,13 +167,18 @@ var Game = function(w, h) {
   };
 
   this.overlayWorld = function(newWorld) {
-    var oldWorld = world;
-    world = world.combine(newWorld);
-    this.updateLevel(world);
-    setTimeout(function () { self.updateLevel(oldWorld); }, 50);
-    setTimeout(function () { self.updateLevel(world); }, 100);
-    setTimeout(function () { self.updateLevel(oldWorld); }, 150);
-    setTimeout(function () { self.updateLevel(world); }, 200);
+    if (world.canOverlap(newWorld)) {
+      var oldWorld = world;
+      world = world.combine(newWorld);
+      this.updateLevel(world);
+      setTimeout(function () { self.updateLevel(oldWorld); }, 50);
+      setTimeout(function () { self.updateLevel(world); }, 100);
+      setTimeout(function () { self.updateLevel(oldWorld); }, 150);
+      setTimeout(function () { self.updateLevel(world); }, 200);
+    } else {
+      // Do something
+      // Flicker then make noise?
+    }
   };
 
   this.addObject = function(obj) {

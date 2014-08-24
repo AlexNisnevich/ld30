@@ -1,8 +1,10 @@
 // Example params
 // attrs = {
+//   levelNum: 1,
 //   start: [0,0],
 //   goal: [50,50],
-//   gravityCoefficient: 0
+//   gravityCoefficient: 0,
+//   cantOverlap: [12, 20]
 // }
 // thingers = [
 //   {
@@ -29,6 +31,7 @@ var World = function(attrs, thingers) {
   this.attrs = attrs;
   this.start = attrs.start;
   this.goal = attrs.goal;
+  this.levelNum = attrs.levelNum;
   var movingObjects = [];
 
   // Creates a new object based on the
@@ -60,6 +63,14 @@ var World = function(attrs, thingers) {
       obj.move(playerPos);
     });
   };
+
+  this.canOverlap = function(otherWorld) {
+    return !_cantOverlap(otherWorld);
+  };
+
+  var _cantOverlap = function(otherWorld) {
+    return _.contains(attrs.cantOverlap, otherWorld.levelNum);
+  };
 };
 
 World.prototype.tick = function(playerPos) {
@@ -67,7 +78,7 @@ World.prototype.tick = function(playerPos) {
 };
 
 // Combines this world with a different world
-World.prototype.combine = function(otherWorld, game) {
+World.prototype.combine = function(otherWorld) {
   if (otherWorld !== this) {
     return new CombinedWorld(this, otherWorld);
   } else {
@@ -108,6 +119,10 @@ var CombinedWorld = function(baseWorld, otherWorld) {
   var _updateAttrs = function(baseWorld, otherWorld) {
     that.attrs = otherWorld.attrs;
     that.objects = baseWorld.objects.slice(0).concat(otherWorld.objects);
+  };
+
+  this.canOverlap = function(otherWorld) {
+    return this.baseWorld.canOverlap(otherWorld);
   };
 
   _updateAttrs(baseWorld, otherWorld);
