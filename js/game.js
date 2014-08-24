@@ -9,11 +9,11 @@ var Game = function(w, h) {
     'portal': 'assets/portal.jpg'
   };
 
-  var worldHotkeys = {
-  	49: LevelOne,	// 1
-  	50: LevelTwo,	// 2
-  	51: LevelThree	// 3
-  }
+  var levelHotkeys = {
+    49: LevelOne, // 1
+    50: LevelTwo, // 2
+    51: LevelThree  // 3
+  };
 
   var self = this;
   var ticks = 0;
@@ -22,7 +22,7 @@ var Game = function(w, h) {
   var container;
   var player;
   var exit;
-  var world;
+  var level;
   var assets = [];
 
   // holds all collideable objects
@@ -73,14 +73,15 @@ var Game = function(w, h) {
     container = new createjs.Container();
     stage.addChild(container);
 
-    world = levels[1];
-    this.loadLevel(world);
+    currentLevelNum = 1;
+    level = levels[currentLevelNum];
+    this.loadLevel(level);
 
     // Setting the listeners
     document.onkeydown = function (e) {
-      if (worldHotkeys[e.keyCode]) {
-        var newWorld = worldHotkeys[e.keyCode];
-        self.overlayWorld(newWorld);
+      if (levelHotkeys[e.keyCode]) {
+        var newlevel = levelHotkeys[e.keyCode];
+        self.overlaylevel(newlevel);
       } else {
         player.handleKeyDown(e.keyCode);
       }
@@ -96,26 +97,34 @@ var Game = function(w, h) {
   this.tick = function(e) {
     ticks++;
     player.tick();
-    world.tick();
+    level.tick();
     stage.update();
   };
 
-  this.loadLevel = function(world) {
+  this.moveToNextLevel = function() {
+    container.removeAllChildren();
+    player = null;
+    currentLevelNum++;
+    level = levels[currentLevelNum];
+    this.loadLevel(level);
+  };
+
+  this.loadLevel = function(level) {
     // place exit
     exit = new createjs.Bitmap(assets['portal']);
-    exit.x = world.goal[0];
-    exit.y = world.goal[1];
+    exit.x = level.goal[0];
+    exit.y = level.goal[1];
     exit.name = "exit";
     this.addObject(exit);
 
     // place player
-    player = new Player(assets['hero'], world.start[0], world.start[1], self);
+    player = new Player(assets['hero'], level.start[0], level.start[1], self);
     container.addChild(player.image);
 
-    this.updateLevel(world);
+    this.updateLevel(level);
   };
 
-  this.updateLevel = function(world) {
+  this.updateLevel = function(level) {
     // remove existing objects
     collideables.forEach(function (obj) {
       container.removeChild(obj);
@@ -125,15 +134,15 @@ var Game = function(w, h) {
     // place exit
     this.addObject(exit);
 
-  	// place objects
-    world.objects.forEach(function (obj) {
+    // place objects
+    level.objects.forEach(function (obj) {
       obj.draw(self);
     });
   };
 
-  this.overlayWorld = function(newWorld) {
-  	world = world.combine(newWorld);
-  	this.updateLevel(world);
+  this.overlaylevel = function(newlevel) {
+    level = level.combine(newlevel);
+    this.updateLevel(level);
   };
 
   this.addObject = function(obj) {
