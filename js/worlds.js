@@ -2,7 +2,12 @@
 // attrs = {
 //   levelNum: 1,
 //   start: [0,0],
-//   goal: [50,50],
+//   goal: {
+//     type: 'exit',
+//     x: 50,
+//     y: 50,
+//     img: 'img/exit1.png',
+//   },
 //   gravityCoefficient: 0,
 //   cantOverlap: [12, 20]
 // }
@@ -26,11 +31,11 @@
 //     rightBound: 10
 //   }
 // ]
-
 var World = function(attrs, thingers) {
+  var that = this;
+
   this.attrs = attrs;
   this.start = attrs.start;
-  this.goal = attrs.goal;
   this.levelNum = attrs.levelNum;
   var movingObjects = [];
 
@@ -53,14 +58,23 @@ var World = function(attrs, thingers) {
     return obj;
   };
 
+  var _setGoal = function() {
+    if(attrs.goal.type) {
+      that.goal = _makeObject(attrs.goal);
+      console.log(that.goal);
+    }
+  };
+
   this.objects = _.map(thingers, function (thinger) {
     return _makeObject(thinger);
   });
 
+  _setGoal();
+
   // Moves all the moving objects
-  this.moveObjects = function(playerPos) {
+  this.moveObjects = function(playerPos, world) {
     movingObjects.forEach(function (obj) {
-      obj.move(playerPos);
+      obj.move(playerPos, world);
     });
   };
 
@@ -73,8 +87,9 @@ var World = function(attrs, thingers) {
   };
 };
 
-World.prototype.tick = function(playerPos) {
-  this.moveObjects(playerPos);
+World.prototype.tick = function(playerPos, world) {
+  world = world || this;
+  this.moveObjects(playerPos, world);
 };
 
 // Combines this world with a different world
@@ -129,6 +144,6 @@ var CombinedWorld = function(baseWorld, otherWorld) {
 };
 
 CombinedWorld.prototype.tick = function(playerPos) {
-  this.baseWorld.tick(playerPos);
-  this.otherWorld.tick(playerPos);
+  this.baseWorld.tick(playerPos, this);
+  this.otherWorld.tick(playerPos, this);
 };

@@ -2,6 +2,10 @@ var Platform = function(attrs) {
   Thinger.apply(this, [attrs]);
 };
 
+var MovingHeavyPlatform = function(attrs) {
+  MovingHeavyThinger.apply(this, [attrs]);
+};
+
 // Example params
 // attrs = {
 //   x: 10,
@@ -21,25 +25,25 @@ var MovingPlatform = function(attrs) {
   this.rightBound = attrs.rightBound;
   this.upBound = attrs.upBound;
   this.downBound = attrs.downBound;
-};
 
-MovingPlatform.prototype.move = function() {
-  switch(this.direction) {
-    case 'left':
-      this.image.x -= this.speed;
-      if(this.leftBound === this.image.x) { this.direction = 'right'; }
-      break;
-    case 'right':
-      this.image.x += this.speed;
-      if(this.rightBound === this.image.x) { this.direction = 'left'; }
-      break;
-    case 'up':
-      this.image.y -= this.speed;
-      if(this.upBound === this.image.y) { this.direction = 'down'; }
-      break;
-    case 'down':
-      this.image.y += this.speed;
-      if(this.downBound === this.image.y) { this.direction = 'up'; }
-      break;
-  }
+  this.move = function() {
+    switch(this.direction) {
+      case 'left':
+        this.image.x -= this.speed;
+        if(this.leftBound === this.image.x) { this.direction = 'right'; }
+        break;
+      case 'right':
+        this.image.x += this.speed;
+        if(this.rightBound === this.image.x) { this.direction = 'left'; }
+        break;
+      case 'up':
+        this.image.y -= this.speed;
+        if(this.upBound === this.image.y) { this.direction = 'down'; }
+        break;
+      case 'down':
+        this.image.y += this.speed;
+        if(this.downBound === this.image.y) { this.direction = 'up'; }
+        break;
+    }
+  };
 };

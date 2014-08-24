@@ -54,27 +54,11 @@ var KEYCODE_RIGHT = 39;
       cbounds = getBounds(obj);
       collision = calculateIntersection(bounds, cbounds, 0, addY);
 
-      if (collision && obj.name == 'exit') {
-        _this.game.moveToNextLevel();
-        return;
-      } else if (collision) {
+      if (collision) {
         collideable = obj;
       }
 
-      if (!collision) {
-        // if there was NO collision detected, but somehow
-        // the Player got onto the "other side" of an object (high velocity e.g.),
-        // then we will detect this here, and adjust the velocity according to
-        // it to prevent the Player from "ghosting" through objects
-        // try messing with the 'this.velocity = {x:0,y:25};'
-        // -> it should still collide even with very high values
-        if ( ( bounds.y < cbounds.y && bounds.y + addY > cbounds.y )
-             || ( bounds.y > cbounds.y && bounds.y + addY < cbounds.y ) ) {
-          addY = cbounds.y - bounds.y;
-        } else {
-          cc++;
-        }
-      }
+      cc++;
     }
 
     this.move(collision, collideable, addY);
@@ -112,6 +96,10 @@ var KEYCODE_RIGHT = 39;
           return;
         case 'bounce':
           addY = -4 * this.velocity.y;
+          break;
+        case 'exit':
+          this.game.moveToNextLevel();
+          return;
         }
       }
 

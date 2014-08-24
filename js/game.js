@@ -25,7 +25,7 @@ var Game = function(w, h) {
     5: LevelFive
   };
 
-  var currentLevelNum = 4;
+  var currentLevelNum = 5;
 
   var self = this;
   var ticks = 0;
@@ -110,8 +110,10 @@ var Game = function(w, h) {
 
   this.tick = function(e) {
     ticks++;
-    player.tick();
-    world.tick({x: player.image.x, y: player.image.y});
+    if (player) {
+      player.tick();
+      world.tick({x: player.image.x, y: player.image.y});
+    }
     stage.update();
   };
 
@@ -129,17 +131,20 @@ var Game = function(w, h) {
 
   this.loadLevel = function(world) {
     // place exit
-    exit = new createjs.Bitmap(assets['portal']);
-    exit.x = world.goal[0];
-    exit.y = world.goal[1];
-    exit.name = "exit";
-    this.addObject(exit);
+    if (world.goal) {
+      this.addObject(world.goal.image);
+    }
 
     // place player
-    player = new Player(assets['hero'], world.start[0], world.start[1], self);
-    container.addChild(player.image);
+    if (world.start) {
+      player = new Player(assets['hero'], world.start[0], world.start[1], self);
+      container.addChild(player.image);
+    }
 
-    this.updateLevel(world);
+    // place objects
+    world.objects.forEach(function (obj) {
+      obj.draw(self);
+    });
   };
 
   this.updateLevel = function(world) {
@@ -150,7 +155,7 @@ var Game = function(w, h) {
     collideables = [];
 
     // place exit
-    this.addObject(exit);
+    this.addObject(world.goal.image);
 
     // place objects
     world.objects.forEach(function (obj) {

@@ -2,7 +2,12 @@ var LevelOne = new World({
   name: "Zombie1",
   levelNum: 1,
   start: [390, 430],
-  goal: [260, 380],
+  goal: {
+    type: 'exit',
+    x: 260,
+    y: 380,
+    img: 'assets/magicKey.png',
+  },
   gravityCoefficient: 1,
   cantOverlap: []
 }, [{
@@ -23,7 +28,12 @@ var LevelTwo = new World({
   name: "Zombie2",
   levelNum: 2,
   start: [515, 300],
-  goal: [260, 380],
+  goal: {
+    type: 'exit',
+    x: 260,
+    y: 380,
+    img: 'assets/magicKey.png',
+  },
   gravityCoefficient: 1,
   cantOverlap: []
 }, [{
@@ -38,7 +48,12 @@ var LevelThree = new World({
   name: "Ice1",
   levelNum: 3,
   start: [365, 270],
-  goal: [775, 450],
+  goal: {
+    type: 'exit',
+    x: 775,
+    y: 450,
+    img: 'assets/magicKey.png',
+  },
   gravityCoefficient: 1,
   cantOverlap: []
 }, [{
@@ -59,7 +74,12 @@ var LevelFour = new World({
   name: "Nature1",
   levelNum: 4,
   start: [600, 225],
-  goal: [600, 555],
+  goal: {
+    type: 'exit',
+    x: 600,
+    y: 555,
+    img: 'assets/magicKey.png',
+  },
   gravityCoefficient: 1,
   cantOverlap: []
 }, [{
@@ -114,26 +134,37 @@ var LevelFive = new World({
   name: "Space1",
   levelNum: 5,
   start: [925, 470],
-  goal: [95, 70],
+  goal: {
+    type: 'movingExit',
+    x: 95,
+    y: 70,
+    img: 'assets/magicKey.png',
+    gravityThreshold: 0.5,
+    fallSpeed: 1
+  },
   gravityCoefficient: 0.1,
   cantOverlap: []
 }, [{
-  type: "platform",
+  type: "movingHeavyPlatform",
   x: 45,
   y: 45,
   length: 135,
-  img: 'assets/platform.png'
+  img: 'assets/platform.png',
+  gravityThreshold: 0.5,
+  fallSpeed: 1
 },{
-  type: "platform",
+  type: "movingHeavyPlatform",
   x: 900,
   y: 495,
   length: 80,
-  img: 'assets/platform.png'
+  img: 'assets/platform.png',
+  gravityThreshold: 0.5,
+  fallSpeed: 1
 }]);
 
-var BlankFinalLevel = new World({
+/*var BlankFinalLevel = new World({
   name: "PlaceholderCredits",
   levelNum: 15,
   cantOverlap: []
 }, [
-]);
+]);*/
