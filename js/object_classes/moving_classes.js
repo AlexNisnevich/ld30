@@ -15,6 +15,7 @@ var MovingBeehive = function(attrs) {
   DeadlyThinger.apply(this, [attrs]);
   this.centerX = attrs.x;
   this.centerY = attrs.y;
+  var that = this;
 
   this.draw = function(game) {
     // For now
@@ -49,11 +50,10 @@ var MovingBeehive = function(attrs) {
   // For now
   // Makes the initial radius the center radius
   var setupRadius = function() {
-    this.image.scaleX = attrs.radius / this.image.getBounds().width;
-    this.image.scaleY = attrs.radius / this.image.getBounds().height;
-    this.image.x = this.centerX - attrs.radius / 2;
-    this.image.y = this.centerY - attrs.radius / 2;
-
+    that.image.scaleX = attrs.radius / that.image.getBounds().width;
+    that.image.scaleY = attrs.radius / that.image.getBounds().height;
+    that.image.x = that.centerX - attrs.radius / 2;
+    that.image.y = that.centerY - attrs.radius / 2;
   };
 };
 
