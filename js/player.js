@@ -98,6 +98,8 @@ var KEYCODE_RIGHT = 39;
 			}
 
 			this.velocity.y = 0;
+
+			// Handle special objects
 			switch(collideable.obj.effectOnPlayer) {
 				case 'kill':
 					this.image.x = this.startX;
