@@ -44,14 +44,23 @@ var MovingPlatform = function(attrs) {
   };
 };
 
+// Example params
+// attrs = {
+//   x: 10,
+//   y: 15,
+//   length: 20,
+//   img: 'img/platform1.png',
+//   fallSpeed: 6,
+//   gravityThreshold: 10
+// }
 var MovingHeavyPlatform = function(attrs) {
   Platform.apply(this, [attrs]);
   this.startY = attrs.y;
   this.gravityThreshold = attrs.gravityThreshold;
   this.fallSpeed = attrs.fallSpeed;
 
-  this.move = function() {
-    if (game.getWorld().attrs.gravityCoefficient > this.gravityThreshold) {
+  this.move = function(playerPos, world) {
+    if (world.attrs.gravityCoefficient > this.gravityThreshold) {
       this.image.y += this.fallSpeed;
     }
   };

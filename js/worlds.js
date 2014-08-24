@@ -58,9 +58,9 @@ var World = function(attrs, thingers) {
   });
 
   // Moves all the moving objects
-  this.moveObjects = function(playerPos) {
+  this.moveObjects = function(playerPos, world) {
     movingObjects.forEach(function (obj) {
-      obj.move(playerPos);
+      obj.move(playerPos, world);
     });
   };
 
@@ -73,8 +73,9 @@ var World = function(attrs, thingers) {
   };
 };
 
-World.prototype.tick = function(playerPos) {
-  this.moveObjects(playerPos);
+World.prototype.tick = function(playerPos, world) {
+  world = world || this;
+  this.moveObjects(playerPos, world);
 };
 
 // Combines this world with a different world
@@ -129,6 +130,6 @@ var CombinedWorld = function(baseWorld, otherWorld) {
 };
 
 CombinedWorld.prototype.tick = function(playerPos) {
-  this.baseWorld.tick(playerPos);
-  this.otherWorld.tick(playerPos);
+  this.baseWorld.tick(playerPos, this);
+  this.otherWorld.tick(playerPos, this);
 };
