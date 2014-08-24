@@ -1,3 +1,14 @@
+var Visuals = function(attrs) {
+  this.image = new createjs.Bitmap(attrs.img);
+  this.image.x = attrs.x;
+  this.image.y = attrs.y;
+  this.visual = true;
+
+  this.draw = function(game) {
+    game.addObject(this.image);
+  };
+};
+
 // Example params
 // attrs = {
 //   x: 10,

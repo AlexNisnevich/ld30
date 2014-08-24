@@ -1,5 +1,5 @@
 var LevelOne = new World({
-  name: "A",
+  name: "Zombie1",
   start: [390, 430],
   goal: [260, 380],
   gravityCoefficient: 1
@@ -8,17 +8,17 @@ var LevelOne = new World({
   x: 265,
   y: 420,
   length: 75,
-  img: 'assets/platform.png'
+  img: 'assets/zombie_tile.png'
 },{
   type: "platform",
   x: 360,
   y: 450,
   length: 80,
-  img: 'assets/platform.png'
+  img: 'assets/zombie_tile.png'
 }]);
 
 var LevelTwo = new World({
-  name: "B",
+  name: "Zombie2",
   start: [515, 300],
   goal: [260, 380],
   gravityCoefficient: 1
@@ -27,7 +27,7 @@ var LevelTwo = new World({
   x: 515,
   y: 300,
   length: 30,
-  img: 'assets/platform.png'
+  img: 'assets/zombie_tile.png'
 }]);
 
 var LevelThree = new World({
@@ -85,6 +85,11 @@ var LevelFour = new World({
   y: 565,
   length: 140,
   img: 'assets/branch.png'
+},{
+  type: "visuals",
+  x: 520,
+  y: 370,
+  img: 'assets/beehive.png'
 },{
   type: "movingBeehive",
   x: 550,
