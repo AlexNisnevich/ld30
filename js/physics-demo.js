@@ -49,7 +49,6 @@ function go() {
       }
     });
 
-
     var renderer = Physics.renderer('canvas', {
       el     : 'viewport',
       width  : width,
@@ -132,4 +131,3 @@ Physics.behavior('control', function (parent) {
     }
   };
 });
-
