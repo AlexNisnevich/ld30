@@ -6,10 +6,16 @@
 //   img: 'img/platform1.png'
 // }
 var Platform = function(attrs) {
-  this.x = attrs.x;
-  this.y = attrs.y;
-  this.length = attrs.length;
-  this.img = attrs.img;
+	this.length = attrs.length;
+
+	this.image = new createjs.Bitmap(attrs.img);
+	this.image.x = attrs.x;
+	this.image.y = attrs.y;
+
+	this.draw = function (game) {
+		this.image.scaleX = attrs.length / this.image.getBounds().width;
+		game.addObject(this.image);
+	}
 };
 
 // Example params
@@ -19,10 +25,37 @@ var Platform = function(attrs) {
 //   length: 20,
 //   img: 'img/platform1.png',
 //   direction: 'left',
-//   speed: 2
+//   speed: 2,
+//   leftBound: 6,
+//   rightBound: 10
 // }
 var MovingPlatform = function(attrs) {
   Platform.apply(this, [attrs]);
   this.direction = attrs.direction;
   this.speed = attrs.speed;
+  this.leftBound = attrs.leftBound;
+  this.rightBound = attrs.rightBound;
+  this.upBound = attrs.upBound;
+  this.downBound = attrs.downBound;
+};
+
+MovingPlatform.prototype.move = function() {
+  switch(this.direction) {
+    case 'left':
+      this.x -= this.speed;
+      if(this.leftBound === this.x) { this.direction = 'right'; }
+      break;
+    case 'right':
+      this.x += this.speed;
+      if(this.rightBound === this.x) { this.direction = 'left'; }
+      break;
+    case 'up':
+      this.y -= this.speed;
+      if(this.upBound === this.y) { this.direction = 'down'; }
+      break;
+    case 'down':
+      this.y += this.speed;
+      if(this.downBound === this.y) { this.direction = 'up'; }
+      break;
+  }
 };

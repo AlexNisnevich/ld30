@@ -19,25 +19,51 @@
 //     length: 20,
 //     img: 'img/platform1.png',
 //     direction: 'left',
-//     speed: 2
+//     speed: 2,
+//     leftBound: 6,
+//     rightBound: 10
 //   }
 // ]
+
 var World = function(attrs, thingers) {
   this.attrs = attrs;
   this.playerStart = attrs.playerStart;
   this.goal = attrs.goal;
-  this.objects = [];
-  for(var thinger in thingers) {
-    this.objects.push(_makeObject(thinger));
-  }
+  var movingObjects = [];
 
+  // Creates a new object based on the
+  // thinger's object type (capitalizing
+  // the first letter to get the class name)
+  // and adds the object to the movingObject
+  // array if the type includes the word
+  // "moving"
   var _makeObject = function(thinger) {
-    if(thinger.type === "platform") {
-      return new Platform(thinger);
-    } else if(thinger.type == "movingPlatform") {
-      return new MovingPlatform(thinger);
+    function capitalize(str) {
+      return str[0].toUpperCase() + str.slice(1);
     }
+
+    var type = capitalize(thinger.type);
+    obj = new window[type](thinger);
+    if(type.indexOf("Moving") > -1) {
+      movingObjects.push(obj);
+    }
+    return obj;
   };
+
+  this.objects = _.map(thingers, function (thinger) {
+    return _makeObject(thinger);
+  });
+
+  // Moves all the moving objects
+  this.moveObjects = function() {
+    movingObjects.forEach(function (obj) {
+      obj.move();
+    });
+  };
+};
+
+World.prototype.tick = function() {
+  this.moveObjects();
 };
 
 // Takes in a different world as a parameter
