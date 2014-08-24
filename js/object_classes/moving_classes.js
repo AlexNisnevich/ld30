@@ -70,12 +70,13 @@ var MovingBeehive = function(attrs) {
 //   x: 10,
 //   y: 15,
 //   length: 20,
+//   height: 20,
 //   img: 'img/platform1.png',
 //   distance: 15,
 //   speed: 2
 // }
 var MovingZombie = function(attrs) {
-  DeadlyThinger.apply(this, [attrs]);
+  DeadlyTallThinger.apply(this, [attrs]);
 
   this.move = function(playerPos) {
     var distanceFromPlayer = _euclideanDistance({x: this.image.x, y: this.image.y}, playerPos);

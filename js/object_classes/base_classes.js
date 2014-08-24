@@ -1,3 +1,9 @@
+// Example params
+// attrs = {
+//   x: 10,
+//   y: 15,
+//   img: 'img/thinger1.png'
+// }
 var Visuals = function(attrs) {
   this.image = new createjs.Bitmap(attrs.img);
   this.image.x = attrs.x;
@@ -52,6 +58,12 @@ var TallThinger = function(attrs) {
 // Makes player die
 var DeadlyThinger = function(attrs) {
   Thinger.apply(this, [attrs]);
+  this.effectOnPlayer = "kill";
+};
+
+// Makes player die
+var DeadlyTallThinger = function(attrs) {
+  TallThinger.apply(this, [attrs]);
   this.effectOnPlayer = "kill";
 };
 
