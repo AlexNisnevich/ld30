@@ -73,10 +73,11 @@ var KEYCODE_RIGHT = 39;
 				}
 			}
 		}
-		this.move(collision, collideable);
+		checkCollision();
+		this.move(collision, collideable, addY);
 	};
 
-	Player.prototype.move = function(collision, collideable) {
+	Player.prototype.move = function(collision, collideable, addY) {
 		// if no collision was to be found, just
 		//  move the Player to it's new position
 		if ( !collision ) {
