@@ -2,104 +2,6 @@
 // attrs = {
 //   x: 10,
 //   y: 15,
-//   length: 20,
-//   img: 'img/thinger1.png'
-// }
-var Thinger = function(attrs) {
-  this.length = attrs.length;
-
-  this.image = new createjs.Bitmap(attrs.img);
-  this.image.obj = this;
-  this.image.x = attrs.x;
-  this.image.y = attrs.y;
-
-  this.draw = function (game) {
-    this.image.scaleX = attrs.length / this.image.getBounds().width;
-    game.addObject(this.image);
-  };
-};
-
-var Platform = function(attrs) {
-  Thinger.apply(this, [attrs]);
-};
-
-// Example params
-// attrs = {
-//   x: 10,
-//   y: 15,
-//   length: 20,
-//   img: 'img/platform1.png',
-//   direction: 'left',
-//   speed: 2,
-//   leftBound: 6,
-//   rightBound: 10
-// }
-var MovingPlatform = function(attrs) {
-  Platform.apply(this, [attrs]);
-  this.direction = attrs.direction;
-  this.speed = attrs.speed;
-  this.leftBound = attrs.leftBound;
-  this.rightBound = attrs.rightBound;
-  this.upBound = attrs.upBound;
-  this.downBound = attrs.downBound;
-};
-
-// Example params
-// attrs = {
-//   x: 10,
-//   y: 15,
-//   length: 2,
-//   height: 20,
-//   img: 'img/tall_thinger1.png'
-// }
-var TallThinger = function(attrs) {
-  Thinger.apply(this, [attrs]);
-  this.height = attrs.height;
-  var _draw = this.draw.bind(this);
-
-  this.draw = function(game) {
-    this.image.scaleY = attrs.height / this.image.getBounds().height;
-    _draw(game);
-  };
-};
-
-// Makes player move faster
-var Ice = function(attrs) {
-  Thinger.apply(this, [attrs]);
-  this.effectOnPlayer = "speedUp";
-  this.shatterVelocity = 15;
-
-  this.shatter = function () {
-    this.image.scaleX = 0;
-  };
-
-  this.reset = function () {
-    this.image.scaleX = attrs.length / this.image.getBounds().width;
-  };
-};
-
-// Makes player die
-var DeadlyThinger = function(attrs) {
-  Thinger.apply(this, [attrs]);
-  this.effectOnPlayer = "kill";
-};
-
-// Player bounces off of object
-var BouncyThinger = function(attrs) {
-  Thinger.apply(this, [attrs]);
-  this.effectOnPlayer = "bounce";
-};
-
-// Makes player stop moving
-var Tree = function(attrs) {
-  TallThinger.apply(this, [attrs]);
-  this.effectOnPlayer = "stop";
-};
-
-// Example params
-// attrs = {
-//   x: 10,
-//   y: 15,
 //   radius: 5,
 //   img: 'img/platform1.png',
 //   maxRadius: 10,
@@ -209,27 +111,6 @@ var MovingPolarBear = function(attrs) {
   this.disappear = function() {
     this.image.scaleX = 0;
   };
-};
-
-MovingPlatform.prototype.move = function() {
-  switch(this.direction) {
-    case 'left':
-      this.image.x -= this.speed;
-      if(this.leftBound === this.image.x) { this.direction = 'right'; }
-      break;
-    case 'right':
-      this.image.x += this.speed;
-      if(this.rightBound === this.image.x) { this.direction = 'left'; }
-      break;
-    case 'up':
-      this.image.y -= this.speed;
-      if(this.upBound === this.image.y) { this.direction = 'down'; }
-      break;
-    case 'down':
-      this.image.y += this.speed;
-      if(this.downBound === this.image.y) { this.direction = 'up'; }
-      break;
-  }
 };
 
 var _euclideanDistance = function (pos1, pos2) {
