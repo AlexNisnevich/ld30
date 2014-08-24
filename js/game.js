@@ -25,7 +25,7 @@ var Game = function(w, h) {
     5: LevelFive
   };
 
-  var currentLevelNum = 1;
+  var currentLevelNum = 5;
 
   var self = this;
   var ticks = 0;
@@ -155,7 +155,7 @@ var Game = function(w, h) {
     collideables = [];
 
     // place exit
-    this.addObject(world.goal);
+    this.addObject(world.goal.image);
 
     // place objects
     world.objects.forEach(function (obj) {
