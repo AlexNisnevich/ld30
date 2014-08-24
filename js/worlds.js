@@ -108,7 +108,7 @@ var CombinedWorld = function(baseWorld, otherWorld) {
   // Uses the attributes of the other world and concats
   // the different objects in from both worlds
   var _updateAttrs = function(baseWorld, otherWorld) {
-    that.attrs = otherWorld.attrs[attr];
+    that.attrs = otherWorld.attrs;
     that.objects = baseWorld.objects.slice(0).concat(otherWorld.objects);
   };
 
