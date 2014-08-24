@@ -91,20 +91,6 @@ var KEYCODE_RIGHT = 39;
       // and then make it stop and tell the
       // game, that the Player is now "an the ground"
     } else {
-      this.image.y += addY - collision.height;
-      if ( addY > 0 ) {
-        this.onGround = true;
-        this.doubleJump = false;
-      }
-
-      if (collideable.obj.shatterVelocity && this.velocity.y > collideable.obj.shatterVelocity) {
-        console.log('shatter!');
-        collideable.obj.shatter();
-      }
-
-      this.velocity.y = 0;
-
-      this.speedMultiplier = 1;
       // Handle special objects
       if (collideable && collideable.obj) {
         switch(collideable.obj.effectOnPlayer) {
@@ -116,15 +102,37 @@ var KEYCODE_RIGHT = 39;
             this.velocity.x *= 2;
           }
           break;
+        case 'stop':
+          this.velocity = {x:0, y:0};
+          return;
+        case 'bounce':
+          this.velocity.x = -1 * this.velocity.x;
+          this.velocity.y = -1 * this.velocity.y;
         }
       }
+
+      this.image.y += addY - collision.height;
+      if ( addY > 0 ) {
+        this.onGround = true;
+        this.doubleJump = false;
+      }
+
+      if (collideable.obj.shatterVelocity && this.velocity.y > collideable.obj.shatterVelocity) {
+        collideable.obj.shatter();
+      }
+
+      this.velocity.y = 0;
     }
 
-    this.image.x += this.velocity.x * this.speedMultiplier;
+    this.image.x += this.velocity.x;
 
-    if (this.image.y > 600) {
+    if (this.isOffscreen()) {
       this.die();
     }
+  };
+
+  Player.prototype.isOffscreen = function() {
+    return this.image.x < 0 || this.image.y < 0 || this.image.x > 1000 || this.image.y > 600;
   };
 
   Player.prototype.die = function () {
@@ -133,7 +141,7 @@ var KEYCODE_RIGHT = 39;
     this.velocity = {x: 0, y: 0};
 
     game.resetLevel();
-  }
+  };
 
   Player.prototype.isVisible = function () {
     return this.image.isVisible();
