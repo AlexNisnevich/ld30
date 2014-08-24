@@ -61,20 +61,7 @@ var KEYCODE_RIGHT = 39;
         collideable = obj;
       }
 
-      if (!collision) {
-        // if there was NO collision detected, but somehow
-        // the Player got onto the "other side" of an object (high velocity e.g.),
-        // then we will detect this here, and adjust the velocity according to
-        // it to prevent the Player from "ghosting" through objects
-        // try messing with the 'this.velocity = {x:0,y:25};'
-        // -> it should still collide even with very high values
-        if ( ( bounds.y < cbounds.y && bounds.y + addY > cbounds.y )
-             || ( bounds.y > cbounds.y && bounds.y + addY < cbounds.y ) ) {
-          addY = cbounds.y - bounds.y;
-        } else {
-          cc++;
-        }
-      }
+      cc++;
     }
 
     this.move(collision, collideable, addY);
