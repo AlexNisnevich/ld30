@@ -30,16 +30,17 @@ var KEYCODE_RIGHT = 39;
 		this.velocity.y += this.fallSpeed;
 
 		// preparing the variables
-		var c = 0,
-			cc = 0,
-			addY = this.velocity.y,
-			bounds = getBounds(this.image),
-			cbounds,
+		var addY = this.velocity.y,
 			collision = null,
 			collideable = null,
-			collideables = this.game.getCollideables();
+			_this = this;
 
 		function checkCollision() {
+			var c = 0,
+				cc = 0,
+				bounds = getBounds(_this.image),
+				cbounds,
+				collideables = _this.game.getCollideables();
 			// for each collideable object we will calculate the
 			// bounding-rectangle and then check for an intersection
 			// of the Player's future position's bounding-rectangle
