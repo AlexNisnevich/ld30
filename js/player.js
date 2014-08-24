@@ -24,6 +24,7 @@ var KEYCODE_RIGHT = 39;
     this.jumpHeight = 15;
     this.fallSpeed = 0.8;
     this.moveSpeed = 10;
+    this.speedMultiplier = 1;
   };
 
   Player.prototype.tick = function () {
@@ -48,17 +49,14 @@ var KEYCODE_RIGHT = 39;
         var obj = collideables[cc];
 
         cbounds = getBounds(obj);
-        if ( obj.isVisible ) {
-          collision = calculateIntersection(bounds, cbounds, 0, addY);
-        }
+        collision = calculateIntersection(bounds, cbounds, 0, addY);
 
         if (collision && obj.name == 'exit') {
-          alert('Yay!');
         } else if (collision) {
           collideable = obj;
         }
 
-        if ( !collision && obj.isVisible ) {
+        if (!collision) {
           // if there was NO collision detected, but somehow
           // the Player got onto the "other side" of an object (high velocity e.g.),
           // then we will detect this here, and adjust the velocity according to
@@ -101,19 +99,24 @@ var KEYCODE_RIGHT = 39;
 
       this.velocity.y = 0;
 
+      this.speedMultiplier = 1;
       // Handle special objects
-      switch(collideable.obj.effectOnPlayer) {
-      case 'kill':
-        this.image.x = this.startX;
-        this.image.y = this.startY;
-        break;
-      case 'speedUp':
-        this.velocity.x += 1;
-        break;
+      if (collideable && collideable.obj) {
+        switch(collideable.obj.effectOnPlayer) {
+        case 'kill':
+          this.image.x = this.startX;
+          this.image.y = this.startY;
+          break;
+        case 'speedUp':
+          if (Math.abs(this.velocity.x) == this.moveSpeed) {
+            this.velocity.x *= 2;
+          }
+          break;
+        }
       }
     }
 
-    this.image.x += this.velocity.x;
+    this.image.x += this.velocity.x * this.speedMultiplier;
   };
 
   Player.prototype.isVisible = function () {
@@ -132,9 +135,9 @@ var KEYCODE_RIGHT = 39;
 
   Player.prototype.handleKeyUp = function (keyCode) {
     if (keyCode == KEYCODE_LEFT) {
-      this.velocity.x = 0;
+      this.velocity.x += this.moveSpeed;
     } else if (keyCode == KEYCODE_RIGHT) {
-      this.velocity.x = 0;
+      this.velocity.x -= this.moveSpeed;
     }
   };
 
