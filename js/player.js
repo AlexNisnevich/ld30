@@ -54,10 +54,7 @@ var KEYCODE_RIGHT = 39;
       cbounds = getBounds(obj);
       collision = calculateIntersection(bounds, cbounds, 0, addY);
 
-      if (collision && obj.name == 'exit') {
-        _this.game.moveToNextLevel();
-        return;
-      } else if (collision) {
+      if (collision) {
         collideable = obj;
       }
 
@@ -99,6 +96,10 @@ var KEYCODE_RIGHT = 39;
           return;
         case 'bounce':
           addY = -4 * this.velocity.y;
+          break;
+        case 'exit':
+          _this.game.moveToNextLevel();
+          return;
         }
       }
 

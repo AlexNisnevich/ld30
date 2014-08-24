@@ -133,11 +133,7 @@ var Game = function(w, h) {
   this.loadLevel = function(world) {
     // place exit
     if (world.goal) {
-      exit = new createjs.Bitmap(assets['portal']);
-      exit.x = world.goal[0];
-      exit.y = world.goal[1];
-      exit.name = "exit";
-      this.addObject(exit);
+      this.addObject(world.goal);
     }
 
     // place player

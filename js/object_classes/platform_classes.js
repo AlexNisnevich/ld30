@@ -2,6 +2,10 @@ var Platform = function(attrs) {
   Thinger.apply(this, [attrs]);
 };
 
+var MovingHeavyPlatform = function(attrs) {
+  MovingHeavyThinger.apply(this, [attrs]);
+};
+
 // Example params
 // attrs = {
 //   x: 10,
@@ -41,31 +45,5 @@ var MovingPlatform = function(attrs) {
         if(this.downBound === this.image.y) { this.direction = 'up'; }
         break;
     }
-  };
-};
-
-// Example params
-// attrs = {
-//   x: 10,
-//   y: 15,
-//   length: 20,
-//   img: 'img/platform1.png',
-//   fallSpeed: 6,
-//   gravityThreshold: 10
-// }
-var MovingHeavyPlatform = function(attrs) {
-  Platform.apply(this, [attrs]);
-  this.startY = attrs.y;
-  this.gravityThreshold = attrs.gravityThreshold;
-  this.fallSpeed = attrs.fallSpeed;
-
-  this.move = function(playerPos, world) {
-    if (world.attrs.gravityCoefficient > this.gravityThreshold) {
-      this.image.y += this.fallSpeed;
-    }
-  };
-
-  this.reset = function() {
-    this.image.y = this.startY;
   };
 };
