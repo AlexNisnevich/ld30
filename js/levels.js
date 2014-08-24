@@ -50,7 +50,7 @@ var LevelThree = new World({
 }]);
 
 var LevelFour = new World({
-  name: "Tree1",
+  name: "Nature1",
   start: [600, 225],
   goal: [600, 555],
   gravityCoefficient: 1
@@ -60,42 +60,42 @@ var LevelFour = new World({
   y: 105,
   length: 25,
   height: 495,
-  img: 'assets/tree.png'
+  img: 'assets/nature_trunk.png'
 },{
   type: "bouncyThinger",
-  x: 560,
+  x: 565,
   y: 250,
   length: 70,
-  img: 'assets/branch.png'
+  img: 'assets/nature_branch1.png'
 },{
   type: "bouncyThinger",
-  x: 480,
+  x: 490,
   y: 370,
   length: 145,
-  img: 'assets/branch.png'
+  img: 'assets/nature_branch2.png'
 },{
   type: "bouncyThinger",
-  x: 650,
+  x: 707,
   y: 150,
-  length: 70,
-  img: 'assets/branch.png'
+  length: -70,
+  img: 'assets/nature_branch1.png'
 },{
   type: "bouncyThinger",
-  x: 650,
+  x: 645,
   y: 565,
   length: 140,
-  img: 'assets/branch.png'
+  img: 'assets/nature_branch3.png'
 },{
   type: "visuals",
   x: 520,
   y: 370,
-  img: 'assets/beehive.png'
+  img: 'assets/nature_hive.png'
 },{
   type: "movingBeehive",
   x: 550,
   y: 400,
   radius: 20,
-  img: 'assets/bees.png',
+  img: 'assets/nature_bee.png',
   maxRadius: 100,
   senseRadius: 200,
   speedOut: 1,
