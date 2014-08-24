@@ -153,7 +153,6 @@ var Game = function(w, h) {
   };
 
   this.resetLevel = function() {
-    console.log(collideables);
     collideables.forEach(function (c) {
       if (c.obj && c.obj.reset) {
         c.obj.reset();
