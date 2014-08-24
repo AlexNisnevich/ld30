@@ -50,6 +50,32 @@ var LevelThree = new World({
 }]);
 
 var LevelFour = new World({
+  name: "Tree1",
+  start: [600, 225],
+  goal: [600, 555],
+  gravityCoefficient: 1
+}, [{
+  type: "tree",
+  x: 625,
+  y: 105,
+  length: 25,
+  height: 495,
+  img: 'assets/tree.png'
+},{
+  type: "bouncyThinger",
+  x: 560,
+  y: 250,
+  length: 70,
+  img: 'assets/branch.png'
+},{
+  type: "bouncyThinger",
+  x: 480,
+  y: 370,
+  length: 145,
+  img: 'assets/branch.png'
+}]);
+
+var LevelFive = new World({
   name: "Space1",
   start: [925, 470],
   goal: [95, 70],

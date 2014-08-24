@@ -10,20 +10,22 @@ var Game = function(w, h) {
   };
 
   var levelHotkeys = {
-    49: 1,  // 1
-    50: 2,  // 2
-    51: 3,  // 3
-    52: 4   // 4
+    49:  1,  // 1
+    50:  2,  // 2
+    51:  3,  // 3
+    52:  4,  // 4
+    113: 5   // Q
   };
 
   var levels = {
     1: LevelOne,
     2: LevelTwo,
     3: LevelThree,
-    4: LevelFour
+    4: LevelFour,
+    5: LevelFive
   };
 
-  var currentLevelNum = 1;
+  var currentLevelNum = 4;
 
   var self = this;
   var ticks = 0;
@@ -85,7 +87,7 @@ var Game = function(w, h) {
     container = new createjs.Container();
     stage.addChild(container);
 
-    world = levels[1];
+    world = levels[currentLevelNum];
     this.loadLevel(world);
 
     // Setting the listeners

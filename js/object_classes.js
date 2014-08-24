@@ -57,9 +57,9 @@ var TallThinger = function(attrs) {
   this.height = attrs.height;
   var _draw = this.draw.bind(this);
 
-  this.draw = function() {
+  this.draw = function(game) {
     this.image.scaleY = attrs.height / this.image.getBounds().height;
-    _draw();
+    _draw(game);
   };
 };
 
@@ -85,7 +85,7 @@ var DeadlyThinger = function(attrs) {
 };
 
 // Player bounces off of object
-var BounceThinger = function(attrs) {
+var BouncyThinger = function(attrs) {
   Thinger.apply(this, [attrs]);
   this.effectOnPlayer = "bounce";
 };
@@ -237,4 +237,3 @@ var _euclideanDistance = function (pos1, pos2) {
   yDistance = Math.abs(pos1.y - pos2.y);
   return Math.sqrt(Math.pow(xDistance,2) + Math.sqrt(yDistance,2));
 };
-
