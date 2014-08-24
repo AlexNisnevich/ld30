@@ -160,6 +160,16 @@ var LevelFive = new World({
   img: 'assets/platform.png',
   gravityThreshold: 0.5,
   fallSpeed: 1
+},{
+  type: "movingLazer",
+  x: 10,
+  y: 15,
+  length: 20,
+  height: 5,
+  img: 'assets/platform.png',
+  goalX: 100,
+  speed: 2,
+  inactiveLength: 20
 }]);
 
 /*var BlankFinalLevel = new World({
