@@ -22,8 +22,8 @@ var KEYCODE_RIGHT = 39;
 
     this.canDoubleJump = false;
     this.jumpHeight = 12;
-    this.fallSpeed = 0.8;
-    this.moveSpeed = 10;
+    this.fallSpeed = 0.9;
+    this.moveSpeed = 6;
     this.speedMultiplier = 1;
   };
 
@@ -144,9 +144,9 @@ var KEYCODE_RIGHT = 39;
 
   Player.prototype.handleKeyUp = function (keyCode) {
     if (keyCode == KEYCODE_LEFT) {
-      this.velocity.x += this.moveSpeed;
+      this.velocity.x = 0;
     } else if (keyCode == KEYCODE_RIGHT) {
-      this.velocity.x -= this.moveSpeed;
+      this.velocity.x = 0;
     }
   };
 
