@@ -155,7 +155,6 @@ function Game(levels) {
 
     if (typeof level == "number" && level < currentLevel) {
       if (other == levels[level]) {
-        console.log("Done");
         that.setOther(null);
       } else {
         that.setOther(levels[level]);

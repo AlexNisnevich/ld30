@@ -3,13 +3,16 @@
 function entity(shape, options) {
   var shapeName    = shape.name || shape;
 
-  return Physics.body(shapeName, _.extend({
+  b = Physics.body(shapeName, _.extend({
     x           : 0,
     y           : 0,
     vx          : 0,
     vy          : 0,
     restitution : 0.1
   }, shape, options));
+
+  console.log(b);
+  return b;
 }
 
 function platform(options) {

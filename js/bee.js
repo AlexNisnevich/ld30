@@ -1,14 +1,15 @@
 function bees(player) {
   Physics.behavior("bees", function (parent) {
-    var center = { x : 542, y : 415 };
+    var center = { x : 542, y : 385 };
 
     var minRadius   = 20;
     var maxRadius   = 100;
-    var senseRadius = 200;
+    var senseRadius = 150;
     var radius      = minRadius;
 
-    var growSpeed   = 1;
-    var shrinkSpeed = 0.4;
+    var movementSpeed = 0.5;
+    var growSpeed     = 0.2;
+    var shrinkSpeed   = 0.1;
 
     return {
       behave : function (data) {
@@ -27,18 +28,18 @@ function bees(player) {
         }
 
         _.each(bodies, function (bee) {
-          var speed = radius / minRadius;
+          var speed = movementSpeed * radius / minRadius;
           
-          bee.state.pos.x += Math.cos(bee.angle) * speed;
-          bee.state.pos.y += Math.sin(bee.angle) * speed;
+          bee.state.pos.x += Math.cos(bee.beeAngle) * speed;
+          bee.state.pos.y += Math.sin(bee.beeAngle) * speed;
 
           var dx = bee.state.pos.x - center.x;
           var dy = bee.state.pos.y - center.y;
 
           if (Math.sqrt(dx * dx + dy * dy) > radius) {
-            bee.state.pos.x += (center.x - bee.state.pos.x) / 10;
-            bee.state.pos.y += (center.y - bee.state.pos.y) / 10;
-            bee.angle += 180 + Math.random() * 30;
+            bee.state.pos.x += (center.x - bee.state.pos.x) / 100;
+            bee.state.pos.y += (center.y - bee.state.pos.y) / 100;
+            bee.beeAngle += 180 + Math.random() * 30;
           }
         });
       }
