@@ -11,7 +11,7 @@ function Game(levels) {
   var addObjects = changeObjects("add");
   var removeObjects = changeObjects("remove");
 
-  var currentLevel = 0;
+  var currentLevel = 2;
   var base  = levels[currentLevel];
 
   var currentBg = '';

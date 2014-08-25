@@ -36,6 +36,7 @@ function collisions(that) {
         if (Math.abs(other.state.vel.y) > 0.5) {
           that.physics.remove([main]);
 
+
           var numPieces = 5;
           var miniOptions = {
             length    : main.length / numPieces,
@@ -50,12 +51,14 @@ function collisions(that) {
           
           for (var i = 0; i < numPieces; i++) {
             pieces.push(icePlatform(_.extend(miniOptions, {
-              x : x - (main.length / numPieces * i),
-              y : y
+              x      : x - (main.length / numPieces * i),
+              y      : y + 20,
+              killer : true
             })));
             pieces.push(icePlatform(_.extend(miniOptions, {
-              x : x + (main.length / numPieces * i),
-              y : y
+              x      : x + (main.length / numPieces * i),
+              y      : y + 20,
+              killer : true
             })));
           }
 
@@ -66,6 +69,12 @@ function collisions(that) {
           that.physics.add(pieces);
 
           setTimeout(function () { that.physics.remove(pieces) }, 500);
+        }
+      });
+
+      withProperty("killer", bodyA, bodyB, function (killer, victim) {
+        if (victim.killable) {
+          that.physics.remove(victim);
         }
       });
 
