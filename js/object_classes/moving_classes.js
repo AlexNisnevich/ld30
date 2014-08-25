@@ -35,6 +35,8 @@ var MovingBeehive = function(attrs) {
     this.bees.forEach(game.addObject);
   };
 
+  // Move radius outward or inward depending on the playerPos
+  // then move bees accordingly
   this.move = function(playerPos) {
     var distanceFromPlayer = _euclideanDistance({x: this.centerX, y: this.centerY}, playerPos);
 
@@ -44,16 +46,7 @@ var MovingBeehive = function(attrs) {
       this.moveInward();
     }
 
-    this.bees.forEach(function (bee) {
-      bee.speed = that.radius / that.minRadius;
-      bee.x += Math.cos(bee.angle) * bee.speed;
-      bee.y += Math.sin(bee.angle) * bee.speed;
-      if (_euclideanDistance({x: that.centerX, y: that.centerY}, bee) > that.radius) {
-        bee.x += (that.centerX - bee.x) / 10;
-        bee.y += (that.centerY - bee.y) / 10;
-        bee.angle += 180 + Math.random() * 30;
-      }
-    });
+    this.moveBees();
   };
 
   this.moveOutward = function() {
@@ -71,6 +64,19 @@ var MovingBeehive = function(attrs) {
   this.reset = function () {
     this.radius = this.minRadius;
     setupRadius();
+  };
+
+  this.moveBees = function() {
+    this.bees.forEach(function (bee) {
+      bee.speed = that.radius / that.minRadius;
+      bee.x += Math.cos(bee.angle) * bee.speed;
+      bee.y += Math.sin(bee.angle) * bee.speed;
+      if (_euclideanDistance({x: that.centerX, y: that.centerY}, bee) > that.radius) {
+        bee.x += (that.centerX - bee.x) / 10;
+        bee.y += (that.centerY - bee.y) / 10;
+        bee.angle += 180 + Math.random() * 30;
+      }
+    });
   };
 };
 
