@@ -60,6 +60,29 @@ function branch(type, options) {
   return platform(_.extend(defaults, options));
 }
 
+function beehive(options) {
+  var defaults = {
+    height   : 64,
+    length   : 40,
+    view     : image("assets/nature_hive.png", 40)
+  };
+
+  return platform(_.extend(defaults, options)); 
+}
+
+function bee(options) {
+  var defaults = {
+    view      : image("assets/nature_bee.png"),
+    passable  : true,
+    killer    : true,
+    bee       : true,
+    beeAngle  : Math.random() * 360,
+    treatment : "static"
+  };
+
+  return entity(circle(10), _.extend(defaults, options));
+}
+
 function exit(options) {
   var defaults = {
     goal      : true,

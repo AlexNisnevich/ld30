@@ -6,6 +6,8 @@ var height   = 600;
 function Game(levels) {
   var that = this;
 
+  var beehavior = null;
+
   var addObjects = changeObjects("add");
   var removeObjects = changeObjects("remove");
 
@@ -34,6 +36,10 @@ function Game(levels) {
   this.setBase = function (newBase) {
     if (this.player) {
       physics.remove(this.player);
+    }
+
+    if (beehavior) {
+      physics.remove(beehavior);
     }
 
     // TODO: Make the player not be a circle!
@@ -67,6 +73,13 @@ function Game(levels) {
     removeObjects(base);
     base = newBase;
     addObjects(base);
+
+
+    bees(that.player);
+    beehavior = Physics.behavior("bees").applyTo(_.filter(base.objects, function (object) {
+      return !!object.bee;
+    }));
+    physics.add(beehavior);
   };
 
   this.setOther = function (newOther) {
@@ -88,7 +101,15 @@ function Game(levels) {
   // some other object.
   physics.on('collisions:detected', collisions(that));
 
-  physics.add(Physics.behavior('body-impulse-response'));
+  physics.on('collisions:detected', function (data) {
+    data.collisions = _.filter(data.collisions, function (c) {
+      return !c.bodyA.passable && !c.bodyB.passable;
+    });
+
+    physics.emit("collisions:filtered", data);
+  });
+
+  physics.add(Physics.behavior('body-impulse-response', { check : "collisions:filtered" }));
   physics.add(Physics.behavior('body-collision-detection'));
   physics.add(Physics.behavior('sweep-prune'));
 
