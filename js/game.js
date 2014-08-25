@@ -75,10 +75,9 @@ var Game = function(w, h) {
 
   this.initializeGame = function() {
     // creating the canvas-element
-    canvas = document.createElement('canvas');
+    canvas = document.getElementById('mainCanvas');
     canvas.width = w;
     canvas.height = h;
-    document.body.appendChild(canvas);
 
     // initializing the stage
     stage = new createjs.Stage(canvas);
