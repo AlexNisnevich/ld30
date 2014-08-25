@@ -142,7 +142,7 @@ var LevelFive = new World({
     gravityThreshold: 0.5,
     fallSpeed: 1
   },
-  gravityCoefficient: 0.2,
+  gravityCoefficient: 0.1,
   cantOverlap: []
 }, [{
   type: "movingHeavyPlatform",
