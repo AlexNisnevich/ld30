@@ -9,7 +9,7 @@ function Game(levels) {
   var beehavior = null;
   var zombiehavior = null;
 
-  var currentLevel = 5;
+  var currentLevel = 0;
 
   var base = levels[currentLevel];
   var other = null;
@@ -54,10 +54,10 @@ function Game(levels) {
       y        : newBase.start.y,
       vx       : 0,
       vy       : 0,
-      radius   : 22,
+      radius   : 28,
       cof      : 1,
       grounded : false,
-      view     : image("assets/magicStar.png")
+      view     : image("assets/char_face1.png")
     });
    
     physics.add(this.player);
