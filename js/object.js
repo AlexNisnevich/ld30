@@ -9,13 +9,11 @@ function entity(image, shape, options) {
     x     : options.x  || 0,
     y     : options.y  || 0,
     vx    : options.vx || 0,
-    vy    : options.vy || 0,
-    fixed : !!options.fixed
+    vy    : options.vy || 0
   }, shape, options));
 }
 
 function platform(options) {
-  options.fixed = true;
   options.treatment = 'static';
   return entity("assets/platform.png", rectangle(options.length, PLATFORM_HEIGHT), options);
 }

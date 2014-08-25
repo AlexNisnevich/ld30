@@ -22,7 +22,6 @@ function Game(base) {
     vx       : 0,
     vy       : 0,
     radius   : 20,
-    fixed    : false,
     grounded : false
   });
   physics.add(player);
@@ -77,8 +76,7 @@ function Game(base) {
   // Returns a list of all the objects subject to gravity.
   function freeFalling() {
     var otherObjects = other && other.objects ? other.objects : [];
-    return _.filter(base.objects.concat(otherObjects, [player]),
-                    function (x) { return !x.fixed });
+    return base.objects.concat(otherObjects, [player]);
   }
   
   function changeObjects(action) {
