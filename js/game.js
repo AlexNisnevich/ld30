@@ -126,7 +126,37 @@ var Game = function(w, h) {
     }
   };
 
+  this.updateLevelSidebar = function() {
+    var world = this.getWorld();
+
+    if (typeof world.levelNum === 'number') {
+        var base = world.levelNum;
+    } else if (world.levelNum instanceof Array) {
+        var base = world.levelNum[0];
+        var overlay = world.levelNum[1];
+    }
+
+    var $items = $('.levelindicator');
+    $items.hide();
+    for (var i = 1; i <= base; i++) {
+        var $item = $items.filter('.' + i);
+        $item.show();
+        if (i === base) {
+            $item.addClass('levelindicator-current');
+        } else {
+            $item.removeClass('levelindicator-current');
+        }
+
+        if (overlay && overlay === i) {
+            $item.addClass('levelindicator-overlay');
+        } else {
+            $item.removeClass('levelindicator-overlay');
+        }
+    }
+  }
+
   this.loadLevel = function(world) {
+    this.updateLevelSidebar();
     // place exit
     if (world.goal) {
       this.addObject(world.goal.image);
@@ -158,6 +188,7 @@ var Game = function(w, h) {
     world.objects.forEach(function (obj) {
       obj.draw(self);
     });
+
   };
 
   this.resetLevel = function() {
@@ -180,6 +211,7 @@ var Game = function(w, h) {
       setTimeout(function () { self.updateLevel(newWorld); }, 150);
       setTimeout(function () { self.updateLevel(world); }, 200);
     }
+    this.updateLevelSidebar();
   };
 
   this.addObject = function(obj) {
