@@ -9,7 +9,7 @@ function Game(levels) {
   var beehavior = null;
   var zombiehavior = null;
 
-  var currentLevel = 8;
+  var currentLevel = 0;
 
   var base = levels[currentLevel];
   var other = null;
@@ -189,6 +189,8 @@ function Game(levels) {
     _.each(physics.activeLasers, function (laser) {
       physics.removeBody(laser);
     })
+
+    physics.emit("reset-objects");
   }
 
   // The loop which checks which objects are "grounded", ie on top of
