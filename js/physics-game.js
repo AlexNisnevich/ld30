@@ -1,6 +1,7 @@
 var levels = [
   // one
   world({
+    levelNum : 1,
     start : { x : 370, y : 430 },
     bg : 'assets/zombie_bg.png'
   }, [
@@ -22,6 +23,7 @@ var levels = [
 
   // two
   world({
+    levelNum : 2,
     start : { x : 515, y : 280 },
     bg : 'assets/zombie_bg.png'
   }, [
@@ -38,6 +40,7 @@ var levels = [
 
   // three
   world({
+    levelNum : 3,
     start : { x : 345, y : 270 },
     bg : 'assets/polar_bg.png'
   }, [
@@ -59,6 +62,7 @@ var levels = [
 
   // four
   world({
+    levelNum : 4,
     start : { x : 600, y : 125 },
     bg : 'assets/nature_bg.png'
   }, [
@@ -118,6 +122,7 @@ var levels = [
 
   // five
   world({
+    levelNum : 5,
     start : { x : 940, y : 480 },
     bg : 'assets/space_bg.png',
     gravityAccel: 0.0001
@@ -144,6 +149,7 @@ var levels = [
 
   // six
   world({
+    levelNum : 6,
     start : { x : 150, y : 500 },
     bg : 'assets/space_bg.png',
     gravityAccel: 0.0001
@@ -174,6 +180,7 @@ var levels = [
 
   // seven
   world({
+    levelNum : 7,
     start : { x : 25, y : 100 },
     bg : 'assets/polar_bg.png'
   }, [
@@ -190,6 +197,7 @@ var levels = [
 
   // twelve
   world({
+    levelNum : 8,
     start : { x : 200, y : 420 },
     bg : 'assets/zombie_bg.png'
   }, [

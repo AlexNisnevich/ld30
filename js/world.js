@@ -9,7 +9,7 @@ function Game(levels) {
   var beehavior = null;
   var zombiehavior = null;
 
-  var currentLevel = 7;
+  var currentLevel = 0;
 
   var base = levels[currentLevel];
   var other = null;
@@ -110,6 +110,8 @@ function Game(levels) {
     })));
 
     physics.add(Physics.behavior("moving-platform"));
+
+    this.updateLevelSidebar();
   };
 
   this.setOther = function (newOther) {
@@ -144,6 +146,31 @@ function Game(levels) {
       acc: { x : 0, y: (newOther ? newOther : base).attrs.gravityAccel }
     });
     physics.add(that.gravity);
+
+    this.updateLevelSidebar();
+  }
+
+  this.updateLevelSidebar = function() {
+    var baseNum = base.attrs.levelNum;
+    var overlayNum = other ? other.attrs.levelNum : null;
+
+    var $items = $('.levelindicator');
+    $items.hide();
+    for (var i = 1; i <= baseNum; i++) {
+        var $item = $items.filter('.' + i);
+        $item.show();
+        if (i === baseNum) {
+            $item.addClass('levelindicator-current');
+        } else {
+            $item.removeClass('levelindicator-current');
+        }
+
+        if (overlayNum && overlayNum === i) {
+            $item.addClass('levelindicator-overlay');
+        } else {
+            $item.removeClass('levelindicator-overlay');
+        }
+    }
   }
 
   // The loop which checks which objects are "grounded", ie on top of
