@@ -18,6 +18,15 @@ function platform(options) {
   return entity("assets/platform.png", rectangle(options.length, PLATFORM_HEIGHT), options);
 }
 
+function zombiePlatform(options) {
+  var defaults = {
+    restitution : 0.1,
+    view        : image("assets/zombie_tile.png", options.length)
+  };
+
+  return platform(_.extend(options, defaults));
+}
+
 // A circle shape, with the given radius.
 function circle(radius) {
   return {
@@ -34,4 +43,3 @@ function rectangle(width, height) {
     height : height
   }
 }
-

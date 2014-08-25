@@ -1,5 +1,5 @@
 var width    = 1000;
-var height   = 500;
+var height   = 600;
 
 // Manages everything in the game: the player, platforms,
 // enemies... etc. Contains the Physics.js world (called physics).
@@ -22,7 +22,8 @@ function Game(base) {
     vx       : 0,
     vy       : 0,
     radius   : 20,
-    grounded : false
+    grounded : false,
+    view     : image("assets/magicStar.png")
   });
   physics.add(player);
 
@@ -114,4 +115,15 @@ function World(attrs, objects) {
     goal    : attrs.goal,
     objects : objects
   };
+}
+
+function image(url, length) {
+  var img = new Image();
+  img.src = url;
+
+  if (length) {
+    img.width = length;
+  }
+
+  return img;
 }

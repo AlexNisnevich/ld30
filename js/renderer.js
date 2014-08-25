@@ -4,7 +4,7 @@ var height   = 500;
 // The Physics.js code that takes our abstract objects and draws them
 // on a canvas.
 function renderer() {
-  return Physics.renderer('canvas', {
+  return Physics.renderer('our-canvas', {
     el     : 'viewport',
     width  : width,
     height : height,

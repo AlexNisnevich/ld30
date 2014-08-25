@@ -1,17 +1,16 @@
 function go() {
   var game = new Game({
-    objects : [platform({
-      x           : 100,
-      y           : 100,
-      length      : 100,
-      restitution : 0.1
-    }),
-    platform({
-      x           : 300,
-      y           : 150,
-      length      : 100,
-      restitution : 0.1
-    })]
+    objects : [
+      zombiePlatform({
+        x           : 100,
+        y           : 100,
+        length      : 100
+      }),
+      zombiePlatform({
+        x           : 300,
+        y           : 150,
+        length      : 10
+      })]
   });
 
   Physics.util.ticker.on(function (time) {
