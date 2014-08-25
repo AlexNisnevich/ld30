@@ -170,7 +170,7 @@ function Game(levels) {
   }
 
   $(document).keypress(function (e) {
-    var level = levelHotkeys[e.keyCode];
+    var level = levelHotkeys[e.keyCode || e.which];
 
     if (typeof level == "number" && level < currentLevel) {
       if (other == levels[level]) {

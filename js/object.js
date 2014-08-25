@@ -11,7 +11,6 @@ function entity(shape, options) {
     restitution : 0.1
   }, shape, options));
 
-  console.log(b);
   return b;
 }
 
