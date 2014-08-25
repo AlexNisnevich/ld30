@@ -174,23 +174,23 @@ var levels = [
     }),
     spaceship(1, {
       x : 60,
-      y : 370
+      y : 430
     }),
     spaceship(2, {
-      x : 900,
-      y : 400
+      x : 830,
+      y : 450
     }),
     exit({
-      x        : 900,
-      y        : 430
+      x : 940,
+      y : 410
     })
   ], [
-    Physics.behavior("laser", { options : { x : 116, y : 370 } }),
+    Physics.behavior("laser", { options : { x : 116, y : 430 } }),
     Physics.behavior("laser", {
       laserType : 2,
       options : {
-        x : 842,
-        y : 400
+        x : 772,
+        y : 445
         ,
         moving : { x : -0.5, y : 0 }
       }

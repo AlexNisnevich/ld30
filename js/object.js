@@ -171,6 +171,7 @@ function spaceship(type, options) {
     length   : 50,
     height   : 31,
     killable : true,
+    killer   : true,
     view     : image("assets/space_ship" + type + ".png")
   };
 
