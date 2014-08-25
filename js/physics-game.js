@@ -152,13 +152,13 @@ var levels = [
   // six
   world({
     levelNum : 6,
-    start : { x : 180, y : 500 },
+    start : { x : 180, y : 530 },
     bg : 'assets/space_bg.png',
     gravityAccel: 0.0001
   }, [
     asteroid({
       x           : 150,
-      y           : 550,
+      y           : 575,
       length      : 80,
       height      : 40,
       rectangular : true,
@@ -169,31 +169,30 @@ var levels = [
     }),
     asteroid({
       x      : 940,
-      y      : 457,
+      y      : 442,
       length : 80,
       height : 77,
       view   : image("assets/space_rock2.png", 80 + 15)
     }),
     spaceship(1, {
       x : 60,
-      y : 430
+      y : 415
     }),
     spaceship(2, {
       x : 830,
-      y : 450
+      y : 435
     }),
     exit({
       x : 940,
-      y : 410
+      y : 395
     })
   ], [
-    Physics.behavior("laser", { options : { x : 116, y : 430 } }),
+    Physics.behavior("laser", { options : { x : 116, y : 415 } }),
     Physics.behavior("laser", {
       laserType : 2,
       options : {
         x : 772,
-        y : 445
-        ,
+        y : 430,
         moving : { x : -0.5, y : 0 }
       }
     })
@@ -218,14 +217,16 @@ var levels = [
 
   // eight
   world({
-    start        : { x : 200, y : 10 },
+    start        : { x : 200, y : 25 },
     bg           : 'assets/space_bg.png',
     gravityAccel : 0.0001
   }, [
     asteroid({
-      x      : 200,
-      y      : 60,
-      radius : 20
+      x           : 200,
+      y           : 80,
+      length      : 100,
+      height      : 40,
+      rectangular : true
     }),
     spaceship(1, {
       x : 50,
@@ -256,75 +257,75 @@ var levels = [
   // twelve
   world({
     levelNum : 8,
-    start : { x : 200, y : 420 },
+    start : { x : 200, y : 380 },
     bg : 'assets/zombie_bg.png'
   }, [
     zombiePlatform({
       x : 200,
-      y : 450,
+      y : 410,
       length: 400,
       view: image("assets/zombie_tile2.png", 500 + 15)
     }),
     exit({
-      x : 380,
-      y : 420,
+      x : 80,
+      y : 380,
       passable : true
     }),
     crate({
       x : 140,
-      y : 430
+      y : 390
     }),
     crate({
       x : 140,
-      y : 400
+      y : 360
     }),
     barbedWire({
       x : 130,
-      y : 377
+      y : 337
     }),
     crate({
       x : 260,
-      y : 430
+      y : 390
     }),
     crate({
       x : 260,
-      y : 400
+      y : 360
     }),
     barbedWire({
       x : 270,
-      y : 377
+      y : 337
     }),
     zombie({
       x : 20,
-      y : 420
+      y : 380
     }),
     zombie({
       x : 40,
-      y : 420
+      y : 380
     }),
     zombie({
       x : 60,
-      y : 420
+      y : 380
     }),
     zombie({
       x : 80,
-      y : 420
+      y : 380
     }),
     zombie({
       x : 330,
-      y : 420
+      y : 380
     }),
     zombie({
       x : 350,
-      y : 420
+      y : 380
     }),
     zombie({
       x : 370,
-      y : 420
+      y : 380
     }),
     zombie({
       x : 390,
-      y : 420
+      y : 380
     })
   ])
 ]

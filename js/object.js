@@ -188,7 +188,7 @@ function asteroid(options) {
   var src   = "assets/space_rock" + (options.asteroidType || 1) + ".png";
   var shape = options.rectangular ? rectangle(length, height) : circle(radius);
   var view  = options.rectangular ?
-    image(src, length + 15, height + 10) :
+    image(src, length + 15, height + 20) :
     image(src, radius - 20, radius - 20);
 
   var defaults = {

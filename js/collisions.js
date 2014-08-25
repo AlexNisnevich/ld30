@@ -64,7 +64,11 @@ function collisions(that) {
 
           that.physics.add(pieces);
 
-          setTimeout(function () { that.physics.remove(pieces) }, 600);
+          var timeout = setTimeout(function () { that.physics.remove(pieces) }, 600);
+          that.physics.on("reset-objects", function () {
+            clearTimeout(timeout);
+            that.physics.remove(pieces);
+          });
         }
       });
 
