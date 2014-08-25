@@ -2,27 +2,28 @@ var ShatteredWorlds = function() {
   return new Game(1000, 600);
 };
 
-var world;
 var Game = function(w, h) {
   var assetsToLoad = {
-    'hero': 'assets/hero.png',
-    'platform': 'assets/platform.png',
-    'portal': 'assets/magicKey.png'
+    'hero': 'assets/magicStar.png'
   };
 
   var levelHotkeys = {
-    49: 1,  // 1
-    50: 2,  // 2
-    51: 3   // 3
+    49:  1,  // 1
+    50:  2,  // 2
+    51:  3,  // 3
+    52:  4,  // 4
+    113: 5   // Q
   };
 
   var levels = {
     1: LevelOne,
     2: LevelTwo,
-    3: LevelThree
+    3: LevelThree,
+    4: LevelFour,
+    5: LevelFive
   };
 
-  var currentLevelNum = 1;
+  var currentLevelNum = 4;
 
   var self = this;
   var ticks = 0;
@@ -32,6 +33,9 @@ var Game = function(w, h) {
   var player;
   var exit;
   var assets = [];
+
+  var world;
+  this.getWorld = function() { return world; };
 
   // holds all collideable objects
   var collideables = [];
@@ -53,7 +57,7 @@ var Game = function(w, h) {
       assets[name] = img;
 
       ++requestedAssets;
-    }
+    };
     // each time an asset is loaded
     // check if all assets are complete
     // and initialize the game, if so
@@ -62,9 +66,9 @@ var Game = function(w, h) {
       if ( loadedAssets == requestedAssets ) {
         self.initializeGame();
       }
-    }
+    };
 
-    for (asset in assetsToLoad) {
+    for (var asset in assetsToLoad) {
       loadImage(asset, assetsToLoad[asset]);
     }
   };
@@ -81,7 +85,7 @@ var Game = function(w, h) {
     container = new createjs.Container();
     stage.addChild(container);
 
-    world = levels[1];
+    world = levels[currentLevelNum];
     this.loadLevel(world);
 
     // Setting the listeners
@@ -104,8 +108,10 @@ var Game = function(w, h) {
 
   this.tick = function(e) {
     ticks++;
-    player.tick();
-    world.tick({x: player.image.x, y: player.image.y});
+    if (player) {
+      player.tick();
+      world.tick({x: player.image.x, y: player.image.y});
+    }
     stage.update();
   };
 
@@ -123,17 +129,20 @@ var Game = function(w, h) {
 
   this.loadLevel = function(world) {
     // place exit
-    exit = new createjs.Bitmap(assets['portal']);
-    exit.x = world.goal[0];
-    exit.y = world.goal[1];
-    exit.name = "exit";
-    this.addObject(exit);
+    if (world.goal) {
+      this.addObject(world.goal.image);
+    }
 
     // place player
-    player = new Player(assets['hero'], world.start[0], world.start[1], self);
-    container.addChild(player.image);
+    if (world.start) {
+      player = new Player(assets['hero'], world.start[0], world.start[1], self);
+      container.addChild(player.image);
+    }
 
-    this.updateLevel(world);
+    // place objects
+    world.objects.forEach(function (obj) {
+      obj.draw(self);
+    });
   };
 
   this.updateLevel = function(world) {
@@ -144,7 +153,7 @@ var Game = function(w, h) {
     collideables = [];
 
     // place exit
-    this.addObject(exit);
+    this.addObject(world.goal.image);
 
     // place objects
     world.objects.forEach(function (obj) {
@@ -153,22 +162,30 @@ var Game = function(w, h) {
   };
 
   this.resetLevel = function() {
-    console.log(collideables);
-    collideables.forEach(function (c) {
-      if (c.obj && c.obj.reset) {
-        c.obj.reset();
-      }
-    });
-  }
+    world = world.reset();
+    this.updateLevel(world);
+  };
 
   this.overlayWorld = function(newWorld) {
-    world = world.combine(newWorld);
-    this.updateLevel(world);
+    if (world.canOverlap(newWorld)) {
+      var oldWorld = world;
+      world = world.combine(newWorld);
+      this.updateLevel(world);
+      setTimeout(function () { self.updateLevel(oldWorld); }, 50);
+      setTimeout(function () { self.updateLevel(world); }, 100);
+      setTimeout(function () { self.updateLevel(oldWorld); }, 150);
+      setTimeout(function () { self.updateLevel(world); }, 200);
+    } else {
+      // Do something
+      // Flicker then make noise?
+    }
   };
 
   this.addObject = function(obj) {
     container.addChild(obj);
-    collideables.push(obj);
+    if(!obj.visual) {
+      collideables.push(obj);
+    }
   };
 
   this.setup = function () {

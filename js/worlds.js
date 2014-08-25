@@ -1,8 +1,15 @@
 // Example params
 // attrs = {
+//   levelNum: 1,
 //   start: [0,0],
-//   goal: [50,50],
-//   gravityCoefficient: 0
+//   goal: {
+//     type: 'exit',
+//     x: 50,
+//     y: 50,
+//     img: 'img/exit1.png',
+//   },
+//   gravityCoefficient: 0,
+//   cantOverlap: [12, 20]
 // }
 // thingers = [
 //   {
@@ -24,11 +31,12 @@
 //     rightBound: 10
 //   }
 // ]
-
 var World = function(attrs, thingers) {
+  var that = this;
+
   this.attrs = attrs;
   this.start = attrs.start;
-  this.goal = attrs.goal;
+  this.levelNum = attrs.levelNum;
   var movingObjects = [];
 
   // Creates a new object based on the
@@ -50,29 +58,61 @@ var World = function(attrs, thingers) {
     return obj;
   };
 
+  var _setGoal = function() {
+    if(attrs.goal.type) {
+      that.goal = _makeObject(attrs.goal);
+      console.log(that.goal);
+    }
+  };
+
   this.objects = _.map(thingers, function (thinger) {
     return _makeObject(thinger);
   });
 
+  _setGoal();
+
   // Moves all the moving objects
-  this.moveObjects = function(playerPos) {
+  this.moveObjects = function(playerPos, world) {
     movingObjects.forEach(function (obj) {
-      obj.move(playerPos);
+      obj.move(playerPos, world);
     });
+  };
+
+  this.canOverlap = function(otherWorld) {
+    return !_cantOverlap(otherWorld);
+  };
+
+  var _cantOverlap = function(otherWorld) {
+    return _.contains(attrs.cantOverlap, otherWorld.levelNum);
   };
 };
 
-World.prototype.tick = function() {
-  this.moveObjects();
+World.prototype.tick = function(playerPos, world) {
+  world = world || this;
+  this.moveObjects(playerPos, world);
 };
 
 // Combines this world with a different world
-World.prototype.combine = function(otherWorld, game) {
+World.prototype.combine = function(otherWorld) {
   if (otherWorld !== this) {
     return new CombinedWorld(this, otherWorld);
   } else {
     return this;
   }
+};
+
+World.prototype.reset = function() {
+  this.objects.forEach(function(obj) {
+    if(obj.reset) {
+      obj.reset();
+    }
+  });
+
+  if(this.goal.reset) {
+    this.goal.reset();
+  }
+  
+  return this;
 };
 
 // A container for two world objects that gets
@@ -98,30 +138,32 @@ var CombinedWorld = function(baseWorld, otherWorld) {
     if(otherWorld === this.otherWorld || otherWorld === this.baseWorld) {
       return this.baseWorld;
     } else {
-      this.otherWorld = otherWorld;
-      _updateAttrs(this.baseWorld, otherWorld);
-      return this;
+      return new CombinedWorld(this.baseWorld, otherWorld);
     }
   };
 
   // Updates its attributes from two different worlds
-  // Averages the number attributes of both worlds
-  // and concats the different objects in from both worlds
+  // Uses the attributes of the other world and concats
+  // the different objects in from both worlds
   var _updateAttrs = function(baseWorld, otherWorld) {
-    that.attrs = {};
-    for(var attr in baseWorld.attrs) {
-      if(!isNaN(baseWorld.attrs[attr])) { // Averages the numbers
-        that.attrs[attr] = avg(baseWorld.attrs[attr], otherWorld.attrs[attr]);
-      }
-    }
-
+    that.attrs = otherWorld.attrs;
     that.objects = baseWorld.objects.slice(0).concat(otherWorld.objects);
+  };
+
+  this.canOverlap = function(otherWorld) {
+    return this.baseWorld.canOverlap(otherWorld);
   };
 
   _updateAttrs(baseWorld, otherWorld);
 };
 
-CombinedWorld.prototype.tick = function() {
-  this.baseWorld.tick();
-  this.otherWorld.tick();
+CombinedWorld.prototype.tick = function(playerPos) {
+  this.baseWorld.tick(playerPos, this);
+  this.otherWorld.tick(playerPos, this);
+};
+
+CombinedWorld.prototype.reset = function() {
+  this.baseWorld.reset();
+  this.otherWorld.reset();
+  return this.baseWorld;
 };

@@ -22,13 +22,17 @@ var KEYCODE_RIGHT = 39;
 
     this.canDoubleJump = false;
     this.jumpHeight = 12;
-    this.fallSpeed = 1.2;
-    this.moveSpeed = 6;
+    this.baseFallSpeed = 1.2;
+    this.moveSpeed = 4;
     this.speedMultiplier = 1;
   };
 
+  Player.prototype.getFallSpeed = function () {
+    return this.baseFallSpeed * this.game.getWorld().attrs.gravityCoefficient;
+  }
+
   Player.prototype.tick = function () {
-    this.velocity.y += this.fallSpeed;
+    this.velocity.y += this.getFallSpeed();
 
     // preparing the variables
     var addY = this.velocity.y;
@@ -50,27 +54,11 @@ var KEYCODE_RIGHT = 39;
       cbounds = getBounds(obj);
       collision = calculateIntersection(bounds, cbounds, 0, addY);
 
-      if (collision && obj.name == 'exit') {
-        _this.game.moveToNextLevel();
-        return;
-      } else if (collision) {
+      if (collision) {
         collideable = obj;
       }
 
-      if (!collision) {
-        // if there was NO collision detected, but somehow
-        // the Player got onto the "other side" of an object (high velocity e.g.),
-        // then we will detect this here, and adjust the velocity according to
-        // it to prevent the Player from "ghosting" through objects
-        // try messing with the 'this.velocity = {x:0,y:25};'
-        // -> it should still collide even with very high values
-        if ( ( bounds.y < cbounds.y && bounds.y + addY > cbounds.y )
-             || ( bounds.y > cbounds.y && bounds.y + addY < cbounds.y ) ) {
-          addY = cbounds.y - bounds.y;
-        } else {
-          cc++;
-        }
-      }
+      cc++;
     }
 
     this.move(collision, collideable, addY);
@@ -104,10 +92,14 @@ var KEYCODE_RIGHT = 39;
           break;
         case 'stop':
           this.velocity = {x:0, y:0};
+          this.image.y += this.getFallSpeed() / 2;
           return;
         case 'bounce':
-          this.velocity.x = -1 * this.velocity.x;
-          this.velocity.y = -1 * this.velocity.y;
+          addY = -4 * this.velocity.y;
+          break;
+        case 'exit':
+          this.game.moveToNextLevel();
+          return;
         }
       }
 
