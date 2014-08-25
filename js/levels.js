@@ -83,7 +83,7 @@ var LevelFour = new World({
   gravityCoefficient: 1,
   cantOverlap: []
 }, [{
-  type: "tree",
+  type: "tallThinger",
   x: 625,
   y: 105,
   length: 25,
