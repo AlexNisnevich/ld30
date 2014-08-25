@@ -15,10 +15,7 @@ function collisions(that) {
       var bodyA = c.bodyA;
       var bodyB = c.bodyB;
 
-      // Only counts an object as grounded if it is exactly
-      // vertical. We can change this to be some reasonable angle
-      // later.
-      if (Math.abs(c.norm.y) >= 0.8 && Math.abs(c.norm.x) <= 0.2) {
+      if (Math.abs(c.norm.y) >= 0.5 && Math.abs(c.norm.x) <= 0.5) {
         if (bodyA.state.pos.y <= bodyB.state.pos.y + 4) {
           bodyA.grounded = true;
         }
