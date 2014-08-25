@@ -3,11 +3,22 @@ var height   = 600;
 
 // Manages everything in the game: the player, platforms,
 // enemies... etc. Contains the Physics.js world (called physics).
-function Game(base) {
+function Game(levels) {
+  var that = this;
+
   var addObjects = changeObjects("add");
   var removeObjects = changeObjects("remove");
 
-  var that = this;
+  var currentLevel = 0;
+  var base  = levels[currentLevel];
+
+  var levelHotkeys = {
+    49:  0,  // 1
+    50:  1,  // 2
+    51:  2,  // 3
+    52:  3,  // 4
+    113: 4   // Q
+  }; 
 
   var settings = {
     timestep   : 1000 / 160,
@@ -27,8 +38,8 @@ function Game(base) {
 
     // TODO: Make the player not be a circle!
     this.player = Physics.body('circle', {
-      x        : 260,
-      y        : 380,
+      x        : newBase.start.x,
+      y        : newBase.start.y,
       vx       : 0,
       vy       : 0,
       radius   : 22,
@@ -61,6 +72,11 @@ function Game(base) {
     removeObjects(other);
     other = newOther;
     addObjects(other);
+
+    setTimeout(function () { removeObjects(other) }, 50);
+    setTimeout(function () { addObjects(other) }, 100);
+    setTimeout(function () { removeObjects(other) }, 150);
+    setTimeout(function () { addObjects(other) }, 200);
   }
 
   // The loop which checks which objects are "grounded", ie on top of
@@ -79,7 +95,7 @@ function Game(base) {
       // Only counts an object as grounded if it is exactly
       // vertical. We can change this to be some reasonable angle
       // later.
-      if (c.norm.y >= 0.8 && c.norm.x <= 0.2) {
+      if (Math.abs(c.norm.y) >= 0.8 && Math.abs(c.norm.x) <= 0.2) {
         if (c.bodyA.state.pos.y <= c.bodyB.state.pos.y + 4) {
           c.bodyA.grounded = true;
         }
@@ -87,6 +103,18 @@ function Game(base) {
         if (c.bodyB.state.pos.y <= c.bodyA.state.pos.y + 4) {
           c.bodyB.grounded = true;
         }
+      }
+
+      // Killer!
+      if (c.bodyA == that.player && c.bodyB.killer ||
+          c.bodyB == that.player && c.bodyA.killer) {
+        physics.emit("die");
+      }
+
+      // Key!
+      if (c.bodyA == that.player && c.bodyB.goal ||
+          c.bodyB == that.player && c.bodyA.goal) {
+        physics.emit("next-level");
       }
     }
   });
@@ -98,6 +126,13 @@ function Game(base) {
   physics.on("die", function () {
     that.setOther(null);
     that.setBase(base);
+  });
+
+  physics.on("next-level", function () {
+    currentLevel++;
+    
+    that.setOther(null);
+    that.setBase(levels[currentLevel]);
   });
 
   createControl(this);
@@ -122,15 +157,27 @@ function Game(base) {
       }
     }
   }
+
+  $(document).keypress(function (e) {
+    var level = levelHotkeys[e.keyCode];
+
+    if (typeof level == "number" && level < currentLevel) {
+      if (other == levels[level]) {
+        console.log("Done");
+        that.setOther(null);
+      } else {
+        that.setOther(levels[level]);
+      }
+    }
+  });
 }
 
 // A world is a single level which can contain objects as well as a
 // starting location and goal.
-function World(attrs, objects) {
+function world(attrs, objects) {
   return {
     attrs   : attrs,
     start   : attrs.start,
-    goal    : attrs.goal,
     objects : objects
   };
 }

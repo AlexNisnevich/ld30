@@ -2,7 +2,7 @@ var PLATFORM_HEIGHT = 10;
 
 // An object represents a discrete part of the world, which may or may
 // not be able to move. It wraps a Physics.js body.
-function entity(image, shape, options) {
+function entity(shape, options) {
   var shapeName    = shape.name || shape;
 
   return Physics.body(shapeName, _.extend({
@@ -15,16 +15,26 @@ function entity(image, shape, options) {
 
 function platform(options) {
   options.treatment = 'static';
-  return entity("assets/platform.png", rectangle(options.length, PLATFORM_HEIGHT), options);
+  return entity(rectangle(options.length, PLATFORM_HEIGHT), options);
 }
 
 function zombiePlatform(options) {
   var defaults = {
     restitution : 0.1,
-    view        : image("assets/zombie_tile.png", options.length + 20)
+    view        : image("assets/zombie_tile.png", options.length + 15)
   };
 
-  return platform(_.extend(options, defaults));
+  return platform(_.extend(defaults, options));
+}
+
+function exit(options) {
+  var defaults = {
+    goal      : true,
+    treatment : "static",
+    view      : image("assets/magicKey.png", options.length)
+  };
+
+  return entity(rectangle(13, 23), _.extend(defaults, options));
 }
 
 // A circle shape, with the given radius.

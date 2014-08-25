@@ -11,7 +11,7 @@ function createControl(game) {
         that.vx   = 0;
         that.jump = false;
 
-        document.addEventListener('keydown', function (e) {
+        $(document).keydown(function (e) {
           switch (e.keyCode) {
           case 37: // ←
             that.vx = -0.15;
@@ -26,7 +26,7 @@ function createControl(game) {
           }
         });
 
-        document.addEventListener('keyup', function (e) {
+        $(document).keyup(function (e) {
           switch (e.keyCode) {
           case 37:
             if (that.vx == -0.15) {
@@ -66,3 +66,4 @@ function createControl(game) {
     };
   });
 }
+
