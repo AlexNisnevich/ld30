@@ -72,7 +72,7 @@ function collisions(that) {
 
       withProperty("npcKiller", bodyA, bodyB, function (killer, victim) {
         if (victim.killable) {
-          that.physics.remove(victim);
+          that.physics.removeBody(victim);
         }
       });
 

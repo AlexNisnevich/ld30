@@ -85,6 +85,7 @@ function zombie(options) {
       backward : image("assets/zombie_zombie.png", 30 + 15)
     },
     killer : true,
+    killable : true,
     zombie : true,
     treatment : "dynamic",
     mass : 1

@@ -217,6 +217,11 @@ var levels = [
       length: 400,
       view: image("assets/zombie_tile2.png", 500 + 15)
     }),
+    exit({
+      x : 380,
+      y : 420,
+      passable : true
+    }),
     crate({
       x : 140,
       y : 430

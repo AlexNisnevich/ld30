@@ -9,7 +9,7 @@ function Game(levels) {
   var beehavior = null;
   var zombiehavior = null;
 
-  var currentLevel = 5;
+  var currentLevel = 7;
 
   var base = levels[currentLevel];
   var other = null;
