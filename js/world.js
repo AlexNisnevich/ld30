@@ -109,7 +109,7 @@ function Game(base) {
   var other = null;
 
   var gravity = Physics.behavior('constant-acceleration', {
-    acc: { x : 0, y: 0.0004 }
+    acc: { x : 0, y: 0.0008 }
   });
   physics.add(gravity);
 

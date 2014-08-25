@@ -29,8 +29,17 @@ function createControl(game) {
         document.addEventListener('keyup', function (e) {
           switch (e.keyCode) {
           case 37:
+            if (that.vx == -0.15) {
+              that.vx = 0;
+            }
+            break;
           case 39:
-            that.vx = 0;
+            if (that.vx == 0.15) {
+              that.vx = 0;
+            }
+            break;
+          case 38:
+            that.jump = false;
             break;
           }
         });
@@ -43,7 +52,7 @@ function createControl(game) {
         for (var i = 0, l = bodies.length; i < l; i++) {
           bodies[i].state.vel.set(this.vx, bodies[i].state.vel.y);
           
-          var jumpSize = -0.03;
+          var jumpSize = -0.05;
 
           if (this.jump && game.player.grounded) {
             bodies[i].accelerate(scratch.vector().set(0, jumpSize));
