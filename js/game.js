@@ -175,8 +175,10 @@ var Game = function(w, h) {
       setTimeout(function () { self.updateLevel(oldWorld); }, 150);
       setTimeout(function () { self.updateLevel(world); }, 200);
     } else {
-      // Do something
-      // Flicker then make noise?
+      setTimeout(function () { self.updateLevel(newWorld); }, 50);
+      setTimeout(function () { self.updateLevel(world); }, 100);
+      setTimeout(function () { self.updateLevel(newWorld); }, 150);
+      setTimeout(function () { self.updateLevel(world); }, 200);
     }
   };
 
