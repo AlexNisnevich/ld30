@@ -141,6 +141,11 @@ var Game = function(w, h) {
     for (var i = 1; i <= base; i++) {
         var $item = $items.filter('.' + i);
         $item.show();
+        if (i === base) {
+            $item.addClass('levelindicator-current');
+        } else {
+            $item.removeClass('levelindicator-current');
+        }
 
         if (overlay && overlay === i) {
             $item.addClass('levelindicator-overlay');
