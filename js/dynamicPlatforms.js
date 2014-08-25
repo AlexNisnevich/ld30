@@ -104,3 +104,29 @@ Physics.behavior("bear", function (parent) {
     }
   };
 });
+
+Physics.behavior("butterfly", function (parent) {
+  return {
+    behave : function (data) {
+      _.each(this.getTargets(), function (body) {
+        if (body.butterfly && !body.going) {
+          body.going = true;
+          
+          if (body.open) {
+            body.view = body.images.closed;
+            body.width = body.width / 2;
+          } else {
+            body.view = body.images.open;
+            body.width = body.width * 2;
+          }
+
+          body.open = !body.open;
+
+          setTimeout(function () {
+            body.going = false;
+          }, 600);
+        }
+      });
+    }
+  };
+});
