@@ -114,6 +114,30 @@ var levels = [
       x : 580,
       y : 555
     })
+  ]),
+
+  // five
+  world({
+    start : { x : 940, y : 480 },
+    bg : 'assets/space_bg.png',
+    gravityAccel: 0.0001
+  }, [
+    asteroid({
+      x      : 940,
+      y      : 507,
+      length : 80,
+      height : 77,
+      view   : image("assets/space_rock2.png", 80 + 15)
+    }),
+    asteroid({
+      x      : 110,
+      y      : 55,
+      length : 130,
+    }),
+    exit({
+      x : 110,
+      y : 100
+    })
   ])
 ]
 

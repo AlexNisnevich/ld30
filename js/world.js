@@ -12,6 +12,7 @@ function Game(levels) {
   var removeObjects = changeObjects("remove");
 
   var currentLevel = 3;
+
   var base  = levels[currentLevel];
 
   var currentBg = '';
@@ -31,6 +32,7 @@ function Game(levels) {
   };
 
   var physics = Physics(settings);
+  var gravity = null;
 
   this.physics = physics;
   this.player = null;
@@ -60,27 +62,32 @@ function Game(levels) {
       grounded : false,
       view     : image("assets/magicStar.png")
     });
+   
+    physics.add(this.player);
 
     if (control) {
       physics.remove(control);
     }
+    control = Physics.behavior('control').applyTo([this.player]);
+    physics.add(control);
 
     if (die) {
       physics.remove(die);
     }
-   
-    physics.add(this.player);
-
-    control = Physics.behavior('control').applyTo([this.player]);
-    physics.add(control);
-
     die = Physics.behavior('die-offscreen').applyTo([this.player]);
     physics.add(die);
+
+    if (gravity) {
+      physics.remove(gravity);
+    }
+    gravity = Physics.behavior('constant-acceleration', {
+      acc: { x : 0, y: newBase.attrs.gravityAccel }
+    });
+    physics.add(gravity);
 
     removeObjects(base);
     base = newBase;
     addObjects(base);
-
 
     bees(that.player);
     beehavior = Physics.behavior("bees").applyTo(_.filter(base.objects, function (object) {
@@ -102,6 +109,17 @@ function Game(levels) {
     setTimeout(function () { addObjects(other, otherable) }, 100);
     setTimeout(function () { removeObjects(other) }, 150);
     setTimeout(function () { addObjects(other, otherable) }, 200);
+
+    // override base gravity
+
+    if (gravity) {
+      physics.remove(gravity);
+    }
+
+    gravity = Physics.behavior('constant-acceleration', {
+      acc: { x : 0, y: (newOther ? newOther : base).attrs.gravityAccel }
+    });
+    physics.add(gravity);
   }
 
   // The loop which checks which objects are "grounded", ie on top of
@@ -140,11 +158,6 @@ function Game(levels) {
 
   var other = null;
 
-  var gravity = Physics.behavior('constant-acceleration', {
-    acc: { x : 0, y: 0.0008 }
-  });
-  physics.add(gravity);
-
   this.setBase(base);
 
   function changeObjects(action) {
@@ -173,8 +186,12 @@ function Game(levels) {
 // A world is a single level which can contain objects as well as a
 // starting location and goal.
 function world(attrs, objects) {
+  var defaults = {
+    gravityAccel: 0.0008
+  };
+
   return {
-    attrs   : attrs,
+    attrs   : _.extend(defaults, attrs),
     start   : attrs.start,
     objects : objects
   };

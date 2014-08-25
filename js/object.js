@@ -43,6 +43,15 @@ function icePlatform(options) {
   return platform(_.extend(defaults, options));
 }
 
+function asteroid(options) {
+  var defaults = {
+    height      : 88,
+    view        : image("assets/space_rock1.png", options.length + 15)
+  };
+
+  return platform(_.extend(defaults, options));
+}
+
 function tree(options) {
   var defaults = {
     length : 20,
