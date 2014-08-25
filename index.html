@@ -1,44 +1,32 @@
-<!DOCTYPE html>
 <html>
 <head>
-	<meta charset='utf-8'>
-	<title>Shattered Worlds</title>
-	<meta property="og:title" content="Shattered Worlds" />
-	<meta property="og:description" content="Description Goes Here" />
-	<meta name="Description" content="Description Goes Here">
-</head>
-<body>
-	<script src="jquery-2.1.1.min.js"></script>
-	<script src="http://code.createjs.com/easeljs-0.7.1.min.js"></script>
-	<script src="underscore-min.js"></script>
-	<script src="js/utils.js"></script>
-	<script src="js/player.js"></script>
-	<script src="js/game.js"></script>
-	<script src="js/worlds.js"></script>
-	<script src="js/object_classes/base_classes.js"></script>
-	<script src="js/object_classes/platform_classes.js"></script>
-	<script src="js/object_classes/moving_classes.js"></script>
-	<script src="js/levels.js"></script>
-	<script>
-		var game;
-		$(document).ready(function () {
-			game = ShatteredWorlds();
-			game.setup();
-		});
-	</script>
-	<link rel="stylesheet" type="text/css" href="stylesheet.css">
-    <div id='gameContainer'>
-    <div id='levelMenu'>
-        LEVELS
-        <ul>
-            <li class='levelindicator 1'>Level 1</li>
-            <li class='levelindicator 2'>Level 2</li>
-            <li class='levelindicator 3'>Level 3</li>
-            <li class='levelindicator 4'>Level 4</li>
-            <li class='levelindicator 5'>Level 5</li>
-        </ul>
+    <meta charset='utf-8'>
+    <title>Shattered Worlds</title>
+    <meta property="og:title" content="Shattered Worlds" />
+    <meta property="og:description" content="Description Goes Here" />
+    <meta name="Description" content="Description Goes Here">
+
+    <script src="jquery-2.1.1.min.js"></script>
+    <script src="underscore-min.js"></script>
+    <script src="lib/physics/physicsjs-full-0.6.0.js"></script>
+    <script src="js/control.js"></script>
+    <script src="js/canvas.js"></script>
+    <script src="js/bee.js"></script>
+    <script src="js/fallingPlatform.js"></script>
+    <script src="js/collisions.js"></script>
+    <script src="js/renderer.js"></script>
+    <script src="js/end.js"></script>
+    <script src="js/world.js"></script>
+    <script src="js/object.js"></script>
+    <script src="js/physics-game.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+  </head>
+  <body onload="go()">
+    <div id="gameContainer">
+      <div id="levelMenu">levels</div>
+      <canvas id="viewport">
+      </canvas>
     </div>
-    <canvas id='mainCanvas'></canvas>
-    </div>
-</body>
+  </body>
 </html>
