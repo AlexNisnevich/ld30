@@ -23,7 +23,10 @@ function Game(levels) {
     50:  1,  // key: 2
     51:  2,  // key: 3
     52:  3,  // key: 4
-    53:  4   // key: 5
+    53:  4,  // key: 5
+    54:  5,  // key: 5
+    55:  6,  // key: 5
+    56:  7   // key: 5
   }; 
 
   var settings = {
@@ -274,12 +277,16 @@ function world(attrs, objects, behaviors) {
   };
 }
 
-function image(url, length) {
+function image(url, length, height) {
   var img = new Image();
   img.src = url;
 
   if (length) {
     img.width = length;
+  } 
+
+  if (height) {
+    img.height = height;
   }
 
   return img;

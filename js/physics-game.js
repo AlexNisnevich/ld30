@@ -214,6 +214,43 @@ var levels = [
     })
   ]),
 
+  // eight
+  world({
+    start        : { x : 200, y : 10 },
+    bg           : 'assets/space_bg.png',
+    gravityAccel : 0.0001
+  }, [
+    asteroid({
+      x      : 200,
+      y      : 60,
+      radius : 20
+    }),
+    spaceship(1, {
+      x : 50,
+      y : 300
+    }),
+    spaceship(2, {
+      x : 950,
+      y : 280
+    }),
+    exit({
+      x        : 500,
+      y        : 300,
+      passable : true
+    })
+  ], [
+    Physics.behavior("laser", { options : { x : 116, y : 300 } }),
+    Physics.behavior("laser", {
+      laserType : 2,
+      options : {
+        x : 892,
+        y : 280
+        ,
+        moving : { x : -0.5, y : 0 }
+      }
+    })
+  ]),
+
   // twelve
   world({
     levelNum : 8,

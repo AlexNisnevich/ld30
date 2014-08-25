@@ -5,7 +5,7 @@ Physics.behavior('die-offscreen', function (parent) {
 
       _.each(this.getTargets(), function (body) {
         if (body.state.pos.x < 0 || body.state.pos.x > 1000 ||
-            body.state.pos.y < -200 || body.state.pos.y > 600) {
+            body.state.pos.y < -400 || body.state.pos.y > 600) {
           world.emit("die");
         }
       });

@@ -85,7 +85,7 @@ function zombie(options) {
       backward : image("assets/zombie_zombie.png", 30 + 15)
     },
     killer : true,
-    killable : true,
+    killable : 1,
     zombie : true,
     treatment : "dynamic",
     mass : 1
@@ -157,6 +157,7 @@ function laser(type, options) {
     height    : 10,
     length    : 60,
     killer    : true,
+    npcKiller : 1,
     moving    : { x : 0.5, y : 0 },
     treatment : "dynamic",
     view      : image("assets/space_laser" + type + ".png"),
@@ -170,21 +171,26 @@ function spaceship(type, options) {
   var defaults = {
     length   : 50,
     height   : 31,
-    killable : true,
-    view     : image("assets/space_ship" + type + ".png")
+    killable : 2,
+    view     : image("assets/space_ship" + type + ".png"),
+    spaceship : true
   };
 
   return platform(_.extend(defaults, options));
 }
 
 function asteroid(options) {
+  var radius = options.length || 88;
+
   var defaults = {
     height      : 88,
-    view        : image("assets/space_rock1.png", options.length + 15),
-    floating    : true
+    view        : image("assets/space_rock1.png", radius - 20, radius - 20),
+    floating    : true,
+    treatment   : "static",
+    radius      : radius
   };
 
-  return platform(_.extend(defaults, options));
+  return entity(circle(radius), _.extend(defaults, options));
 }
 
 // Geometry
