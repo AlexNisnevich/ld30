@@ -169,10 +169,11 @@ function laser(type, options) {
 
 function spaceship(type, options) {
   var defaults = {
-    length   : 50,
-    height   : 31,
-    killable : 2,
-    view     : image("assets/space_ship" + type + ".png"),
+    length    : 50,
+    height    : 31,
+    killable  : 2,
+    view      : image("assets/space_ship" + type + ".png"),
+    killer    : 1,
     spaceship : true
   };
 

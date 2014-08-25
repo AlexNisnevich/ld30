@@ -9,7 +9,7 @@ function Game(levels) {
   var beehavior = null;
   var zombiehavior = null;
 
-  var currentLevel = 7;
+  var currentLevel = 5;
 
   var base = levels[currentLevel];
   var other = null;
@@ -184,6 +184,12 @@ function Game(levels) {
     }
   }
 
+  this.resetObjects = function () {
+    _.each(physics.activeLasers, function (laser) {
+      physics.removeBody(laser);
+    })
+  }
+
   // The loop which checks which objects are "grounded", ie on top of
   // some other object.
   physics.on('collisions:detected', collisions(that));
@@ -203,6 +209,7 @@ function Game(levels) {
   physics.on("die", function () {
     that.setOther(null);
     that.setBase(base);
+    that.resetObjects();
   });
 
   physics.on("next-level", function () {
@@ -210,6 +217,7 @@ function Game(levels) {
     
     that.setOther(null);
     that.setBase(levels[currentLevel]);
+    that.resetObjects();
   });
 
   createControl(this);
