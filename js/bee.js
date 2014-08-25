@@ -1,6 +1,6 @@
 function bees(player) {
   Physics.behavior("bees", function (parent) {
-    var center = { x : 542, y : 385 };
+    var center = { x : 542, y : 365 };
 
     var minRadius   = 20;
     var maxRadius   = 100;
@@ -8,8 +8,8 @@ function bees(player) {
     var radius      = minRadius;
 
     var movementSpeed = 0.5;
-    var growSpeed     = 0.2;
-    var shrinkSpeed   = 0.1;
+    var growSpeed     = 0.1;
+    var shrinkSpeed   = 0.05;
 
     return {
       behave : function (data) {
