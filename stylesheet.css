@@ -2,11 +2,6 @@ body {
   background: #333;
 }
 
-canvas {
-
-  background: url(assets/gradientSky.png);
-}
-
 #gameContainer {
   margin: auto;
   position: absolute;

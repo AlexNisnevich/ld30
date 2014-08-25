@@ -1,7 +1,8 @@
 var levels = [
   // one
   world({
-    start : { x : 370, y : 430 }
+    start : { x : 370, y : 430 },
+    bg : 'assets/zombie_bg.png'
   }, [
     zombiePlatform({
       x           : 265,
@@ -18,9 +19,11 @@ var levels = [
       y : 380
     })
   ]),
+
   // two
   world({
-    start : { x : 515, y : 280 }
+    start : { x : 515, y : 280 },
+    bg : 'assets/zombie_bg.png'
   }, [
     zombiePlatform({
       x           : 515,
@@ -32,9 +35,11 @@ var levels = [
       y : 380
     })
   ]),
+
   // three
   world({
-    start : { x : 345, y : 270 }
+    start : { x : 345, y : 270 },
+    bg : 'assets/polar_bg.png'
   }, [
     icePlatform({
       x      : 325,
@@ -51,9 +56,11 @@ var levels = [
       y : 450
     })
   ]),
+
   // four
   world({
-    start : { x : 600, y : 125 }
+    start : { x : 600, y : 125 },
+    bg : 'assets/nature_bg.png'
   }, [
     tree({
       x : 625,

@@ -11,8 +11,10 @@ function Game(levels) {
   var addObjects = changeObjects("add");
   var removeObjects = changeObjects("remove");
 
-  var currentLevel = 3;
+  var currentLevel = 0;
   var base  = levels[currentLevel];
+
+  var currentBg = '';
 
   var levelHotkeys = {
     49:  0,  // 1
@@ -34,6 +36,11 @@ function Game(levels) {
   this.player = null;
 
   this.setBase = function (newBase) {
+    if (newBase.attrs.bg && newBase.attrs.bg != currentBg) {
+      currentBg = newBase.attrs.bg;
+      $('canvas').css('background', 'url(' + newBase.attrs.bg + ')');
+    }
+
     if (this.player) {
       physics.remove(this.player);
     }

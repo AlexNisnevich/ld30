@@ -29,7 +29,6 @@ function collisions(that) {
       }
 
       withProperty("ice", bodyA, bodyB, function (body, other) {
-        console.log("Iced");
         other.iced = true;
       });
 
