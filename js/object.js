@@ -108,6 +108,35 @@ function icePlatform(options) {
   return platform(_.extend(defaults, options));
 }
 
+function bearCave(options) {
+  var defaults = {
+    length   : 88,
+    height   : 56,
+    view     : image("assets/polar_cave.png", 88),
+    passable : true
+  };
+
+  return platform(_.extend(defaults, options)); 
+}
+
+function bear(options) {
+  var defaults = {
+    height   : 27,
+    length   : 34,
+    view     : image("assets/polar_bear_trans.png", 27),
+    images   : {
+      head : image("assets/polar_bear.png", 27),
+      butt : image("assets/polar_bearbutt.png", 27),
+      none : image("assets/polar_bear_trans.png", 27)
+    },
+    bear     : true,
+    mode     : 'none',
+    passable : true
+  };
+
+  return platform(_.extend(defaults, options)); 
+}
+
 // Nature world
 
 function tree(options) {
