@@ -201,17 +201,17 @@ var levels = [
   // seven
   world({
     levelNum : 7,
-    start : { x : 25, y : 100 },
+    start : { x : 25, y : 200 },
     bg : 'assets/polar_bg.png'
   }, [
     icePlatform({
       x      : 50,
-      y      : 130,
+      y      : 230,
       length : 100
     }),
     exit({
       x : 20,
-      y : 160
+      y : 260
     })
   ]),
 
@@ -229,13 +229,29 @@ var levels = [
       height      : 40,
       rectangular : true
     }),
+    asteroid({
+      x           : 700,
+      y           : 290,
+      length      : 100,
+      height      : 40,
+      rectangular : true,
+      floating    : false
+    }),
     spaceship(1, {
       x : 50,
-      y : 300
+      y : 300,
+      kill : false
     }),
     spaceship(2, {
       x : 950,
       y : 280
+    }),
+    asteroid({
+      x           : 50,
+      y           : 475,
+      length      : 80,
+      height      : 40,
+      rectangular : true
     }),
     exit({
       x        : 500,
