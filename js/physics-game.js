@@ -303,6 +303,11 @@ var levels = [
       y      : 240,
       length : 180
     }),
+    icePlatform({
+      x      : 350,
+      y      : 240,
+      length : 180
+    }),
     bearCave({
       x : 650,
       y : 188

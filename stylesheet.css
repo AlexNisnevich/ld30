@@ -17,9 +17,18 @@ body {
     color:white;
 }
 
+ul {
+  padding: 0;
+}
+
 .levelindicator {
     display:none;
     list-style:none;
+}
+
+.levelindicator .hotkey {
+    display:none;
+    font-weight: bold;
 }
 
 .levelindicator-overlay {
