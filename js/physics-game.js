@@ -1,6 +1,7 @@
 var levels = [
   // one
   world({
+    levelNum : 1,
     start : { x : 370, y : 430 },
     bg : 'assets/zombie_bg.png'
   }, [
@@ -22,6 +23,7 @@ var levels = [
 
   // two
   world({
+    levelNum : 2,
     start : { x : 515, y : 280 },
     bg : 'assets/zombie_bg.png'
   }, [
@@ -38,6 +40,7 @@ var levels = [
 
   // three
   world({
+    levelNum : 3,
     start : { x : 345, y : 270 },
     bg : 'assets/polar_bg.png'
   }, [
@@ -59,6 +62,7 @@ var levels = [
 
   // four
   world({
+    levelNum : 4,
     start : { x : 600, y : 125 },
     bg : 'assets/nature_bg.png'
   }, [
@@ -118,6 +122,7 @@ var levels = [
 
   // five
   world({
+    levelNum : 5,
     start : { x : 940, y : 480 },
     bg : 'assets/space_bg.png',
     gravityAccel: 0.0001
@@ -144,6 +149,7 @@ var levels = [
 
   // six
   world({
+    levelNum : 6,
     start : { x : 150, y : 500 },
     bg : 'assets/space_bg.png',
     gravityAccel: 0.0001
@@ -184,6 +190,7 @@ var levels = [
 
   // seven
   world({
+    levelNum : 7,
     start : { x : 25, y : 100 },
     bg : 'assets/polar_bg.png'
   }, [
@@ -200,38 +207,71 @@ var levels = [
 
   // twelve
   world({
-    start : { x : 220, y : 320 },
+    levelNum : 8,
+    start : { x : 200, y : 420 },
     bg : 'assets/zombie_bg.png'
   }, [
     zombiePlatform({
-      x : 220,
-      y : 350,
-      length: 440,
+      x : 200,
+      y : 450,
+      length: 400,
       view: image("assets/zombie_tile2.png", 500 + 15)
     }),
     crate({
-      x : 170,
-      y : 320
+      x : 140,
+      y : 430
     }),
     crate({
-      x : 170,
-      y : 300
+      x : 140,
+      y : 400
     }),
     barbedWire({
-      x : 170,
-      y : 280
+      x : 130,
+      y : 377
     }),
     crate({
-      x : 270,
-      y : 320
+      x : 260,
+      y : 430
     }),
     crate({
-      x : 270,
-      y : 300
+      x : 260,
+      y : 400
     }),
     barbedWire({
       x : 270,
-      y : 280
+      y : 377
+    }),
+    zombie({
+      x : 20,
+      y : 420
+    }),
+    zombie({
+      x : 40,
+      y : 420
+    }),
+    zombie({
+      x : 60,
+      y : 420
+    }),
+    zombie({
+      x : 80,
+      y : 420
+    }),
+    zombie({
+      x : 330,
+      y : 420
+    }),
+    zombie({
+      x : 350,
+      y : 420
+    }),
+    zombie({
+      x : 370,
+      y : 420
+    }),
+    zombie({
+      x : 390,
+      y : 420
     })
   ])
 ]

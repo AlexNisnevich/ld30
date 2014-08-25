@@ -7,6 +7,7 @@ function Game(levels) {
   var that = this;
 
   var beehavior = null;
+  var zombiehavior = null;
 
   var currentLevel = 5;
 
@@ -47,10 +48,6 @@ function Game(levels) {
       physics.remove(this.player);
     }
 
-    if (beehavior) {
-      physics.remove(beehavior);
-    }
-
     // TODO: Make the player not be a circle!
     this.player = Physics.body('circle', {
       x        : newBase.start.x,
@@ -86,18 +83,28 @@ function Game(levels) {
     physics.add(that.gravity);
 
     _.each(base.behaviors, function (b) { physics.remove(b) });
-
     removeObjects(base);
     base = newBase;
     addObjects(base);
-
     _.each(base.behaviors, function (b) { physics.add(b) });
 
+    if (beehavior) {
+      physics.remove(beehavior);
+    }
     bees(that.player);
     beehavior = Physics.behavior("bees").applyTo(_.filter(base.currObjects, function (object) {
       return !!object.bee;
     }));
     physics.add(beehavior);
+
+    if (zombiehavior) {
+      physics.remove(zombiehavior);
+    }
+    zombies(that.player);
+    zombiehavior = Physics.behavior("zombies").applyTo(_.filter(base.currObjects, function (object) {
+      return !!object.zombie;
+    }));
+    physics.add(zombiehavior);
 
     fallingPlatform(that);
     physics.add(Physics.behavior("falling-platform").applyTo(_.filter(base.currObjects, function (object) {
@@ -105,6 +112,8 @@ function Game(levels) {
     })));
 
     physics.add(Physics.behavior("moving-platform"));
+
+    this.updateLevelSidebar();
   };
 
   this.setOther = function (newOther) {
@@ -145,6 +154,31 @@ function Game(levels) {
       acc: { x : 0, y: (newOther ? newOther : base).attrs.gravityAccel }
     });
     physics.add(that.gravity);
+
+    this.updateLevelSidebar();
+  }
+
+  this.updateLevelSidebar = function() {
+    var baseNum = base.attrs.levelNum;
+    var overlayNum = other ? other.attrs.levelNum : null;
+
+    var $items = $('.levelindicator');
+    $items.hide();
+    for (var i = 1; i <= baseNum; i++) {
+        var $item = $items.filter('.' + i);
+        $item.show();
+        if (i === baseNum) {
+            $item.addClass('levelindicator-current');
+        } else {
+            $item.removeClass('levelindicator-current');
+        }
+
+        if (overlayNum && overlayNum === i) {
+            $item.addClass('levelindicator-overlay');
+        } else {
+            $item.removeClass('levelindicator-overlay');
+        }
+    }
   }
 
   // The loop which checks which objects are "grounded", ie on top of
