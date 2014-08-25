@@ -1,4 +1,5 @@
 var levels = [
+  // one
   world({
     start : { x : 370, y : 430 }
   }, [
@@ -17,6 +18,7 @@ var levels = [
       y : 380
     })
   ]),
+  // two
   world({
     start : { x : 515, y : 280 }
   }, [
@@ -30,6 +32,7 @@ var levels = [
       y : 380
     })
   ]),
+  // three
   world({
     start : { x : 345, y : 270 }
   }, [
@@ -46,6 +49,39 @@ var levels = [
     exit({
       x : 775,
       y : 450
+    })
+  ]),
+  // four
+  world({
+    start : { x : 600, y : 125 }
+  }, [
+    tree({
+      x : 625,
+      y : 328
+    }),
+    branch(1, {
+      x      : 582,
+      y      : 200,
+      length : 70
+    }),
+    branch(2, {
+      x      : 547,
+      y      : 373,
+      length : 145
+    }),
+    branch(3, {
+      x      : 712,
+      y      : 570,
+      length : 140
+    }),
+    branch(4, {
+      x      : 664,
+      y      : 100,
+      length : 70
+    }),
+    exit({
+      x : 580,
+      y : 555
     })
   ])
 ]

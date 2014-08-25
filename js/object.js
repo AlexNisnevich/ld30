@@ -4,10 +4,11 @@ function entity(shape, options) {
   var shapeName    = shape.name || shape;
 
   return Physics.body(shapeName, _.extend({
-    x     : options.x  || 0,
-    y     : options.y  || 0,
-    vx    : options.vx || 0,
-    vy    : options.vy || 0
+    x           : 0,
+    y           : 0,
+    vx          : 0,
+    vy          : 0,
+    restitution : 0.1
   }, shape, options));
 }
 
@@ -21,7 +22,6 @@ function platform(options) {
 
 function zombiePlatform(options) {
   var defaults = {
-    restitution : 0.1,
     height      : 1,
     view        : image("assets/zombie_tile.png", options.length + 15)
   };
@@ -31,12 +31,30 @@ function zombiePlatform(options) {
 
 function icePlatform(options) {
   var defaults = {
-    restitution : 0.1,
     cof         : 1,
     height      : 20,
     view        : image("assets/polar_ice1.png", options.length + 15),
     ice         : true,
     breakable   : true
+  };
+
+  return platform(_.extend(defaults, options));
+}
+
+function tree(options) {
+  var defaults = {
+    length : 20,
+    height : 495,
+    view   : image("assets/nature_trunk.png", options.length)
+  };
+
+  return platform(_.extend(defaults, options));
+}
+
+function branch(type, options) {
+  var defaults = {
+    view        : image("assets/nature_branch" + type + ".png", options.length),
+    restitution : 0.8
   };
 
   return platform(_.extend(defaults, options));
