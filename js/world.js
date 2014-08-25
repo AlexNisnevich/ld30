@@ -47,6 +47,10 @@ function Game(levels) {
       $('canvas').css('background', 'url(' + newBase.attrs.bg + ')');
     }
 
+    removeObjects(base);
+    base = newBase;
+    addObjects(base);
+
     if (this.player) {
       physics.remove(this.player);
     }
@@ -86,9 +90,6 @@ function Game(levels) {
     physics.add(that.gravity);
 
     _.each(base.behaviors, function (b) { physics.remove(b) });
-    removeObjects(base);
-    base = newBase;
-    addObjects(base);
     _.each(base.behaviors, function (b) { physics.add(b) });
 
     if (beehavior) {
@@ -188,6 +189,8 @@ function Game(levels) {
     _.each(physics.activeLasers, function (laser) {
       physics.removeBody(laser);
     })
+
+    physics.emit("reset-objects");
   }
 
   // The loop which checks which objects are "grounded", ie on top of
