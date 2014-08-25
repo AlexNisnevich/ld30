@@ -139,7 +139,31 @@ var levels = [
       y        : 100,
       floating : true
     })
-  ])
+  ]),
+
+  // six
+  world({
+    start : { x : 150, y : 500 },
+    bg : 'assets/space_bg.png',
+    gravityAccel: 0.0001
+  }, [
+    asteroid({
+      x         : 150,
+      y         : 550,
+      length    : 80,
+      height    : 77,
+      view      : image("assets/space_rock2.png", 80 + 15),
+      treatment : "kinematic",
+      moving    : { x : 0.03, y : 0 },
+      cof       : 1,
+      floating  : false
+    }),
+    exit({
+      x        : 110,
+      y        : 100,
+      floating : true
+    })
+  ])  
 ]
 
 function go() {

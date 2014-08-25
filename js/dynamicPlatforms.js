@@ -16,3 +16,17 @@ function fallingPlatform(game) {
     }
   });
 }
+
+Physics.behavior("moving-platform", function (parent) {
+  return {
+    behave : function (data) {
+      var bodies = this.getTargets();
+      
+      _.each(bodies, function (body) {
+        if (body.moving) {
+          body.state.vel.set(body.moving.x, body.moving.y);
+        }
+      });
+    }
+  };
+});

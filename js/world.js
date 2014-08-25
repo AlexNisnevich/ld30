@@ -99,7 +99,8 @@ function Game(levels) {
     physics.add(Physics.behavior("falling-platform").applyTo(_.filter(base.currObjects, function (object) {
       return !!object.floating;
     })));
-    
+
+    physics.add(Physics.behavior("moving-platform"));
   };
 
   this.setOther = function (newOther) {

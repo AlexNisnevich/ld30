@@ -78,6 +78,10 @@ function collisions(that) {
 
       withPlayer("killer", bodyA, bodyB, function () { that.physics.emit("die"); });
       withPlayer("goal", bodyA, bodyB,   function () { that.physics.emit("next-level"); });
+
+      withPlayer("moving", bodyA, bodyB, function (other, player) {
+        player.state.vel.set(other.moving.x * 2, player.state.vel.y);
+      });
     }
   }
 
@@ -91,9 +95,9 @@ function collisions(that) {
 
   function withPlayer(property, bodyA, bodyB, action) {
     if (bodyA == that.player && bodyB[property]) {
-      action(bodyB);
+      action(bodyB, bodyA);
     } else if (bodyB == that.player && bodyA[property]) {
-      action(bodyA);
+      action(bodyA, bodyB);
     }
   }
 }
