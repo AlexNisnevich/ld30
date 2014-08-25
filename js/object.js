@@ -58,7 +58,7 @@ function tree(options) {
   var defaults = {
     length : 20,
     height : 495,
-    view   : image("assets/nature_trunk.png", options.length)
+    view   : image("assets/nature_trunk2.png", options.length)
   };
 
   return platform(_.extend(defaults, options));
@@ -77,7 +77,7 @@ function beehive(options) {
   var defaults = {
     height   : 64,
     length   : 40,
-    view     : image("assets/nature_hive.png", 40)
+    view     : image("assets/nature_hive2.png", 40)
   };
 
   return platform(_.extend(defaults, options)); 
@@ -85,7 +85,7 @@ function beehive(options) {
 
 function bee(options) {
   var defaults = {
-    view      : image("assets/nature_bee.png"),
+    view      : image("assets/nature_bee2.png"),
     passable  : true,
     killer    : true,
     bee       : true,

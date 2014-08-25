@@ -66,22 +66,22 @@ var levels = [
       x : 625,
       y : 328
     }),
-    branch(1, {
+    branch('Small', {
       x      : 582,
       y      : 200,
       length : 70
     }),
-    branch(2, {
+    branch('Big', {
       x      : 547,
       y      : 323,
       length : 145
     }),
-    branch(3, {
+    branch('Big2', {
       x      : 712,
       y      : 570,
       length : 140
     }),
-    branch(4, {
+    branch('Small2', {
       x      : 664,
       y      : 100,
       length : 70
