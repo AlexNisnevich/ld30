@@ -67,55 +67,55 @@ var levels = [
     bg : 'assets/nature_bg.png'
   }, [
     tree({
-      x : 625,
+      x : 635,
       y : 328
     }),
     branch('Small', {
-      x      : 582,
+      x      : 592,
       y      : 200,
       length : 70
     }),
     branch('Big', {
-      x      : 547,
-      y      : 323,
+      x      : 557,
+      y      : 318,
       length : 145
     }),
     branch('Big2', {
-      x      : 712,
+      x      : 722,
       y      : 570,
       length : 140
     }),
     branch('Small2', {
-      x      : 664,
+      x      : 674,
       y      : 100,
       length : 70
     }),
     beehive({
-      x : 542,
+      x : 552,
+      y : 360
+    }),
+    bee({
+      x : 552,
       y : 365
     }),
     bee({
-      x : 542,
-      y : 365
+      x : 552,
+      y : 360
     }),
     bee({
-      x : 542,
-      y : 365
+      x : 552,
+      y : 360
     }),
     bee({
-      x : 542,
-      y : 365
+      x : 552,
+      y : 360
     }),
     bee({
-      x : 542,
-      y : 365
-    }),
-    bee({
-      x : 542,
-      y : 365
+      x : 552,
+      y : 360
     }),
     exit({
-      x : 580,
+      x : 590,
       y : 555
     })
   ]),
