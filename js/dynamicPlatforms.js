@@ -73,3 +73,34 @@ Physics.behavior("laser", function (parent) {
     }
   };
 })
+
+Physics.behavior("bear", function (parent) {
+  var timeout = 100;
+  return {
+    behave : function (data) {
+      var bodies = this.getTargets();
+      
+      _.each(bodies, function (body) {
+        if (body.bear) {
+          timeout--;
+          if (timeout <= 0) {
+            if (body.mode == 'none') {
+              body.mode = 'head';
+              body.killer = true;
+              timeout = 100;
+            } else if (body.mode == 'head') {
+              body.mode = 'butt';
+              body.killer = false;
+              timeout = 40;
+            } else if (body.mode == 'butt') {
+              body.mode = 'none';
+              body.killer = false;
+              timeout = 100;
+            }
+            body.view = body.images[body.mode];
+          }
+        }
+      });
+    }
+  };
+});

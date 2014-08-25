@@ -216,6 +216,7 @@ var levels = [
 
   // eight
   world({
+    levelNum : 8,
     start        : { x : 200, y : 10 },
     bg           : 'assets/space_bg.png',
     gravityAccel : 0.0001
@@ -251,9 +252,36 @@ var levels = [
     })
   ]),
 
+  // ten
+  world({
+    levelNum : 9,
+    start : { x : 730, y : 200 },
+    bg : 'assets/polar_bg.png'
+  }, [
+    icePlatform({
+      x      : 650,
+      y      : 240,
+      length : 180
+    }),
+    bearCave({
+      x : 650,
+      y : 188
+    }),
+    bear({
+      x : 655,
+      y : 200
+    }),
+    exit({
+      x : 20,
+      y : 160
+    })
+  ], [
+    Physics.behavior("bear")
+  ]),
+
   // twelve
   world({
-    levelNum : 8,
+    levelNum : 10,
     start : { x : 200, y : 420 },
     bg : 'assets/zombie_bg.png'
   }, [

@@ -9,7 +9,7 @@ function Game(levels) {
   var beehavior = null;
   var zombiehavior = null;
 
-  var currentLevel = 0;
+  var currentLevel = 8;
 
   var base = levels[currentLevel];
   var other = null;
@@ -46,6 +46,10 @@ function Game(levels) {
       currentBg = newBase.attrs.bg;
       $('canvas').css('background', 'url(' + newBase.attrs.bg + ')');
     }
+
+    removeObjects(base);
+    base = newBase;
+    addObjects(base);
 
     if (this.player) {
       physics.remove(this.player);
@@ -86,9 +90,6 @@ function Game(levels) {
     physics.add(that.gravity);
 
     _.each(base.behaviors, function (b) { physics.remove(b) });
-    removeObjects(base);
-    base = newBase;
-    addObjects(base);
     _.each(base.behaviors, function (b) { physics.add(b) });
 
     if (beehavior) {
