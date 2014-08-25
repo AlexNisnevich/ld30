@@ -1,5 +1,3 @@
-var PLATFORM_HEIGHT = 10;
-
 // An object represents a discrete part of the world, which may or may
 // not be able to move. It wraps a Physics.js body.
 function entity(shape, options) {
@@ -15,13 +13,26 @@ function entity(shape, options) {
 
 function platform(options) {
   options.treatment = 'static';
-  return entity(rectangle(options.length, PLATFORM_HEIGHT), options);
+  return entity(rectangle(options.length, options.height), options);
 }
 
 function zombiePlatform(options) {
   var defaults = {
     restitution : 0.1,
+    height      : 1,
     view        : image("assets/zombie_tile.png", options.length + 15)
+  };
+
+  return platform(_.extend(defaults, options));
+}
+
+function icePlatform(options) {
+  var defaults = {
+    restitution : 0.1,
+    cof         : 1,
+    height      : 20,
+    view        : image("assets/polar_ice1.png", options.length + 15),
+    ice         : true
   };
 
   return platform(_.extend(defaults, options));

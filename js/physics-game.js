@@ -1,6 +1,6 @@
 var levels = [
   world({
-    start : { x : 390, y : 430 }
+    start : { x : 370, y : 430 }
   }, [
     zombiePlatform({
       x           : 265,
@@ -28,6 +28,24 @@ var levels = [
     exit({
       x : 260,
       y : 380
+    })
+  ]),
+  world({
+    start : { x : 365, y : 270 }
+  }, [
+    icePlatform({
+      x      : 325,
+      y      : 300,
+      length : 70
+    }),
+    icePlatform({
+      x      : 515,
+      y      : 465,
+      length : 100
+    }),
+    exit({
+      x : 775,
+      y : 450
     })
   ])
 ]

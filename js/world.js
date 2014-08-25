@@ -43,6 +43,7 @@ function Game(levels) {
       vx       : 0,
       vy       : 0,
       radius   : 22,
+      cof      : 1,
       grounded : false,
       view     : image("assets/magicStar.png")
     });
@@ -87,33 +88,48 @@ function Game(levels) {
       
       c.bodyA.grounded = false;
       c.bodyB.grounded = false;
+      
+      c.bodyA.iced = false;
+      c.bodyB.iced = false;
     }
 
     for (var i = 0, l = data.collisions.length; i < l; i++) {
       var c = data.collisions[i];
+      var bodyA = c.bodyA;
+      var bodyB = c.bodyB;
 
       // Only counts an object as grounded if it is exactly
       // vertical. We can change this to be some reasonable angle
       // later.
       if (Math.abs(c.norm.y) >= 0.8 && Math.abs(c.norm.x) <= 0.2) {
-        if (c.bodyA.state.pos.y <= c.bodyB.state.pos.y + 4) {
-          c.bodyA.grounded = true;
+        if (bodyA.state.pos.y <= bodyB.state.pos.y + 4) {
+          bodyA.grounded = true;
         }
 
-        if (c.bodyB.state.pos.y <= c.bodyA.state.pos.y + 4) {
-          c.bodyB.grounded = true;
+        if (bodyB.state.pos.y <= bodyA.state.pos.y + 4) {
+          bodyB.grounded = true;
         }
       }
 
+      if (bodyB.ice) {
+        console.log("Iced");
+        bodyA.iced = true;
+      }
+
+      if (bodyA.ice) {
+        console.log("Iced");
+        bodyB.iced = true;
+      }
+
       // Killer!
-      if (c.bodyA == that.player && c.bodyB.killer ||
-          c.bodyB == that.player && c.bodyA.killer) {
+      if (bodyA == that.player && bodyB.killer ||
+          bodyB == that.player && bodyA.killer) {
         physics.emit("die");
       }
 
       // Key!
-      if (c.bodyA == that.player && c.bodyB.goal ||
-          c.bodyB == that.player && c.bodyA.goal) {
+      if (bodyA == that.player && bodyB.goal ||
+          bodyB == that.player && bodyA.goal) {
         physics.emit("next-level");
       }
     }

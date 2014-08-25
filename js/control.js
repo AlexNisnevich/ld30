@@ -8,16 +8,16 @@ function createControl(game) {
 
         var that = this;
 
-        that.vx   = 0;
+        that.dir  = 0;
         that.jump = false;
 
         $(document).keydown(function (e) {
           switch (e.keyCode) {
           case 37: // ←
-            that.vx = -0.15;
+            that.dir = -1;
             break;
           case 39: // →
-            that.vx = 0.15;
+            that.dir = 1;
             break;
             
           case 38:
@@ -29,13 +29,13 @@ function createControl(game) {
         $(document).keyup(function (e) {
           switch (e.keyCode) {
           case 37:
-            if (that.vx == -0.15) {
-              that.vx = 0;
+            if (that.dir == -1) {
+              that.dir = 0;
             }
             break;
           case 39:
-            if (that.vx == 0.15) {
-              that.vx = 0;
+            if (that.dir == 1) {
+              that.dir = 0;
             }
             break;
           case 38:
@@ -48,9 +48,18 @@ function createControl(game) {
       behave : function (data) {
         var bodies  = this.getTargets();
         var scratch = Physics.scratchpad();
+        var speed   = 0.15;
 
         for (var i = 0, l = bodies.length; i < l; i++) {
-          bodies[i].state.vel.set(this.vx, bodies[i].state.vel.y);
+          var vx = bodies[i].state.vel.x;
+          var vy = bodies[i].state.vel.y;
+
+          // ICE
+          if (bodies[i].iced && Math.abs(vx) < speed * 2) {
+            bodies[i].accelerate(scratch.vector().set(this.dir * 0.001, 0));
+          } else {
+            bodies[i].state.vel.set(this.dir * speed, vy);
+          }
           
           var jumpSize = -0.05;
 
