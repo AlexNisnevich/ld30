@@ -8,12 +8,10 @@ function Game(levels) {
 
   var beehavior = null;
 
-  var addObjects = changeObjects("add");
-  var removeObjects = changeObjects("remove");
+  var currentLevel = 0;
 
-  var currentLevel = 3;
-
-  var base  = levels[currentLevel];
+  var base = levels[currentLevel];
+  var other = null;
 
   var currentBg = '';
 
@@ -32,7 +30,7 @@ function Game(levels) {
   };
 
   var physics = Physics(settings);
-  var gravity = null;
+  that.gravity = null;
 
   this.physics = physics;
   this.player = null;
@@ -77,23 +75,29 @@ function Game(levels) {
     die = Physics.behavior('die-offscreen').applyTo([this.player]);
     physics.add(die);
 
-    if (gravity) {
-      physics.remove(gravity);
+    if (that.gravity) {
+      physics.remove(that.gravity);
     }
-    gravity = Physics.behavior('constant-acceleration', {
+    that.gravity = Physics.behavior('constant-acceleration', {
       acc: { x : 0, y: newBase.attrs.gravityAccel }
     });
-    physics.add(gravity);
+    physics.add(that.gravity);
 
     removeObjects(base);
     base = newBase;
     addObjects(base);
 
     bees(that.player);
-    beehavior = Physics.behavior("bees").applyTo(_.filter(base.objects, function (object) {
+    beehavior = Physics.behavior("bees").applyTo(_.filter(base.currObjects, function (object) {
       return !!object.bee;
     }));
     physics.add(beehavior);
+
+    fallingPlatform(that);
+    physics.add(Physics.behavior("falling-platform").applyTo(_.filter(base.currObjects, function (object) {
+      return !!object.floating;
+    })));
+    
   };
 
   this.setOther = function (newOther) {
@@ -112,14 +116,14 @@ function Game(levels) {
 
     // override base gravity
 
-    if (gravity) {
-      physics.remove(gravity);
+    if (that.gravity) {
+      physics.remove(that.gravity);
     }
 
-    gravity = Physics.behavior('constant-acceleration', {
+    that.gravity = Physics.behavior('constant-acceleration', {
       acc: { x : 0, y: (newOther ? newOther : base).attrs.gravityAccel }
     });
-    physics.add(gravity);
+    physics.add(that.gravity);
   }
 
   // The loop which checks which objects are "grounded", ie on top of
@@ -156,17 +160,22 @@ function Game(levels) {
 
   physics.add(renderer());
 
-  var other = null;
-
   this.setBase(base);
 
-  function changeObjects(action) {
-    return function(world, pred) {
-      pred = pred || function () { return true };
-      
-      if (world) {
-        physics[action](_.filter(world.objects, pred));
-      }
+  function addObjects(world, pred) {
+    pred = pred || function () { return true };
+
+    if (world) {
+      world.currObjects = _.invoke(world.objects, "call");
+      physics.add(_.filter(world.currObjects, pred));
+    }
+  }
+
+  function removeObjects(world, pred) {
+    pred = pred || function () { return true };
+
+    if (world && world.currObjects.length > 0) {
+      physics.remove(_.filter(world.currObjects, pred));
     }
   }
 
@@ -191,9 +200,10 @@ function world(attrs, objects) {
   };
 
   return {
-    attrs   : _.extend(defaults, attrs),
-    start   : attrs.start,
-    objects : objects
+    attrs       : _.extend(defaults, attrs),
+    start       : attrs.start,
+    objects     : objects,
+    currObjects : []
   };
 }
 

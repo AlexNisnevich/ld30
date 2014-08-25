@@ -1,17 +1,18 @@
 // An object represents a discrete part of the world, which may or may
 // not be able to move. It wraps a Physics.js body.
 function entity(shape, options) {
-  var shapeName    = shape.name || shape;
+  return function () {
+    var shapeName    = shape.name || shape;
+    options = _.extend({
+      x           : 0,
+      y           : 0,
+      vx          : 0,
+      vy          : 0,
+      restitution : 0.1
+    }, shape, options);
 
-  b = Physics.body(shapeName, _.extend({
-    x           : 0,
-    y           : 0,
-    vx          : 0,
-    vy          : 0,
-    restitution : 0.1
-  }, shape, options));
-
-  return b;
+    return Physics.body(shapeName, options);
+  }
 }
 
 function platform(options) {
@@ -46,7 +47,8 @@ function icePlatform(options) {
 function asteroid(options) {
   var defaults = {
     height      : 88,
-    view        : image("assets/space_rock1.png", options.length + 15)
+    view        : image("assets/space_rock1.png", options.length + 15),
+    floating    : true
   };
 
   return platform(_.extend(defaults, options));

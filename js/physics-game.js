@@ -135,8 +135,9 @@ var levels = [
       length : 130,
     }),
     exit({
-      x : 110,
-      y : 100
+      x        : 110,
+      y        : 100,
+      floating : true
     })
   ])
 ]

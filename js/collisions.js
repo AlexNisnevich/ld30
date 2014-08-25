@@ -55,12 +55,12 @@ function collisions(that) {
               x      : x - (main.length / numPieces * i),
               y      : y + 20,
               killer : true
-            })));
+            }))());
             pieces.push(icePlatform(_.extend(miniOptions, {
               x      : x + (main.length / numPieces * i),
               y      : y + 20,
               killer : true
-            })));
+            }))());
           }
 
           _.each(pieces, function (piece) {
