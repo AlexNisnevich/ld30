@@ -61,7 +61,6 @@ var World = function(attrs, thingers) {
   var _setGoal = function() {
     if(attrs.goal.type) {
       that.goal = _makeObject(attrs.goal);
-      console.log(that.goal);
     }
   };
 
@@ -111,7 +110,7 @@ World.prototype.reset = function() {
   if(this.goal.reset) {
     this.goal.reset();
   }
-  
+
   return this;
 };
 
@@ -147,6 +146,7 @@ var CombinedWorld = function(baseWorld, otherWorld) {
   // the different objects in from both worlds
   var _updateAttrs = function(baseWorld, otherWorld) {
     that.attrs = otherWorld.attrs;
+    that.levelNum = [baseWorld.levelNum, otherWorld.levelNum];
     that.objects = baseWorld.objects.slice(0).concat(otherWorld.objects);
   };
 

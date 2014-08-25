@@ -100,7 +100,7 @@ var BouncyThinger = function(attrs) {
 };
 
 // Makes player stop moving
-var Tree = function(attrs) {
+var StickyThinger = function(attrs) {
   TallThinger.apply(this, [attrs]);
   this.effectOnPlayer = "stop";
 };
