@@ -29,20 +29,20 @@ var MovingPlatform = function(attrs) {
   this.move = function() {
     switch(this.direction) {
       case 'left':
-        this.image.x -= this.speed;
-        if(this.leftBound === this.image.x) { this.direction = 'right'; }
+        this.x -= this.speed;
+        if(this.leftBound === this.x) { this.direction = 'right'; }
         break;
       case 'right':
-        this.image.x += this.speed;
-        if(this.rightBound === this.image.x) { this.direction = 'left'; }
+        this.x += this.speed;
+        if(this.rightBound === this.x) { this.direction = 'left'; }
         break;
       case 'up':
-        this.image.y -= this.speed;
-        if(this.upBound === this.image.y) { this.direction = 'down'; }
+        this.y -= this.speed;
+        if(this.upBound === this.y) { this.direction = 'down'; }
         break;
       case 'down':
-        this.image.y += this.speed;
-        if(this.downBound === this.image.y) { this.direction = 'up'; }
+        this.y += this.speed;
+        if(this.downBound === this.y) { this.direction = 'up'; }
         break;
     }
   };

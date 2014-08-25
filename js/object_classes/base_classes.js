@@ -5,13 +5,13 @@
 //   img: 'img/thinger1.png'
 // }
 var Visuals = function(attrs) {
-  this.image = new createjs.Bitmap(attrs.img);
-  this.image.x = attrs.x;
-  this.image.y = attrs.y;
+  this = new createjs.Bitmap(attrs.img);
+  this.x = attrs.x;
+  this.y = attrs.y;
   this.visual = true;
 
   this.draw = function(game) {
-    game.addObject(this.image);
+    game.addObject(this);
   };
 };
 
@@ -25,14 +25,14 @@ var Visuals = function(attrs) {
 var Thinger = function(attrs) {
   this.length = attrs.length;
 
-  this.image = new createjs.Bitmap(attrs.img);
-  this.image.obj = this;
-  this.image.x = attrs.x;
-  this.image.y = attrs.y;
+  this = new createjs.Bitmap(attrs.img);
+  this.obj = this;
+  this.x = attrs.x;
+  this.y = attrs.y;
 
   this.draw = function (game) {
-    this.image.scaleX = attrs.length / this.image.getBounds().width;
-    game.addObject(this.image);
+    this.scaleX = attrs.length / this.getBounds().width;
+    game.addObject(this);
   };
 };
 
@@ -50,7 +50,7 @@ var TallThinger = function(attrs) {
   var _draw = this.draw.bind(this);
 
   this.draw = function(game) {
-    this.image.scaleY = attrs.height / this.image.getBounds().height;
+    this.scaleY = attrs.height / this.getBounds().height;
     _draw(game);
   };
 };
@@ -72,12 +72,12 @@ var MovingHeavyThinger = function(attrs) {
 
   this.move = function(playerPos, world) {
     if (world.attrs.gravityCoefficient > this.gravityThreshold) {
-      this.image.y += this.fallSpeed;
+      this.y += this.fallSpeed;
     }
   };
 
   this.reset = function() {
-    this.image.y = this.startY;
+    this.y = this.startY;
   };
 };
 
@@ -122,10 +122,10 @@ var Ice = function(attrs) {
   this.shatterVelocity = 15;
 
   this.shatter = function () {
-    this.image.scaleX = 0;
+    this.scaleX = 0;
   };
 
   this.reset = function () {
-    this.image.scaleX = attrs.length / this.image.getBounds().width;
+    this.scaleX = attrs.length / this.getBounds().width;
   };
 };
