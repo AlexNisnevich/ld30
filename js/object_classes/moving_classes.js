@@ -63,7 +63,6 @@ var MovingBeehive = function(attrs) {
 
   this.reset = function () {
     this.radius = this.minRadius;
-    setupRadius();
   };
 
   this.moveBees = function() {
