@@ -41,11 +41,9 @@ function createControl(game) {
         var scratch = Physics.scratchpad();
 
         for (var i = 0, l = bodies.length; i < l; i++) {
-          if (game.player.grounded) {
-            bodies[i].state.vel.set(this.vx, bodies[i].state.vel.y);
-          }
-
-          var jumpSize = -0.05;
+          bodies[i].state.vel.set(this.vx, bodies[i].state.vel.y);
+          
+          var jumpSize = -0.03;
 
           if (this.jump && game.player.grounded) {
             bodies[i].accelerate(scratch.vector().set(0, jumpSize));

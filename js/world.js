@@ -17,11 +17,11 @@ function Game(base) {
 
   // TODO: Make the player not be a circle!
   var player = Physics.body('circle', {
-    x        : 100,
-    y        : 80,
+    x        : 260,
+    y        : 380,
     vx       : 0,
     vy       : 0,
-    radius   : 20,
+    radius   : 22,
     grounded : false,
     view     : image("assets/magicStar.png")
   });
