@@ -36,7 +36,8 @@ function collisions(that) {
         if (Math.abs(other.state.vel.y) > 0.5) {
           that.physics.remove([main]);
 
-
+          other.grounded = false;
+          
           var numPieces = 5;
           var miniOptions = {
             length    : main.length / numPieces,
