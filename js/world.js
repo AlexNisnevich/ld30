@@ -7,6 +7,8 @@ function Game(base) {
   var addObjects = changeObjects("add");
   var removeObjects = changeObjects("remove");
 
+  var that = this;
+
   var settings = {
     timestep   : 1000 / 160,
     maxIPF     : 16,
@@ -15,13 +17,12 @@ function Game(base) {
 
   var physics = Physics(settings);
 
-
   this.physics = physics;
   this.player = null;
 
   this.setBase = function (newBase) {
     if (this.player) {
-      physics.remove(player);
+      physics.remove(this.player);
     }
 
     // TODO: Make the player not be a circle!
@@ -36,13 +37,20 @@ function Game(base) {
     });
 
     if (control) {
-      Physics.remove(control);
+      physics.remove(control);
     }
 
+    if (die) {
+      physics.remove(die);
+    }
+   
     physics.add(this.player);
 
     control = Physics.behavior('control').applyTo([this.player]);
     physics.add(control);
+
+    die = Physics.behavior('die-offscreen').applyTo([this.player]);
+    physics.add(die);
 
     removeObjects(base);
     base = newBase;
@@ -87,8 +95,14 @@ function Game(base) {
   physics.add(Physics.behavior('body-collision-detection'));
   physics.add(Physics.behavior('sweep-prune'));
 
+  physics.on("die", function () {
+    that.setOther(null);
+    that.setBase(base);
+  });
+
   createControl(this);
   var control = null;
+  var die = null;
 
   physics.add(renderer());
 
