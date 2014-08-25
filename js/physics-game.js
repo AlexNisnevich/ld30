@@ -150,20 +150,20 @@ var levels = [
   // six
   world({
     levelNum : 6,
-    start : { x : 150, y : 500 },
+    start : { x : 180, y : 500 },
     bg : 'assets/space_bg.png',
     gravityAccel: 0.0001
   }, [
     asteroid({
-      x         : 150,
-      y         : 550,
-      length    : 80,
-      height    : 77,
-      view      : image("assets/space_rock2.png", 80 + 15),
-      treatment : "kinematic",
-      moving    : { x : 0.08, y : 0 },
-      cof       : 1,
-      floating  : false
+      x           : 150,
+      y           : 550,
+      length      : 80,
+      height      : 40,
+      rectangular : true,
+      treatment   : "kinematic",
+      moving      : { x : 0.08, y : 0 },
+      cof         : 1,
+      floating    : false
     }),
     asteroid({
       x      : 940,

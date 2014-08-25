@@ -181,17 +181,24 @@ function spaceship(type, options) {
 }
 
 function asteroid(options) {
-  var radius = options.length || 88;
+  var radius = options.radius || options.length || 88;
+  var length = options.length || 88;
+  var height = options.height || 88;
+
+  var shape = options.rectangular ? rectangle(length, height) : circle(radius);
+  var view  = options.rectangular ?
+    image("assets/space_rock1.png", length + 25, height + 20) :
+    image("assets/space_rock1.png", radius - 20, radius - 20);
 
   var defaults = {
     height      : 88,
-    view        : image("assets/space_rock1.png", radius - 20, radius - 20),
+    view        : view,
     floating    : true,
     treatment   : "static",
     radius      : radius
   };
 
-  return entity(circle(radius), _.extend(defaults, options));
+  return entity(shape, _.extend(defaults, options));
 }
 
 // Geometry
