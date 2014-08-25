@@ -12,7 +12,7 @@ function createControl(game) {
         that.jump = false;
 
         $(document).keydown(function (e) {
-          switch (e.keyCode) {
+          switch (e.keyCode || e.which) {
           case 37: // ←
             that.dir = -1;
             break;
@@ -27,7 +27,7 @@ function createControl(game) {
         });
 
         $(document).keyup(function (e) {
-          switch (e.keyCode) {
+          switch (e.keyCode || e.which) {
           case 37:
             if (that.dir == -1) {
               that.dir = 0;
