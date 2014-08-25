@@ -9,7 +9,7 @@ function Game(levels) {
   var addObjects = changeObjects("add");
   var removeObjects = changeObjects("remove");
 
-  var currentLevel = 0;
+  var currentLevel = 2;
   var base  = levels[currentLevel];
 
   var levelHotkeys = {
@@ -70,70 +70,23 @@ function Game(levels) {
   };
 
   this.setOther = function (newOther) {
+    function otherable(object) {
+      return !object.baseOnly;
+    }
+
     removeObjects(other);
     other = newOther;
-    addObjects(other);
+    addObjects(other, otherable);
 
     setTimeout(function () { removeObjects(other) }, 50);
-    setTimeout(function () { addObjects(other) }, 100);
+    setTimeout(function () { addObjects(other, otherable) }, 100);
     setTimeout(function () { removeObjects(other) }, 150);
-    setTimeout(function () { addObjects(other) }, 200);
+    setTimeout(function () { addObjects(other, otherable) }, 200);
   }
 
   // The loop which checks which objects are "grounded", ie on top of
   // some other object.
-  physics.on('collisions:detected', function (data) {
-    for (var i = 0, l = data.collisions.length; i < l; i++) {
-      var c = data.collisions[i];
-      
-      c.bodyA.grounded = false;
-      c.bodyB.grounded = false;
-      
-      c.bodyA.iced = false;
-      c.bodyB.iced = false;
-    }
-
-    for (var i = 0, l = data.collisions.length; i < l; i++) {
-      var c = data.collisions[i];
-      var bodyA = c.bodyA;
-      var bodyB = c.bodyB;
-
-      // Only counts an object as grounded if it is exactly
-      // vertical. We can change this to be some reasonable angle
-      // later.
-      if (Math.abs(c.norm.y) >= 0.8 && Math.abs(c.norm.x) <= 0.2) {
-        if (bodyA.state.pos.y <= bodyB.state.pos.y + 4) {
-          bodyA.grounded = true;
-        }
-
-        if (bodyB.state.pos.y <= bodyA.state.pos.y + 4) {
-          bodyB.grounded = true;
-        }
-      }
-
-      if (bodyB.ice) {
-        console.log("Iced");
-        bodyA.iced = true;
-      }
-
-      if (bodyA.ice) {
-        console.log("Iced");
-        bodyB.iced = true;
-      }
-
-      // Killer!
-      if (bodyA == that.player && bodyB.killer ||
-          bodyB == that.player && bodyA.killer) {
-        physics.emit("die");
-      }
-
-      // Key!
-      if (bodyA == that.player && bodyB.goal ||
-          bodyB == that.player && bodyA.goal) {
-        physics.emit("next-level");
-      }
-    }
-  });
+  physics.on('collisions:detected', collisions(that));
 
   physics.add(Physics.behavior('body-impulse-response'));
   physics.add(Physics.behavior('body-collision-detection'));
@@ -167,9 +120,11 @@ function Game(levels) {
   this.setBase(base);
 
   function changeObjects(action) {
-    return function(world) {
+    return function(world, pred) {
+      pred = pred || function () { return true };
+      
       if (world) {
-        physics[action](world.objects);
+        physics[action](_.filter(world.objects, pred));
       }
     }
   }

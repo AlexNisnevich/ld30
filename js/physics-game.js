@@ -31,7 +31,7 @@ var levels = [
     })
   ]),
   world({
-    start : { x : 365, y : 270 }
+    start : { x : 345, y : 270 }
   }, [
     icePlatform({
       x      : 325,

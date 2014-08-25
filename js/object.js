@@ -12,8 +12,11 @@ function entity(shape, options) {
 }
 
 function platform(options) {
-  options.treatment = 'static';
-  return entity(rectangle(options.length, options.height), options);
+  var defaults = {
+    treatment : "static"
+  };
+
+  return entity(rectangle(options.length, options.height), _.extend(defaults, options));
 }
 
 function zombiePlatform(options) {
@@ -32,7 +35,8 @@ function icePlatform(options) {
     cof         : 1,
     height      : 20,
     view        : image("assets/polar_ice1.png", options.length + 15),
-    ice         : true
+    ice         : true,
+    breakable   : true
   };
 
   return platform(_.extend(defaults, options));
@@ -42,7 +46,8 @@ function exit(options) {
   var defaults = {
     goal      : true,
     treatment : "static",
-    view      : image("assets/magicKey.png", options.length)
+    view      : image("assets/magicKey.png", options.length),
+    baseOnly  : true
   };
 
   return entity(rectangle(13, 23), _.extend(defaults, options));
