@@ -15,7 +15,7 @@ function collisions(that) {
       var bodyA = c.bodyA;
       var bodyB = c.bodyB;
 
-      if (Math.abs(c.norm.y) >= 0.5 && Math.abs(c.norm.x) <= 0.5) {
+      if (Math.abs(c.norm.y) >= 0.2 && Math.abs(c.norm.x) <= 0.8) {
         if (bodyA.state.pos.y <= bodyB.state.pos.y + 4) {
           bodyA.grounded = true;
         }
@@ -42,21 +42,19 @@ function collisions(that) {
           };
           var x = main.state.pos.x;
           var y = main.state.pos.y;
-
-          console.log(x - main.length / 2);
-
+          
           var pieces    = [];
           
           for (var i = 0; i < numPieces; i++) {
             pieces.push(icePlatform(_.extend(miniOptions, {
               x         : x - (main.length / numPieces * i),
               y         : y + 20,
-              npcKiller : true
+              npcKiller : 2
             }))());
             pieces.push(icePlatform(_.extend(miniOptions, {
               x         : x + (main.length / numPieces * i),
               y         : y + 20,
-              npckiller : true
+              npckiller : 2
             }))());
           }
 
@@ -66,18 +64,20 @@ function collisions(that) {
 
           that.physics.add(pieces);
 
-          setTimeout(function () { that.physics.remove(pieces) }, 500);
+          setTimeout(function () { that.physics.remove(pieces) }, 600);
         }
       });
 
       withProperty("npcKiller", bodyA, bodyB, function (killer, victim) {
-        if (victim.killable) {
+        if (victim.killable <= killer.npcKiller) {
           that.physics.removeBody(victim);
         }
       });
 
-      withProperty("stoppable", bodyA, bodyB, function (obj) {
-        that.physics.removeBody(obj);
+      withProperty("stoppable", bodyA, bodyB, function (obj, other) {
+        if (!other.passable) {
+          that.physics.removeBody(obj);
+        }
       });
 
       withPlayer("killer", bodyA, bodyB, function () { that.physics.emit("die"); });

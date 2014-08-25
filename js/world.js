@@ -9,7 +9,7 @@ function Game(levels) {
   var beehavior = null;
   var zombiehavior = null;
 
-  var currentLevel = 5;
+  var currentLevel = 0;
 
   var base = levels[currentLevel];
   var other = null;
@@ -23,7 +23,10 @@ function Game(levels) {
     50:  1,  // key: 2
     51:  2,  // key: 3
     52:  3,  // key: 4
-    53:  4   // key: 5
+    53:  4,  // key: 5
+    54:  5,  // key: 5
+    55:  6,  // key: 5
+    56:  7   // key: 5
   }; 
 
   var settings = {
@@ -54,10 +57,10 @@ function Game(levels) {
       y        : newBase.start.y,
       vx       : 0,
       vy       : 0,
-      radius   : 22,
+      radius   : 28,
       cof      : 1,
       grounded : false,
-      view     : image("assets/magicStar.png")
+      view     : image("assets/char_face1.png")
     });
    
     physics.add(this.player);
@@ -182,7 +185,6 @@ function Game(levels) {
   }
 
   this.resetObjects = function () {
-    console.log(physics.activeLasers);
     _.each(physics.activeLasers, function (laser) {
       physics.removeBody(laser);
     })
@@ -283,12 +285,16 @@ function world(attrs, objects, behaviors) {
   };
 }
 
-function image(url, length) {
+function image(url, length, height) {
   var img = new Image();
   img.src = url;
 
   if (length) {
     img.width = length;
+  } 
+
+  if (height) {
+    img.height = height;
   }
 
   return img;

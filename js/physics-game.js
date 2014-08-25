@@ -67,55 +67,55 @@ var levels = [
     bg : 'assets/nature_bg.png'
   }, [
     tree({
-      x : 625,
+      x : 635,
       y : 328
     }),
     branch('Small', {
-      x      : 582,
+      x      : 592,
       y      : 200,
       length : 70
     }),
     branch('Big', {
-      x      : 547,
-      y      : 323,
+      x      : 557,
+      y      : 318,
       length : 145
     }),
     branch('Big2', {
-      x      : 712,
+      x      : 722,
       y      : 570,
       length : 140
     }),
     branch('Small2', {
-      x      : 664,
+      x      : 674,
       y      : 100,
       length : 70
     }),
     beehive({
-      x : 542,
+      x : 552,
+      y : 360
+    }),
+    bee({
+      x : 552,
       y : 365
     }),
     bee({
-      x : 542,
-      y : 365
+      x : 552,
+      y : 360
     }),
     bee({
-      x : 542,
-      y : 365
+      x : 552,
+      y : 360
     }),
     bee({
-      x : 542,
-      y : 365
+      x : 552,
+      y : 360
     }),
     bee({
-      x : 542,
-      y : 365
-    }),
-    bee({
-      x : 542,
-      y : 365
+      x : 552,
+      y : 360
     }),
     exit({
-      x : 580,
+      x : 590,
       y : 555
     })
   ]),
@@ -128,16 +128,18 @@ var levels = [
     gravityAccel: 0.0001
   }, [
     asteroid({
-      x      : 940,
-      y      : 507,
-      length : 80,
-      height : 77,
-      view   : image("assets/space_rock2.png", 80 + 15)
+      x            : 940,
+      y            : 507,
+      length       : 80,
+      height       : 77,
+      rectangular  : true,
+      asteroidType : 2
     }),
     asteroid({
       x      : 110,
       y      : 55,
       length : 130,
+      rectangular  : true
     }),
     exit({
       x        : 110,
@@ -150,20 +152,20 @@ var levels = [
   // six
   world({
     levelNum : 6,
-    start : { x : 150, y : 500 },
+    start : { x : 180, y : 500 },
     bg : 'assets/space_bg.png',
     gravityAccel: 0.0001
   }, [
     asteroid({
-      x         : 150,
-      y         : 550,
-      length    : 80,
-      height    : 77,
-      view      : image("assets/space_rock2.png", 80 + 15),
-      treatment : "kinematic",
-      moving    : { x : 0.08, y : 0 },
-      cof       : 1,
-      floating  : false
+      x           : 150,
+      y           : 550,
+      length      : 80,
+      height      : 40,
+      rectangular : true,
+      treatment   : "kinematic",
+      moving      : { x : 0.08, y : 0 },
+      cof         : 1,
+      floating    : false
     }),
     asteroid({
       x      : 940,
@@ -211,6 +213,43 @@ var levels = [
     exit({
       x : 20,
       y : 160
+    })
+  ]),
+
+  // eight
+  world({
+    start        : { x : 200, y : 10 },
+    bg           : 'assets/space_bg.png',
+    gravityAccel : 0.0001
+  }, [
+    asteroid({
+      x      : 200,
+      y      : 60,
+      radius : 20
+    }),
+    spaceship(1, {
+      x : 50,
+      y : 300
+    }),
+    spaceship(2, {
+      x : 950,
+      y : 280
+    }),
+    exit({
+      x        : 500,
+      y        : 300,
+      passable : true
+    })
+  ], [
+    Physics.behavior("laser", { options : { x : 116, y : 300 } }),
+    Physics.behavior("laser", {
+      laserType : 2,
+      options : {
+        x : 892,
+        y : 280
+        ,
+        moving : { x : -0.5, y : 0 }
+      }
     })
   ]),
 
