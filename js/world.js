@@ -8,7 +8,7 @@ function Game(levels) {
 
   var beehavior = null;
 
-  var currentLevel = 7;
+  var currentLevel = 5;
 
   var base = levels[currentLevel];
   var other = null;
@@ -85,9 +85,13 @@ function Game(levels) {
     });
     physics.add(that.gravity);
 
+    _.each(base.behaviors, function (b) { physics.remove(b) });
+
     removeObjects(base);
     base = newBase;
     addObjects(base);
+
+    _.each(base.behaviors, function (b) { physics.add(b) });
 
     bees(that.player);
     beehavior = Physics.behavior("bees").applyTo(_.filter(base.currObjects, function (object) {
@@ -111,12 +115,18 @@ function Game(levels) {
     if (flickerTimeouts) {
       _.map(flickerTimeouts, clearTimeout);
     }
+    
+    if (other) {
+      _.each(other.behaviors, function (b) { physics.remove(b) });
+    }
 
     removeObjects(other);
     other = newOther;
     addObjects(other, otherable);
 
     if (other) {
+      _.each(other.behaviors, function (b) { physics.add(b) });
+
       flickerTimeouts = [
         setTimeout(function () { setHiddenObjects(other, true) }, 50),
         setTimeout(function () { setHiddenObjects(other, false) }, 100),
@@ -214,15 +224,18 @@ function Game(levels) {
 
 // A world is a single level which can contain objects as well as a
 // starting location and goal.
-function world(attrs, objects) {
+function world(attrs, objects, behaviors) {
   var defaults = {
     gravityAccel: 0.0008
   };
+
+  behaviors = behaviors || [];
 
   return {
     attrs       : _.extend(defaults, attrs),
     start       : attrs.start,
     objects     : objects,
+    behaviors   : behaviors,
     currObjects : []
   };
 }

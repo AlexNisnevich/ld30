@@ -133,7 +133,19 @@ function bee(options) {
   return entity(circle(10), _.extend(defaults, options));
 }
 
-// Space world
+function laser(type, options) {
+  var defaults = {
+    height    : 10,
+    length    : 60,
+    killer    : true,
+    moving    : { x : 0.5, y : 0 },
+    treatment : "dynamic",
+    view      : image("assets/space_laser" + type + ".png"),
+    stoppable : true
+  };
+
+  return platform(_.extend(defaults, options));
+}
 
 function asteroid(options) {
   var defaults = {

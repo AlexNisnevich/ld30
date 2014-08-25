@@ -49,14 +49,14 @@ function collisions(that) {
           
           for (var i = 0; i < numPieces; i++) {
             pieces.push(icePlatform(_.extend(miniOptions, {
-              x      : x - (main.length / numPieces * i),
-              y      : y + 20,
-              killer : true
+              x         : x - (main.length / numPieces * i),
+              y         : y + 20,
+              npcKiller : true
             }))());
             pieces.push(icePlatform(_.extend(miniOptions, {
-              x      : x + (main.length / numPieces * i),
-              y      : y + 20,
-              killer : true
+              x         : x + (main.length / numPieces * i),
+              y         : y + 20,
+              npckiller : true
             }))());
           }
 
@@ -70,10 +70,14 @@ function collisions(that) {
         }
       });
 
-      withProperty("killer", bodyA, bodyB, function (killer, victim) {
+      withProperty("npcKiller", bodyA, bodyB, function (killer, victim) {
         if (victim.killable) {
           that.physics.remove(victim);
         }
+      });
+
+      withProperty("stoppable", bodyA, bodyB, function (obj) {
+        that.physics.removeBody(obj);
       });
 
       withPlayer("killer", bodyA, bodyB, function () { that.physics.emit("die"); });

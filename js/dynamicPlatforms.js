@@ -30,3 +30,39 @@ Physics.behavior("moving-platform", function (parent) {
     }
   };
 });
+
+Physics.behavior("laser", function (parent) {
+  return {
+    init : function (options) {
+      parent.init.call(this);
+      this.active = false;
+
+      var defaults = {
+        laserType : 1,
+        interval  : 200,
+        lifetime  : 2000
+      };
+
+      this.settings = _.extend(defaults, options);
+    },
+    behave : function () {
+      var that = this;
+
+      if (!this.active) {
+        that.active = true;
+        var shot = laser(that.settings.laserType, that.settings.options)();
+        that._world.addBody(shot);
+
+        setTimeout(function () {
+          that.active = false;
+        }, that.settings.interval);
+
+        setTimeout(function () {
+          if (that._world) {
+            that._world.removeBody(shot);
+          }
+        }, that.settings.lifetime);
+      }
+    }
+  };
+})

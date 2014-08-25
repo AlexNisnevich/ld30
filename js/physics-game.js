@@ -155,7 +155,7 @@ var levels = [
       height    : 77,
       view      : image("assets/space_rock2.png", 80 + 15),
       treatment : "kinematic",
-      moving    : { x : 0.03, y : 0 },
+      moving    : { x : 0.08, y : 0 },
       cof       : 1,
       floating  : false
     }),
@@ -169,6 +169,16 @@ var levels = [
     exit({
       x        : 900,
       y        : 430
+    })
+  ], [
+    Physics.behavior("laser", { options : { x : 10, y : 300 } }),
+    Physics.behavior("laser", {
+      laserType : 2,
+      options : {
+        x : 910,
+        y : 320,
+        moving : { x : -0.5, y : 0 }
+      }
     })
   ]),
 
