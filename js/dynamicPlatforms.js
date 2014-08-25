@@ -53,6 +53,12 @@ Physics.behavior("laser", function (parent) {
         var shot = laser(that.settings.laserType, that.settings.options)();
         that._world.addBody(shot);
 
+        if (!that._world.activeLasers) {
+          that._world.activeLasers = [];
+        }
+
+        that._world.activeLasers.push(shot);
+
         setTimeout(function () {
           that.active = false;
         }, that.settings.interval);
@@ -60,6 +66,7 @@ Physics.behavior("laser", function (parent) {
         setTimeout(function () {
           if (that._world) {
             that._world.removeBody(shot);
+            that._world.activeLasers = _.without(that._world.activeLasers, shot);
           }
         }, that.settings.lifetime);
       }
