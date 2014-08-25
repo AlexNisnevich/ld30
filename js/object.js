@@ -56,7 +56,7 @@ function tree(options) {
 function branch(type, options) {
   var defaults = {
     view        : image("assets/nature_branch" + type + ".png", options.length),
-    restitution : 0.8
+    restitution : 0.4
   };
 
   return platform(_.extend(defaults, options));
