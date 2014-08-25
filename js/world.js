@@ -44,12 +44,14 @@ function Game(levels) {
   this.player = null;
 
   this.setBase = function (newBase) {
+    _.each(base.behaviors, function (b) { physics.remove(b) });
+    removeObjects(base);
+
     if (newBase.attrs.bg && newBase.attrs.bg != currentBg) {
       currentBg = newBase.attrs.bg;
       $('canvas').css('background', 'url(' + newBase.attrs.bg + ')');
     }
 
-    removeObjects(base);
     base = newBase;
     addObjects(base);
 
@@ -91,7 +93,6 @@ function Game(levels) {
     });
     physics.add(that.gravity);
 
-    _.each(base.behaviors, function (b) { physics.remove(b) });
     _.each(base.behaviors, function (b) { physics.add(b) });
 
     if (beehavior) {
