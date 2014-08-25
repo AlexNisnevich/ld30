@@ -172,17 +172,26 @@ var levels = [
       height : 77,
       view   : image("assets/space_rock2.png", 80 + 15)
     }),
+    spaceship(1, {
+      x : 60,
+      y : 370
+    }),
+    spaceship(2, {
+      x : 900,
+      y : 400
+    }),
     exit({
       x        : 900,
       y        : 430
     })
   ], [
-    Physics.behavior("laser", { options : { x : 10, y : 300 } }),
+    Physics.behavior("laser", { options : { x : 116, y : 370 } }),
     Physics.behavior("laser", {
       laserType : 2,
       options : {
-        x : 910,
-        y : 320,
+        x : 842,
+        y : 400
+        ,
         moving : { x : -0.5, y : 0 }
       }
     })

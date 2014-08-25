@@ -165,6 +165,17 @@ function laser(type, options) {
   return platform(_.extend(defaults, options));
 }
 
+function spaceship(type, options) {
+  var defaults = {
+    length   : 50,
+    height   : 31,
+    killable : true,
+    view     : image("assets/space_ship" + type + ".png")
+  };
+
+  return platform(_.extend(defaults, options));
+}
+
 function asteroid(options) {
   var defaults = {
     height      : 88,
