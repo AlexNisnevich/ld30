@@ -8,7 +8,7 @@ function Game(levels) {
 
   var beehavior = null;
 
-  var currentLevel = 0;
+  var currentLevel = 5;
 
   var base = levels[currentLevel];
   var other = null;

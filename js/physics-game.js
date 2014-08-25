@@ -46,7 +46,7 @@ var levels = [
       y      : 300,
       length : 70
     }),
-    icePlatform({
+      icePlatform({
       x      : 515,
       y      : 465,
       length : 100
@@ -138,6 +138,22 @@ var levels = [
       x        : 110,
       y        : 100,
       floating : true
+    })
+  ]),
+
+  // seven
+  world({
+    start : { x : 25, y : 100 },
+    bg : 'assets/polar_bg.png'
+  }, [
+    icePlatform({
+      x      : 50,
+      y      : 130,
+      length : 100
+    }),
+    exit({
+      x : 20,
+      y : 160
     })
   ])
 ]
