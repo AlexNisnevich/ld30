@@ -127,9 +127,7 @@ var Game = function(w, h) {
   };
 
   this.updateLevelSidebar = function() {
-    console.log("Updating level sidebar");
     var world = this.getWorld();
-    console.log(world.levelNum);
 
     if (typeof world.levelNum === 'number') {
         var base = world.levelNum;
@@ -145,9 +143,9 @@ var Game = function(w, h) {
         $item.show();
 
         if (overlay && overlay === i) {
-            $item.css('color', 'red');
+            $item.addClass('levelindicator-overlay');
         } else {
-            $item.css('color', 'white');
+            $item.removeClass('levelindicator-overlay');
         }
     }
   }

@@ -25,3 +25,7 @@ canvas {
 .levelindicator {
     display:none;
 }
+
+.levelindicator-overlay {
+    color: red;
+}
