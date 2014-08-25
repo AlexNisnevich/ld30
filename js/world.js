@@ -13,6 +13,8 @@ function Game(levels) {
   var base = levels[currentLevel];
   var other = null;
 
+  var flickerTimeouts = [];
+
   var currentBg = '';
 
   var levelHotkeys = {
@@ -105,14 +107,22 @@ function Game(levels) {
       return !object.baseOnly;
     }
 
+    if (flickerTimeouts) {
+      _.map(flickerTimeouts, clearTimeout);
+    }
+
     removeObjects(other);
     other = newOther;
     addObjects(other, otherable);
 
-    setTimeout(function () { removeObjects(other) }, 50);
-    setTimeout(function () { addObjects(other, otherable) }, 100);
-    setTimeout(function () { removeObjects(other) }, 150);
-    setTimeout(function () { addObjects(other, otherable) }, 200);
+    if (other) {
+      flickerTimeouts = [
+        setTimeout(function () { setHiddenObjects(other, true) }, 50),
+        setTimeout(function () { setHiddenObjects(other, false) }, 100),
+        setTimeout(function () { setHiddenObjects(other, true) }, 150),
+        setTimeout(function () { setHiddenObjects(other, false) }, 200),
+      ];
+    }
 
     // override base gravity
 
@@ -177,6 +187,12 @@ function Game(levels) {
     if (world && world.currObjects.length > 0) {
       physics.remove(_.filter(world.currObjects, pred));
     }
+  }
+
+  function setHiddenObjects(world, hidden) {
+    _.each(world.currObjects, function (object) {
+      object.hidden = hidden;
+    });
   }
 
   $(document).keypress(function (e) {
