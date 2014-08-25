@@ -195,10 +195,13 @@ function Game(levels) {
     });
   }
 
-  $(document).keypress(function (e) {
-    var level = levelHotkeys[e.keyCode || e.which];
+  $(document).keyup(function (e) {
+    var key = e.keyCode || e.which;
+    var level = levelHotkeys[key];
 
-    if (typeof level == "number" && level < currentLevel) {
+    if (key == 27) {
+      that.setOther(null);
+    } else if (typeof level == "number" && level < currentLevel) {
       if (other == levels[level]) {
         that.setOther(null);
       } else {
