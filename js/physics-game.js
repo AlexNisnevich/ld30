@@ -190,38 +190,70 @@ var levels = [
 
   // twelve
   world({
-    start : { x : 220, y : 320 },
+    start : { x : 200, y : 320 },
     bg : 'assets/zombie_bg.png'
   }, [
     zombiePlatform({
-      x : 220,
+      x : 200,
       y : 350,
-      length: 440,
+      length: 400,
       view: image("assets/zombie_tile2.png", 500 + 15)
     }),
     crate({
-      x : 170,
-      y : 320
+      x : 140,
+      y : 330
     }),
     crate({
-      x : 170,
+      x : 140,
       y : 300
     }),
     barbedWire({
-      x : 170,
-      y : 280
+      x : 130,
+      y : 277
     }),
     crate({
-      x : 270,
-      y : 320
+      x : 260,
+      y : 330
     }),
     crate({
-      x : 270,
+      x : 260,
       y : 300
     }),
     barbedWire({
       x : 270,
-      y : 280
+      y : 277
+    }),
+    zombie({
+      x : 20,
+      y : 320
+    }),
+    zombie({
+      x : 40,
+      y : 320
+    }),
+    zombie({
+      x : 60,
+      y : 320
+    }),
+    zombie({
+      x : 80,
+      y : 320
+    }),
+    zombie({
+      x : 330,
+      y : 320
+    }),
+    zombie({
+      x : 350,
+      y : 320
+    }),
+    zombie({
+      x : 370,
+      y : 320
+    }),
+    zombie({
+      x : 390,
+      y : 320
     })
   ])
 ]

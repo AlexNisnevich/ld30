@@ -7,6 +7,7 @@ function Game(levels) {
   var that = this;
 
   var beehavior = null;
+  var zombiehavior = null;
 
   var currentLevel = 7;
 
@@ -47,10 +48,6 @@ function Game(levels) {
       physics.remove(this.player);
     }
 
-    if (beehavior) {
-      physics.remove(beehavior);
-    }
-
     // TODO: Make the player not be a circle!
     this.player = Physics.body('circle', {
       x        : newBase.start.x,
@@ -89,11 +86,23 @@ function Game(levels) {
     base = newBase;
     addObjects(base);
 
+    if (beehavior) {
+      physics.remove(beehavior);
+    }
     bees(that.player);
     beehavior = Physics.behavior("bees").applyTo(_.filter(base.currObjects, function (object) {
       return !!object.bee;
     }));
     physics.add(beehavior);
+
+    if (zombiehavior) {
+      physics.remove(zombiehavior);
+    }
+    zombies(that.player);
+    zombiehavior = Physics.behavior("zombies").applyTo(_.filter(base.currObjects, function (object) {
+      return !!object.zombie;
+    }));
+    physics.add(zombiehavior);
 
     fallingPlatform(that);
     physics.add(Physics.behavior("falling-platform").applyTo(_.filter(base.currObjects, function (object) {

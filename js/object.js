@@ -68,9 +68,27 @@ function barbedWire(options) {
     height : 30,
     view   : image("assets/zombie_bwire.png", 51 + 15),
     killer : true,
-    treatment : "dynamic",
+    //treatment : "dynamic",
     mass : 1
   }
+
+  return platform(_.extend(defaults, options));
+}
+
+function zombie(options) {
+  var defaults = {
+    length : 30,
+    height : 54,
+    view   : image("assets/zombie_zombie.png", 30 + 15),
+    images : {
+      forward : image("assets/zombie_zombie_reversed.png", 30 + 15),
+      backward : image("assets/zombie_zombie.png", 30 + 15)
+    },
+    killer : true,
+    zombie : true,
+    treatment : "dynamic",
+    mass : 1
+  };
 
   return platform(_.extend(defaults, options));
 }
