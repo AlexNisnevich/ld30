@@ -21,7 +21,7 @@ function platform(options) {
 function zombiePlatform(options) {
   var defaults = {
     restitution : 0.1,
-    view        : image("assets/zombie_tile.png", options.length)
+    view        : image("assets/zombie_tile.png", options.length + 20)
   };
 
   return platform(_.extend(options, defaults));

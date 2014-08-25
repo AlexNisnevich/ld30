@@ -3,12 +3,12 @@ var baseWorld = {
     zombiePlatform({
       x           : 265,
       y           : 420,
-      length      : 75
+      length      : 55
     }),
     zombiePlatform({
       x           : 360,
       y           : 450,
-      length      : 80
+      length      : 60
     })
   ]
 }
