@@ -19,7 +19,7 @@ var MovingBeehive = function(attrs) {
   this.radius = attrs.radius;
   this.maxRadius = attrs.maxRadius;
 
-  this.bees = []
+  this.bees = [];
   for (var i=0; i<5; i++) {
     var bee = new createjs.Bitmap('assets/nature_bee.png');
     bee.x = this.centerX;
