@@ -15,17 +15,45 @@ function Game(base) {
 
   var physics = Physics(settings);
 
-  // TODO: Make the player not be a circle!
-  var player = Physics.body('circle', {
-    x        : 260,
-    y        : 380,
-    vx       : 0,
-    vy       : 0,
-    radius   : 22,
-    grounded : false,
-    view     : image("assets/magicStar.png")
-  });
-  physics.add(player);
+
+  this.physics = physics;
+  this.player = null;
+
+  this.setBase = function (newBase) {
+    if (this.player) {
+      physics.remove(player);
+    }
+
+    // TODO: Make the player not be a circle!
+    this.player = Physics.body('circle', {
+      x        : 260,
+      y        : 380,
+      vx       : 0,
+      vy       : 0,
+      radius   : 22,
+      grounded : false,
+      view     : image("assets/magicStar.png")
+    });
+
+    if (control) {
+      Physics.remove(control);
+    }
+
+    physics.add(this.player);
+
+    control = Physics.behavior('control').applyTo([this.player]);
+    physics.add(control);
+
+    removeObjects(base);
+    base = newBase;
+    addObjects(base);
+  };
+
+  this.setOther = function (newOther) {
+    removeObjects(other);
+    other = newOther;
+    addObjects(other);
+  }
 
   // The loop which checks which objects are "grounded", ie on top of
   // some other object.
@@ -60,8 +88,7 @@ function Game(base) {
   physics.add(Physics.behavior('sweep-prune'));
 
   createControl(this);
-  var control = Physics.behavior('control').applyTo([player]);
-  physics.add(control);
+  var control = null;
 
   physics.add(renderer());
 
@@ -72,37 +99,14 @@ function Game(base) {
   });
   physics.add(gravity);
 
-  addObjects(base);
+  this.setBase(base);
 
-  // Returns a list of all the objects subject to gravity.
-  function freeFalling() {
-    var otherObjects = other && other.objects ? other.objects : [];
-    return base.objects.concat(otherObjects, [player]);
-  }
-  
   function changeObjects(action) {
     return function(world) {
       if (world) {
         physics[action](world.objects);
       }
-
-      gravity.applyTo(freeFalling());
     }
-  }
-
-  this.physics = physics;
-  this.player = player;
-
-  this.setBase = function (newBase) {
-    removeObjects(base);
-    base = newBase;
-    addObjects(base);
-  };
-
-  this.setOther = function (newOther) {
-    removeObjects(other);
-    other = newOther;
-    addObjects(other);
   }
 }
 
