@@ -93,7 +93,7 @@ var MovingZombie = function(attrs) {
   DeadlyTallThinger.apply(this, [attrs]);
 
   this.move = function(playerPos) {
-    var distanceFromPlayer = _euclideanDistance({x: this.image.x, y: this.image.y}, playerPos);
+    var distanceFromPlayer = _euclideanDistance({x: this.x, y: this.y}, playerPos);
 
     if(distanceFromPlayer < this.distance) {
       this.moveTowardPlayer(playerPos);
@@ -101,10 +101,10 @@ var MovingZombie = function(attrs) {
   };
 
   this.moveTowardPlayer = function(playerPos) {
-    if(playerPos.x < this.image.x) {
-      this.image.x -= this.speed;
+    if(playerPos.x < this.x) {
+      this.x -= this.speed;
     } else {
-      this.image.y -= this.speed;
+      this.y -= this.speed;
     }
   };
 };
@@ -137,11 +137,11 @@ var MovingPolarBear = function(attrs) {
   };
 
   this.appear = function() {
-    this.image.scaleX = attrs.length / this.image.getBounds().width;
+    this.scaleX = attrs.length / this.getBounds().width;
   };
 
   this.disappear = function() {
-    this.image.scaleX = 0;
+    this.scaleX = 0;
   };
 };
 
@@ -178,10 +178,10 @@ var MovingLazer = function(attrs) {
   };
 
   this.moveTowardGoal = function() {
-    if(this.image.x > goalX) {
-      this.image.x -= attrs.speed;
+    if(this.x > goalX) {
+      this.x -= attrs.speed;
     } else {
-      this.image.x += attrs.speed;
+      this.x += attrs.speed;
     }
     if(this.length < this.startLength) {
       this.appear();
@@ -189,21 +189,21 @@ var MovingLazer = function(attrs) {
   };
 
   this.reset = function() {
-    this.image.x = this.startX;
+    this.x = this.startX;
     this.length = this.startLength;
   };
 
   this.appear = function() {
     if(this.length < this.startLength) {
       this.length += attrs.speed;
-      this.image.scaleX = this.length / this.image.getBounds().width;
+      this.scaleX = this.length / this.getBounds().width;
     }
   };
 
   this.disappear = function() {
     if(this.length > 0) {
       this.length -= attrs.speed;
-      this.image.scaleX = this.length / this.image.getBounds().width;
+      this.scaleX = this.length / this.getBounds().width;
     }
   };
 
