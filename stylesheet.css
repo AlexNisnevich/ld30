@@ -18,4 +18,10 @@ canvas {
 #levelMenu {
     float:left;
     width:100px;
+
+    color:white;
+}
+
+.levelindicator {
+    display:none;
 }
