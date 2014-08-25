@@ -1,5 +1,8 @@
 // An object represents a discrete part of the world, which may or may
 // not be able to move. It wraps a Physics.js body.
+
+// Base classes
+
 function entity(shape, options) {
   return function () {
     var shapeName    = shape.name || shape;
@@ -23,6 +26,21 @@ function platform(options) {
   return entity(rectangle(options.length, options.height), _.extend(defaults, options));
 }
 
+// All worlds
+
+function exit(options) {
+  var defaults = {
+    goal      : true,
+    treatment : "static",
+    view      : image("assets/magicKey.png", options.length),
+    baseOnly  : true
+  };
+
+  return entity(rectangle(13, 23), _.extend(defaults, options));
+}
+
+// Zombie world
+
 function zombiePlatform(options) {
   var defaults = {
     height      : 1,
@@ -31,6 +49,33 @@ function zombiePlatform(options) {
 
   return platform(_.extend(defaults, options));
 }
+
+function crate(options) {
+  var defaults = {
+    length : 28,
+    height : 31,
+    view   : image("assets/zombie_crate0.png", 28 + 10),
+    treatment : "dynamic",
+    mass : 1000
+  }
+
+  return platform(_.extend(defaults, options));
+}
+
+function barbedWire(options) {
+  var defaults = {
+    length : 51,
+    height : 30,
+    view   : image("assets/zombie_bwire.png", 51 + 15),
+    killer : true,
+    treatment : "dynamic",
+    mass : 1
+  }
+
+  return platform(_.extend(defaults, options));
+}
+
+// Polar world
 
 function icePlatform(options) {
   var defaults = {
@@ -44,15 +89,7 @@ function icePlatform(options) {
   return platform(_.extend(defaults, options));
 }
 
-function asteroid(options) {
-  var defaults = {
-    height      : 88,
-    view        : image("assets/space_rock1.png", options.length + 15),
-    floating    : true
-  };
-
-  return platform(_.extend(defaults, options));
-}
+// Nature world
 
 function tree(options) {
   var defaults = {
@@ -96,16 +133,19 @@ function bee(options) {
   return entity(circle(10), _.extend(defaults, options));
 }
 
-function exit(options) {
+// Space world
+
+function asteroid(options) {
   var defaults = {
-    goal      : true,
-    treatment : "static",
-    view      : image("assets/magicKey.png", options.length),
-    baseOnly  : true
+    height      : 88,
+    view        : image("assets/space_rock1.png", options.length + 15),
+    floating    : true
   };
 
-  return entity(rectangle(13, 23), _.extend(defaults, options));
+  return platform(_.extend(defaults, options));
 }
+
+// Geometry
 
 // A circle shape, with the given radius.
 function circle(radius) {

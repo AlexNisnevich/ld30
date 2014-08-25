@@ -8,7 +8,7 @@ function Game(levels) {
 
   var beehavior = null;
 
-  var currentLevel = 0;
+  var currentLevel = 7;
 
   var base = levels[currentLevel];
   var other = null;
@@ -18,11 +18,11 @@ function Game(levels) {
   var currentBg = '';
 
   var levelHotkeys = {
-    49:  0,  // 1
-    50:  1,  // 2
-    51:  2,  // 3
-    52:  3,  // 4
-    113: 4   // Q
+    49:  0,  // key: 1
+    50:  1,  // key: 2
+    51:  2,  // key: 3
+    52:  3,  // key: 4
+    53:  4   // key: 5
   }; 
 
   var settings = {

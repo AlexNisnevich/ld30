@@ -159,10 +159,16 @@ var levels = [
       cof       : 1,
       floating  : false
     }),
+    asteroid({
+      x      : 940,
+      y      : 457,
+      length : 80,
+      height : 77,
+      view   : image("assets/space_rock2.png", 80 + 15)
+    }),
     exit({
-      x        : 110,
-      y        : 100,
-      floating : true
+      x        : 900,
+      y        : 430
     })
   ]),
 
@@ -179,6 +185,43 @@ var levels = [
     exit({
       x : 20,
       y : 160
+    })
+  ]),
+
+  // twelve
+  world({
+    start : { x : 220, y : 320 },
+    bg : 'assets/zombie_bg.png'
+  }, [
+    zombiePlatform({
+      x : 220,
+      y : 350,
+      length: 440,
+      view: image("assets/zombie_tile2.png", 500 + 15)
+    }),
+    crate({
+      x : 170,
+      y : 320
+    }),
+    crate({
+      x : 170,
+      y : 300
+    }),
+    barbedWire({
+      x : 170,
+      y : 280
+    }),
+    crate({
+      x : 270,
+      y : 320
+    }),
+    crate({
+      x : 270,
+      y : 300
+    }),
+    barbedWire({
+      x : 270,
+      y : 280
     })
   ])
 ]
