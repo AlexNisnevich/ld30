@@ -10,32 +10,43 @@
 //   speedIn: .5
 // }
 var MovingBeehive = function(attrs) {
-  // Until radius stuff is implemented
+  var that = this;
+
   attrs.length = attrs.radius;
-  DeadlyThinger.apply(this, [attrs]);
   this.centerX = attrs.x;
   this.centerY = attrs.y;
   this.minRadius = attrs.radius;
   this.radius = attrs.radius;
   this.maxRadius = attrs.maxRadius;
-  var that = this;
+
+  this.bees = [];
+  for (var i=0; i<5; i++) {
+    var bee = new createjs.Bitmap('assets/nature_bee.png');
+    bee.x = this.centerX;
+    bee.y = this.centerY;
+    bee.angle = Math.random() * 360;
+    bee.obj = {
+      effectOnPlayer: "kill"
+    };
+    this.bees.push(bee);
+  }
 
   this.draw = function(game) {
-    // For now
-    setupRadius();
-    game.addObject(this.image);
+    this.bees.forEach(game.addObject);
   };
 
+  // Move radius outward or inward depending on the playerPos
+  // then move bees accordingly
   this.move = function(playerPos) {
-    var distanceFromPlayer = _euclideanDistance({x: this.image.x, y: this.image.y}, playerPos);
+    var distanceFromPlayer = _euclideanDistance({x: this.centerX, y: this.centerY}, playerPos);
 
     if(distanceFromPlayer < attrs.senseRadius) {
       this.moveOutward();
     } else {
       this.moveInward();
     }
-    // For now
-    setupRadius();
+
+    this.moveBees();
   };
 
   this.moveOutward = function() {
@@ -52,16 +63,19 @@ var MovingBeehive = function(attrs) {
 
   this.reset = function () {
     this.radius = this.minRadius;
-    setupRadius();
   };
 
-  // For now
-  // Makes the initial radius the center radius
-  var setupRadius = function() {
-    that.image.scaleX = that.radius / that.image.getBounds().width;
-    that.image.scaleY = that.radius / that.image.getBounds().height;
-    that.image.x = that.centerX - that.radius / 2;
-    that.image.y = that.centerY - that.radius / 2;
+  this.moveBees = function() {
+    this.bees.forEach(function (bee) {
+      bee.speed = that.radius / that.minRadius;
+      bee.x += Math.cos(bee.angle) * bee.speed;
+      bee.y += Math.sin(bee.angle) * bee.speed;
+      if (_euclideanDistance({x: that.centerX, y: that.centerY}, bee) > that.radius) {
+        bee.x += (that.centerX - bee.x) / 10;
+        bee.y += (that.centerY - bee.y) / 10;
+        bee.angle += 180 + Math.random() * 30;
+      }
+    });
   };
 };
 
@@ -136,75 +150,69 @@ var MovingPolarBear = function(attrs) {
 //   x: 10,
 //   y: 15,
 //   length: 20,
+//   height: 20,
 //   img: 'img/platform1.png',
 //   goalX: 20,
-//   goalY: 20,
 //   speed: 2
+//   inactiveLength: 2
 // }
 var MovingLazer = function(attrs) {
-  DeadlyThinger.apply(this, [attrs]);
+  DeadlyTallThinger.apply(this, [attrs]);
   this.startX = attrs.x;
-  this.startY = attrs.y;
-
-  var _moveRatio = {
-    horizontal: Math.abs(attrs.x - attrs.goalX),
-    vertical: Math.abs(attrs.y - attrs.goalY)
-  };
-
-  var _moves = {
-    horizontal: 0,
-    vertical: 0
-  };
+  this.startLength = attrs.length;
+  var that = this;
+  var goalX = attrs.goalX;
+  var _ticksGone = 0;
 
   this.move = function() {
     if(!_reachedGoal()) {
+      this.moveTowardGoal();
+    } else if(_ticksGone < attrs.inactiveLength) {
+      this.disappear();
+      _ticksGone++;
+    } else {
+      _ticksGone = 0;
+      _changeGoal();
       this.moveTowardGoal();
     }
   };
 
   this.moveTowardGoal = function() {
-    if(_shouldMoveHorizontally()) {
-      if(this.image.x > attrs.goalX) {
-        this.image.x -= attrs.speed;
-      } else {
-        this.image.x += attrs.speed;
-      }
-      _moves.horizontal += 1;
+    if(this.image.x > goalX) {
+      this.image.x -= attrs.speed;
     } else {
-      if(this.image.y > attrs.goalY) {
-        this.image.y -= attrs.speed;
-      } else {
-        this.image.y += attrs.speed;
-      }
-      _moves.vertical += 1;
+      this.image.x += attrs.speed;
     }
-    _resetMoves();
+    if(this.length < this.startLength) {
+      this.appear();
+    }
   };
 
   this.reset = function() {
     this.image.x = this.startX;
-    this.image.y = this.startY;
+    this.length = this.startLength;
   };
 
-  var _reachedGoal = function() {
-    return this.image.x === attrs.goalX && this.image.y === attrs.goalY;
-  };
-
-  var _shouldMoveHorizontally = function() {
-    return _moves.horizontal < _moveRatio.horizontal && this.image.x !== this.goalX;
-  };
-
-  var _resetMoves = function() {
-    if(_needToResetMoves()) {
-      _moves = {
-        horizontal: 0,
-        vertical: 0
-      };
+  this.appear = function() {
+    if(this.length < this.startLength) {
+      this.length += attrs.speed;
+      this.image.scaleX = this.length / this.image.getBounds().width;
     }
   };
 
-  var _needToResetMoves = function() {
-    return _moves.horizontal === _moveRatio.horizontal && _moves.vertical === _moveRatio.vertical;
+  this.disappear = function() {
+    if(this.length > 0) {
+      this.length -= attrs.speed;
+      this.image.scaleX = this.length / this.image.getBounds().width;
+    }
+  };
+
+  var _reachedGoal = function() {
+    return that.image.x === goalX;
+  };
+
+  var _changeGoal = function() {
+    goalX = (goalX === that.startX) ? attrs.goalX : that.startX;
   };
 };
 

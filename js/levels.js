@@ -83,7 +83,7 @@ var LevelFour = new World({
   gravityCoefficient: 1,
   cantOverlap: []
 }, [{
-  type: "tree",
+  type: "tallThinger",
   x: 625,
   y: 105,
   length: 25,
@@ -92,13 +92,13 @@ var LevelFour = new World({
 },{
   type: "bouncyThinger",
   x: 565,
-  y: 250,
+  y: 230,
   length: 70,
   img: 'assets/nature_branch1.png'
 },{
   type: "bouncyThinger",
   x: 490,
-  y: 370,
+  y: 350,
   length: 145,
   img: 'assets/nature_branch2.png'
 },{
@@ -115,13 +115,13 @@ var LevelFour = new World({
   img: 'assets/nature_branch3.png'
 },{
   type: "visuals",
-  x: 520,
+  x: 530,
   y: 370,
   img: 'assets/nature_hive.png'
 },{
   type: "movingBeehive",
   x: 550,
-  y: 400,
+  y: 390,
   radius: 20,
   img: 'assets/nature_bee.png',
   maxRadius: 100,
@@ -160,6 +160,16 @@ var LevelFive = new World({
   img: 'assets/platform.png',
   gravityThreshold: 0.5,
   fallSpeed: 1
+},{
+  type: "movingLazer",
+  x: 10,
+  y: 15,
+  length: 20,
+  height: 5,
+  img: 'assets/platform.png',
+  goalX: 100,
+  speed: 2,
+  inactiveLength: 20
 }]);
 
 /*var BlankFinalLevel = new World({

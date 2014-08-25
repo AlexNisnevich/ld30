@@ -61,7 +61,6 @@ var World = function(attrs, thingers) {
   var _setGoal = function() {
     if(attrs.goal.type) {
       that.goal = _makeObject(attrs.goal);
-      console.log(that.goal);
     }
   };
 
@@ -101,6 +100,20 @@ World.prototype.combine = function(otherWorld) {
   }
 };
 
+World.prototype.reset = function() {
+  this.objects.forEach(function(obj) {
+    if(obj.reset) {
+      obj.reset();
+    }
+  });
+
+  if(this.goal.reset) {
+    this.goal.reset();
+  }
+
+  return this;
+};
+
 // A container for two world objects that gets
 // almost all of its attributes from the base world
 // and the `attrs` and `objects` attributes from both
@@ -133,6 +146,7 @@ var CombinedWorld = function(baseWorld, otherWorld) {
   // the different objects in from both worlds
   var _updateAttrs = function(baseWorld, otherWorld) {
     that.attrs = otherWorld.attrs;
+    that.levelNum = [baseWorld.levelNum, otherWorld.levelNum];
     that.objects = baseWorld.objects.slice(0).concat(otherWorld.objects);
   };
 
@@ -146,4 +160,10 @@ var CombinedWorld = function(baseWorld, otherWorld) {
 CombinedWorld.prototype.tick = function(playerPos) {
   this.baseWorld.tick(playerPos, this);
   this.otherWorld.tick(playerPos, this);
+};
+
+CombinedWorld.prototype.reset = function() {
+  this.baseWorld.reset();
+  this.otherWorld.reset();
+  return this.baseWorld;
 };

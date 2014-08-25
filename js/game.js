@@ -4,9 +4,7 @@ var ShatteredWorlds = function() {
 
 var Game = function(w, h) {
   var assetsToLoad = {
-    'hero': 'assets/magicStar.png',
-    'platform': 'assets/platform.png',
-    'portal': 'assets/magicKey.png'
+    'hero': 'assets/magicStar.png'
   };
 
   var levelHotkeys = {
@@ -25,7 +23,7 @@ var Game = function(w, h) {
     5: LevelFive
   };
 
-  var currentLevelNum = 5;
+  var currentLevelNum = 1;
 
   var self = this;
   var ticks = 0;
@@ -77,10 +75,9 @@ var Game = function(w, h) {
 
   this.initializeGame = function() {
     // creating the canvas-element
-    canvas = document.createElement('canvas');
+    canvas = document.getElementById('mainCanvas');
     canvas.width = w;
     canvas.height = h;
-    document.body.appendChild(canvas);
 
     // initializing the stage
     stage = new createjs.Stage(canvas);
@@ -164,11 +161,8 @@ var Game = function(w, h) {
   };
 
   this.resetLevel = function() {
-    collideables.forEach(function (c) {
-      if (c.obj && c.obj.reset) {
-        c.obj.reset();
-      }
-    });
+    world = world.reset();
+    this.updateLevel(world);
   };
 
   this.overlayWorld = function(newWorld) {
@@ -181,8 +175,10 @@ var Game = function(w, h) {
       setTimeout(function () { self.updateLevel(oldWorld); }, 150);
       setTimeout(function () { self.updateLevel(world); }, 200);
     } else {
-      // Do something
-      // Flicker then make noise?
+      setTimeout(function () { self.updateLevel(newWorld); }, 50);
+      setTimeout(function () { self.updateLevel(world); }, 100);
+      setTimeout(function () { self.updateLevel(newWorld); }, 150);
+      setTimeout(function () { self.updateLevel(world); }, 200);
     }
   };
 
