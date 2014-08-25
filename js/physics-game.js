@@ -128,16 +128,18 @@ var levels = [
     gravityAccel: 0.0001
   }, [
     asteroid({
-      x      : 940,
-      y      : 507,
-      length : 80,
-      height : 77,
-      view   : image("assets/space_rock2.png", 80 + 15)
+      x            : 940,
+      y            : 507,
+      length       : 80,
+      height       : 77,
+      rectangular  : true,
+      asteroidType : 2
     }),
     asteroid({
       x      : 110,
       y      : 55,
       length : 130,
+      rectangular  : true
     }),
     exit({
       x        : 110,

@@ -185,17 +185,19 @@ function asteroid(options) {
   var length = options.length || 88;
   var height = options.height || 88;
 
+  var src   = "assets/space_rock" + (options.asteroidType || 1) + ".png";
   var shape = options.rectangular ? rectangle(length, height) : circle(radius);
   var view  = options.rectangular ?
-    image("assets/space_rock1.png", length + 25, height + 20) :
-    image("assets/space_rock1.png", radius - 20, radius - 20);
+    image(src, length + 15, height + 10) :
+    image(src, radius - 20, radius - 20);
 
   var defaults = {
-    height      : 88,
-    view        : view,
-    floating    : true,
-    treatment   : "static",
-    radius      : radius
+    height       : 88,
+    view         : view,
+    floating     : true,
+    treatment    : "static",
+    radius       : radius,
+    asteroidType : 1
   };
 
   return entity(shape, _.extend(defaults, options));
