@@ -9,6 +9,7 @@
     <script src="jquery-2.1.1.min.js"></script>
     <script src="underscore-min.js"></script>
     <script src="lib/physics/physicsjs-full-0.6.0.js"></script>
+    <script src="js/story.js"></script>
     <script src="js/control.js"></script>
     <script src="js/canvas.js"></script>
     <script src="js/bee.js"></script>
@@ -21,33 +22,36 @@
     <script src="js/object.js"></script>
     <script src="js/physics-game.js"></script>
 
+    <link href='http://fonts.googleapis.com/css?family=Audiowide&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheet.css">
   </head>
   <body onload="go()">
     <div id="gameContainer">
       <div id='levelMenu'>
-        CONTROLS
-        <ul>
-            <li><b>[&#8592;&#8593;&#8594;]</b> move</li>
-            <li><b>[R]</b> restart</li>
-            <li><b>[lvl #]</b> overlay level</li>
-            <li><b>[ESC]</b> clear overlay</li>
+        <ul class="controls">
+          <li><span class="key big">&#8592;</span> <span class="key big">&#8593;</span> <span class="key big">&#8594;</span> <br /> move</li>
+          <li><span class="key big">R</span> <br /> restart</li>
+          <li><span class="key big">lvl #</span> <br /> overlay level</li>
+          <li><span class="key big">ESC</span> <br /> clear overlay</li>
         </ul>
 
-        LEVELS
+        <span id="levels">LEVELS</span>
         <ul>
-            <li class='levelindicator 1'><span class="hotkey">[1]</span> Zombie 1</li>
-            <li class='levelindicator 2'><span class="hotkey">[2]</span> Zombie 2</li>
-            <li class='levelindicator 3'><span class="hotkey">[3]</span> Ice 1</li>
-            <li class='levelindicator 4'><span class="hotkey">[4]</span> Nature 1</li>
-            <li class='levelindicator 5'><span class="hotkey">[5]</span> Space 1</li>
-            <li class='levelindicator 6'><span class="hotkey">[6]</span> Space 2</li>
-            <li class='levelindicator 7'><span class="hotkey">[7]</span> Ice 2</li>
-            <li class='levelindicator 8'><span class="hotkey">[8]</span> Space 3</li>
-            <li class='levelindicator 9'><span class="hotkey">[9]</span> Nature 2</li>
-            <li class='levelindicator 10'><span class="hotkey">[0]</span> Ice 3</li>
+            <li class='levelindicator 1'><span class="key sm">1</span> Zombie 1</li>
+            <li class='levelindicator 2'><span class="key sm">2</span> Zombie 2</li>
+            <li class='levelindicator 3'><span class="key sm">3</span> Ice 1</li>
+            <li class='levelindicator 4'><span class="key sm">4</span> Nature 1</li>
+            <li class='levelindicator 5'><span class="key sm">5</span> Space 1</li>
+            <li class='levelindicator 6'><span class="key sm">6</span> Space 2</li>
+            <li class='levelindicator 7'><span class="key sm">7</span> Ice 2</li>
+            <li class='levelindicator 8'><span class="key sm">8</span> Space 3</li>
+            <li class='levelindicator 9'><span class="key sm">9</span> Nature 2</li>
+            <li class='levelindicator 10'><span class="key sm">0</span> Ice 3</li>
             <li class='levelindicator 11'>Zombie 3</li>
         </ul>
+        <button id="hint-button" class="game-text" type="button" onclick="showHint()">HINT</button>
+        <br />
+        <input type="checkbox" id="no-story" value="Bike" /><span class="radio-label">No blurbs</span><br>
       </div>
       <canvas id="viewport">
       </canvas>

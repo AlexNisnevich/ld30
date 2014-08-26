@@ -9,8 +9,6 @@ function Game(levels) {
   var beehavior = null;
   var zombiehavior = null;
 
-  var currentLevel = 0;
-
   var base = this.base = levels[currentLevel];
   var other = null;
 
@@ -171,6 +169,8 @@ function Game(levels) {
   this.updateLevelSidebar = function() {
     var baseNum = base.attrs.levelNum;
     var overlayNum = other ? other.attrs.levelNum : null;
+
+    showStory();
 
     var $items = $('.levelindicator');
     $items.hide();
