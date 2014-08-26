@@ -98,6 +98,11 @@ function collisions(that) {
         if (obj.laser) {
           sound_playerHit.play();
         }
+
+        if (obj.bee) {
+          sound_eatenByBees.play();
+        }
+        
         that.physics.emit("die"); 
       });
       withPlayer("goal", bodyA, bodyB,   function () { that.physics.emit("next-level"); });

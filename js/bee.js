@@ -14,7 +14,13 @@ function bees(player) {
     return {
       behave : function (data) {
         var bodies = this.getTargets();
-        if (bodies.length < 1) return;
+        if (bodies.length < 1) {
+          sound_bees.pause();
+          return;
+        }
+        
+        sound_bees.play();
+        sound_bees.volume = radius / maxRadius;
 
         var dx = player.state.pos.x - center.x;
         var dy = player.state.pos.y - center.y;
