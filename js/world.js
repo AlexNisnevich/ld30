@@ -252,6 +252,10 @@ function Game(levels) {
 
   physics.add(renderer());
 
+  physics.on("the-end", function () {
+    showMessage(["The End", "Thanks for playing!"]);
+  });
+
   this.setBase(base);
 
   function addObjects(world, pred) {

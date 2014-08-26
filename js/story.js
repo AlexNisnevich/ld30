@@ -1,4 +1,4 @@
-var currentLevel = 0;
+var currentLevel = 10;
 var oldLevel = -1;
 
 var beginning = [
@@ -141,7 +141,7 @@ function showMessage(lines) {
 function showStory() {
   var disabled = $("#no-story").is(":checked");
 
-  if (currentLevel > oldLevel && !disabled) {
+  if (currentLevel > oldLevel && currentLevel < 11 && !disabled) {
     showMessage(stories[currentLevel].story);
     oldLevel = currentLevel;
   }
