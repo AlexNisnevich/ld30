@@ -26,7 +26,8 @@ var stories = [
   {
     story : [
       "Whoa! This is another piece of my level! Not exactly a useful one though. Really could have used some crates or something. Even a zombie would have been more helpful than this.",
-      "Good thing I picked up those platforms from the last level!"
+      "Good thing I picked up those platforms from the last level!",
+      "[Press 1 to overlay Level 1 on top of the current level.]"
     ],
     hint : [
       "Oh man, the ONE thing that could have helped was those platforms from the FIRST level. If I had that ONE thing, that would be ONE-derful, and I might have W-ONE. Oh ONE!",
