@@ -83,10 +83,10 @@ function zombie(options) {
   var defaults = {
     length : 30,
     height : 54,
-    view   : image("assets/zombie_zombie.png", 30 + 15),
+    view   : image("assets/zombie_zombie1.png", 30 + 15),
     images : {
-      forward : image("assets/zombie_zombie_reversed.png", 30 + 15),
-      backward : image("assets/zombie_zombie.png", 30 + 15)
+      forward : image("assets/zombie_zombie1_reversed.png", 30 + 15),
+      backward : image("assets/zombie_zombie1.png", 30 + 15)
     },
     killer : true,
     killable : 1,
