@@ -175,12 +175,14 @@ var levels = [
       view   : image("assets/space_rock2.png", 80 + 15)
     }),
     spaceship(1, {
-      x : 60,
-      y : 415
+      x     : 60,
+      y     : 415,
+      laser : 0
     }),
     spaceship(2, {
-      x : 830,
-      y : 435
+      x     : 830,
+      y     : 435,
+      laser : 1
     }),
     exit({
       x : 940,
@@ -238,13 +240,15 @@ var levels = [
       floating    : false
     }),
     spaceship(1, {
-      x : 50,
-      y : 300,
-      kill : false
+      x     : 50,
+      y     : 300,
+      kill  : false,
+      laser : 0
     }),
     spaceship(2, {
-      x : 950,
-      y : 280
+      x     : 950,
+      y     : 280,
+      laser : 1
     }),
     asteroid({
       x           : 50,

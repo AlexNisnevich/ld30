@@ -9,9 +9,9 @@ function Game(levels) {
   var beehavior = null;
   var zombiehavior = null;
 
-  var currentLevel = 8;
+  var currentLevel = 7;
 
-  var base = levels[currentLevel];
+  var base = this.base = levels[currentLevel];
   var other = null;
 
   var flickerTimeouts = [];
@@ -53,6 +53,7 @@ function Game(levels) {
     }
 
     base = newBase;
+    that.base = newBase;
     addObjects(base);
 
     if (this.player) {

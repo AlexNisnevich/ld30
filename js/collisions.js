@@ -74,6 +74,10 @@ function collisions(that) {
 
       withProperty("npcKiller", bodyA, bodyB, function (killer, victim) {
         if (victim.killable <= killer.npcKiller) {
+          if (typeof victim.laser == "number") {
+            that.physics.remove(that.base.behaviors[victim.laser]);
+          }
+
           that.physics.removeBody(victim);
         }
       });

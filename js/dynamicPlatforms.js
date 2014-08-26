@@ -48,7 +48,7 @@ Physics.behavior("laser", function (parent) {
     behave : function () {
       var that = this;
 
-      if (!this.active) {
+      if (!this.active && that._world) {
         that.active = true;
         var shot = laser(that.settings.laserType, that.settings.options)();
         that._world.addBody(shot);
