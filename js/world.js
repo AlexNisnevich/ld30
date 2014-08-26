@@ -270,6 +270,9 @@ function Game(levels) {
 
     if (key == 27) {
       that.setOther(null);
+    } else if (key == 82) {
+      that.setOther(null);
+      that.setBase(base);
     } else if (typeof level == "number" && level < currentLevel) {
       if (other == levels[level]) {
         that.setOther(null);
