@@ -1,5 +1,8 @@
 body {
   background: #333;
+
+  magin : 0;
+  padding : 0;
 }
 
 #gameContainer {
@@ -41,4 +44,88 @@ ul {
     background-color: green;
     border: 1px solid rgb(45, 255, 45);
     border-radius: 3px;
+}
+
+.game-text {
+    font-size : 18pt;
+    font-family : audiowide, Ariel, sans-serif;    
+
+    background : white;
+    border : 3px solid black;
+}
+
+.story-text {
+    position : absolute;
+    z-index : 4;
+    top : 100px;
+    left : 100px;
+    right : 0;
+
+    margin-left : auto;
+    margin-right : auto;
+
+    padding : 10px 25px;
+    
+    max-width : 600px;
+}
+
+.story-overlay {
+    position : absolute;
+    z-index : 3;
+    
+    width : 99%;
+    height : 99%;
+
+    margin : 0;
+    padding : 0;
+    
+    background : #36B;
+    opacity : 0.3;
+}
+
+.controls {
+    list-style : none;
+    font-family : audiowide, Ariel, sans-serif;    
+}
+
+.key {
+    font-family : monospace;
+    font-size : 15pt;
+    
+    background : grey;
+
+    padding : 2px;
+    border-radius : 4px;
+    border : 3px solid darkgray;
+    margin : 2px;
+}
+
+.controls li {
+    margin-bottom : 10px;
+}
+
+.key.big {
+    margin-bottom : 10px;
+}
+
+.key.sm {
+    position : relative;
+    
+    font-size : 12pt;
+    bottom : 2px;
+}
+
+#levels {
+    font-family : audiowide, Ariel, sans-serif;
+    font-size : 20pt;
+}
+
+.levelindicator {
+    font-family : audiowide, Ariel, sans-serif;
+    font-size : 16pt;
+}
+
+.radio-label {
+    font-family : audiowide, Ariel, sans-serif;
+    font-size : 14pt;
 }
