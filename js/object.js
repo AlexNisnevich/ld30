@@ -149,6 +149,26 @@ function tree(options) {
   return platform(_.extend(defaults, options));
 }
 
+function butterfly(options) {
+  var length = options.length || 70;
+  var height = options.height || 60;
+
+  var defaults = {
+    length    : length,
+    height    : height,
+    view      : image("assets/nature_butterflyOpen.png", length, height + 20),
+    butterfly : true,
+    treatment : "kinematic",
+    open      : true,
+    images    : {
+      open   : image("assets/nature_butterflyOpen.png", length, height + 20),
+      closed : image("assets/nature_butterflyClosed.png", length * (33/ 84), height + 20),
+    }
+  };
+
+  return platform(_.extend(defaults, options));
+}
+
 function branch(type, options) {
   var defaults = {
     view        : image("assets/nature_branch" + type + ".png", options.length),

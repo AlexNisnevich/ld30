@@ -9,7 +9,7 @@ function Game(levels) {
   var beehavior = null;
   var zombiehavior = null;
 
-  var currentLevel = 0;
+  var currentLevel = 8;
 
   var base = levels[currentLevel];
   var other = null;
@@ -24,9 +24,11 @@ function Game(levels) {
     51:  2,  // key: 3
     52:  3,  // key: 4
     53:  4,  // key: 5
-    54:  5,  // key: 5
-    55:  6,  // key: 5
-    56:  7   // key: 5
+    54:  5,  // key: 6
+    55:  6,  // key: 7
+    56:  7,  // key: 8
+    57:  8,  // key: 9
+    48:  9,  // key: 0
   }; 
 
   var settings = {
@@ -42,12 +44,14 @@ function Game(levels) {
   this.player = null;
 
   this.setBase = function (newBase) {
+    _.each(base.behaviors, function (b) { physics.remove(b) });
+    removeObjects(base);
+
     if (newBase.attrs.bg && newBase.attrs.bg != currentBg) {
       currentBg = newBase.attrs.bg;
       $('canvas').css('background', 'url(' + newBase.attrs.bg + ')');
     }
 
-    removeObjects(base);
     base = newBase;
     addObjects(base);
 
@@ -89,7 +93,6 @@ function Game(levels) {
     });
     physics.add(that.gravity);
 
-    _.each(base.behaviors, function (b) { physics.remove(b) });
     _.each(base.behaviors, function (b) { physics.add(b) });
 
     if (beehavior) {
@@ -181,6 +184,10 @@ function Game(levels) {
             $item.addClass('levelindicator-overlay');
         } else {
             $item.removeClass('levelindicator-overlay');
+        }
+
+        if (i < baseNum) {
+          $('.levelindicator.' + i + ' .hotkey').show();
         }
     }
   }

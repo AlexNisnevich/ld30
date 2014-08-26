@@ -90,6 +90,11 @@ function collisions(that) {
       withPlayer("moving", bodyA, bodyB, function (other, player) {
         player.state.vel.set(other.moving.x * 2, player.state.vel.y);
       });
+      
+      withPlayer("butterfly", bodyA, bodyB, function (butterfly) {
+        butterfly.state.vel.set(0, -0.1);
+        butterfly.player = true;
+      });
     }
   }
 
