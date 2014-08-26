@@ -43,10 +43,10 @@ var stories = [
   },
   {
     story : [
-      "What?! Even Woodsy’s Bee-utiful Adventure? This is an INNOCENT E-RATED game!!" 
+      "What?! Even Woodsy’s Bee-utiful Adventure? This is an INNOCENT E-RATED game!!"
     ],
     hint : [
-      "You know what Woodsy always used to say?", 
+      "You know what Woodsy always used to say?",
       "“Eat Kellogg’s Frosted Woodsy Whirls -- Nay-ture are delicious!”",
       "I don’t know about that, but he would also talk about how fun it was to slide across the lakes in the winter. Woodsy sure is a weird old coot!"
     ]
@@ -80,7 +80,7 @@ var stories = [
   },
   {
     story : [
-      "Hmm. It would ALMOST seem like these worlds are trying to help me out with these text hints they’re leaving around, if they weren’t also trying to kill me." 
+      "Hmm. It would ALMOST seem like these worlds are trying to help me out with these text hints they’re leaving around, if they weren’t also trying to kill me."
     ],
     hint : [
       "I can feel the fury of SnowMAN burning inside of me. Glitlock, I’ll save you with sharp icy power!"
@@ -89,16 +89,16 @@ var stories = [
   {
     story : [
       "All these levels I’m carrying around are getting heavy, and still no sign of my world. What happens if this is all that’s left? I mean, I like relaxing in Woodsy’s Meadow as much as the next sprite, but still.",
-      "Is this all that’s left for me?" 
+      "Is this all that’s left for me?"
     ],
     hint : [
       "Hey look another scrap of text! It reads “Butterflies allow you to rise, but you’ll still need a million tries, without the help of other platform guys”.",
-      "Huh, that’s written in the same annoying rhyme scheme that Woodsy speaks in, and is also weirdly specific. I don’t think this is originally from Woodsy’s BEE-utiful Adventure." 
+      "Huh, that’s written in the same annoying rhyme scheme that Woodsy speaks in, and is also weirdly specific. I don’t think this is originally from Woodsy’s BEE-utiful Adventure."
     ]
   },
   {
     story : [
-      "No! I must remain positive! Did SnowMAN melt in the face of adversity, even when that adversity was the sun? Even when things seemed hopeless?? No! He persevered, and so will I!" 
+      "No! I must remain positive! Did SnowMAN melt in the face of adversity, even when that adversity was the sun? Even when things seemed hopeless?? No! He persevered, and so will I!"
     ],
     hint : [
       "Ah! I don’t know if I want to use anti-gravity for this—I don’t want to be any closer to that cold spiky death than I have to be.",
@@ -112,7 +112,7 @@ var stories = [
     ],
     hint : [
       "Oh of course they leave the zombies but none of the high-powered weaponry!",
-      "If only there was a way to clear out those zombies so I can get the key. I’ve never really liked violence, but these zombies deserve a death as cold as their clammy flesh. Ugh!" 
+      "If only there was a way to clear out those zombies so I can get the key. I’ve never really liked violence, but these zombies deserve a death as cold as their clammy flesh. Ugh!"
     ]
   }
 ];
@@ -131,7 +131,7 @@ function showMessage(lines) {
   });
   $("body").append(overlay);
   $("body").append(dialog);
-  
+
   _.each(lines, function (para) {
     var p = $("<p>").text(para);
     dialog.append(p);
@@ -141,7 +141,7 @@ function showMessage(lines) {
 function showStory() {
   var disabled = $("#no-story").is(":checked");
 
-  if (currentLevel > oldLevel && !disabled) {
+  if (currentLevel > oldLevel && currentLevel < 11 && !disabled) {
     showMessage(stories[currentLevel].story);
     oldLevel = currentLevel;
   }
