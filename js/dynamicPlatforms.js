@@ -6,8 +6,10 @@ function fallingPlatform(game) {
           if (game.gravity._acc.y > 0.0005) {
             target.treatment = "kinematic";
             target.state.acc.set(target.state.acc.x, 0.000012);
+            sound_asteroidFalls.play();
           } else {
             target.treatment = "static";
+            sound_asteroidFalls.pause();
             target.state.acc.set(target.state.acc.x, 0);
             target.state.vel.set(target.state.vel.x, 0);
           }
@@ -75,7 +77,7 @@ Physics.behavior("laser", function (parent) {
 })
 
 Physics.behavior("bear", function (parent) {
-  var timeout = 100;
+  var timeout = 125;
   return {
     behave : function (data) {
       var bodies = this.getTargets();
@@ -87,15 +89,15 @@ Physics.behavior("bear", function (parent) {
             if (body.mode == 'none') {
               body.mode = 'head';
               body.killer = true;
-              timeout = 100;
+              timeout = 125;
             } else if (body.mode == 'head') {
               body.mode = 'butt';
               body.killer = false;
-              timeout = 40;
+              timeout = 50;
             } else if (body.mode == 'butt') {
               body.mode = 'none';
               body.killer = false;
-              timeout = 100;
+              timeout = 125;
             }
             body.view = body.images[body.mode];
           }

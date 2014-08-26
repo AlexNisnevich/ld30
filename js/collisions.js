@@ -31,6 +31,7 @@ function collisions(that) {
 
       withProperty("breakable", bodyA, bodyB, function (main, other) {
         if (Math.abs(other.state.vel.y) > 0.5) {
+          sound_ice.play();
           that.physics.remove([main]);
 
           other.grounded = false;
@@ -80,6 +81,10 @@ function collisions(that) {
             that.physics.remove(that.base.behaviors[victim.laser]);
           }
 
+          if (victim.spaceship) {
+            sound_laser.play();
+          }
+
           that.physics.removeBody(victim);
         }
       });
@@ -90,7 +95,17 @@ function collisions(that) {
         }
       });
 
-      withPlayer("killer", bodyA, bodyB, function () { that.physics.emit("die"); });
+      withPlayer("killer", bodyA, bodyB, function (obj, other) { 
+        if (obj.laser) {
+          sound_playerHit.play();
+        } else if (obj.bee) {
+          sound_eatenByBees.play();
+        } else {
+          sound_playerHit.play();
+        }
+
+        that.physics.emit("die"); 
+      });
       withPlayer("goal", bodyA, bodyB,   function () { that.physics.emit("next-level"); });
 
       withPlayer("moving", bodyA, bodyB, function (other, player) {
@@ -98,6 +113,7 @@ function collisions(that) {
       });
       
       withPlayer("butterfly", bodyA, bodyB, function (butterfly) {
+        sound_butterflyCarries.play();
         butterfly.state.vel.set(0, -0.1);
         butterfly.player = true;
       });

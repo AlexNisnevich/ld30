@@ -211,6 +211,7 @@ function laser(type, options) {
     length    : 60,
     killer    : true,
     npcKiller : 1,
+    laser     : true,
     moving    : { x : 0.5, y : 0 },
     treatment : "dynamic",
     view      : image("assets/space_laser" + type + ".png"),

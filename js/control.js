@@ -64,6 +64,7 @@ function createControl(game) {
           var jumpSize = -0.05;
 
           if (this.jump && game.player.grounded) {
+            sound_jump.play();
             bodies[i].accelerate(scratch.vector().set(0, jumpSize));
             this.jump = false;
           }

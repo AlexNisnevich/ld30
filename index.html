@@ -26,6 +26,14 @@
   <body onload="go()">
     <div id="gameContainer">
       <div id='levelMenu'>
+        CONTROLS
+        <ul>
+            <li><b>[&#8592;&#8593;&#8594;]</b> move</li>
+            <li><b>[R]</b> restart</li>
+            <li><b>[lvl #]</b> overlay level</li>
+            <li><b>[ESC]</b> clear overlay</li>
+        </ul>
+
         LEVELS
         <ul>
             <li class='levelindicator 1'><span class="hotkey">[1]</span> Zombie 1</li>
@@ -43,6 +51,24 @@
       </div>
       <canvas id="viewport">
       </canvas>
+    </div>
+    <div id="sounds">
+        <audio src="assets/ZombieWorld.wav" loop="true" autoplay="true"></audio>
+        <audio id="sound_getKey" src="assets/sound/getKeyy.wav"></audio>
+        <audio id="sound_jump" src="assets/sound/jump.wav"></audio>
+        <audio id="sound_fall" src="assets/sound/jumpFallOffScreen.wav"></audio>
+        <audio id="sound_levelOverlay" src="assets/sound/levelOverlay.wav"></audio>
+
+        <audio id="sound_asteroidFalls" src="assets/sound/asteroidFalls.wav"></audio>
+        <audio id="sound_laser" src="assets/sound/shootsLaser.wav"></audio>
+        <audio id="sound_playerHit" src="assets/sound/playerHit.wav"></audio>
+        <audio id="sound_spaceshipDestroyed" src="assets/sound/spaceshipDestroyed.wav"></audio>
+
+        <audio id="sound_eatenByBees" src="assets/sound/eatenByBees.wav"></audio>
+        <audio id="sound_butterflyCarries" src="assets/sound/butterflyCarries.wav"></audio>
+        <audio id="sound_bees" src="assets/sound/bees1.mp3" volume="0.01"></audio>
+
+        <audio id="sound_ice" src="assets/sound/Ice Sound Effects-2.mp3"></audio>
     </div>
   </body>
 </html>
