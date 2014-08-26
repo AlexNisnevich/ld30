@@ -27,9 +27,11 @@ ul {
 .levelindicator {
     display:none;
     list-style:none;
+    padding-left: 30px;
+    position: relative;
 }
 
-.levelindicator .hotkey {
+.levelindicator .key {
     display:none;
     font-weight: bold;
 }
@@ -48,7 +50,7 @@ ul {
 
 .game-text {
     font-size : 18pt;
-    font-family : audiowide, Ariel, sans-serif;    
+    font-family : audiowide, Ariel, sans-serif;
 
     background : white;
     border : 3px solid black;
@@ -65,33 +67,33 @@ ul {
     margin-right : auto;
 
     padding : 10px 25px;
-    
+
     max-width : 600px;
 }
 
 .story-overlay {
     position : absolute;
     z-index : 3;
-    
+
     width : 99%;
     height : 99%;
 
     margin : 0;
     padding : 0;
-    
+
     background : #36B;
     opacity : 0.3;
 }
 
 .controls {
     list-style : none;
-    font-family : audiowide, Ariel, sans-serif;    
+    font-family : audiowide, Ariel, sans-serif;
 }
 
 .key {
     font-family : monospace;
     font-size : 15pt;
-    
+
     background : grey;
 
     padding : 2px;
@@ -109,10 +111,10 @@ ul {
 }
 
 .key.sm {
-    position : relative;
-    
+    position: absolute;
+    left: 1px;
+    bottom : -3px;
     font-size : 12pt;
-    bottom : 2px;
 }
 
 #levels {

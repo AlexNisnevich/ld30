@@ -143,7 +143,7 @@ var levels = [
     }),
     exit({
       x        : 110,
-      y        : 100,
+      y        : 0,
       floating : true
     })
   ]),
@@ -172,6 +172,7 @@ var levels = [
       y      : 442,
       length : 80,
       height : 77,
+      rectangular : true,
       view   : image("assets/space_rock2.png", 80 + 15)
     }),
     spaceship(1, {
@@ -186,7 +187,7 @@ var levels = [
     }),
     exit({
       x : 940,
-      y : 395
+      y : 375
     })
   ], [
     Physics.behavior("laser", { options : { x : 116, y : 415 } }),
@@ -259,7 +260,7 @@ var levels = [
     }),
     exit({
       x        : 500,
-      y        : 300,
+      y        : 320,
       passable : true
     })
   ], [

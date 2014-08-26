@@ -117,9 +117,11 @@ var stories = [
   }
 ];
 
+var dialog = null;
+var overlay = null;
 function showMessage(lines) {
-  var dialog = $("<div class='story-text game-text'>");
-  var overlay = $("<div class='story-overlay'>");
+  dialog = $("<div class='story-text game-text'>");
+  overlay = $("<div class='story-overlay'>");
 
   dialog.click(function () {
     dialog.remove();

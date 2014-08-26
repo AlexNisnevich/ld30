@@ -190,7 +190,7 @@ function Game(levels) {
         }
 
         if (i < baseNum) {
-          $('.levelindicator.' + i + ' .hotkey').show();
+          $('.levelindicator.' + i + ' .key').show();
         }
     }
   }

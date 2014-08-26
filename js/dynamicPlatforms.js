@@ -2,6 +2,9 @@ function fallingPlatform(game) {
   Physics.behavior("falling-platform", function (parent) {
     return {
       behave : function (data) {
+        if (this.getTargets().length == 0) {
+            sound_asteroidFalls.pause();
+        }
         _.each(this.getTargets(), function (target) {
           if (game.gravity._acc.y > 0.0005) {
             target.treatment = "kinematic";
@@ -23,7 +26,7 @@ Physics.behavior("moving-platform", function (parent) {
   return {
     behave : function (data) {
       var bodies = this.getTargets();
-      
+
       _.each(bodies, function (body) {
         if (body.moving) {
           body.state.vel.set(body.moving.x, body.moving.y);
@@ -81,7 +84,7 @@ Physics.behavior("bear", function (parent) {
   return {
     behave : function (data) {
       var bodies = this.getTargets();
-      
+
       _.each(bodies, function (body) {
         if (body.bear) {
           timeout--;
@@ -112,7 +115,7 @@ Physics.behavior("animateExit", function (parent) {
   return {
     behave : function (data) {
       var bodies = this.getTargets();
-      
+
       _.each(bodies, function (body) {
         if (body.goal) {
           timeout--;
@@ -136,7 +139,7 @@ Physics.behavior("butterfly", function (parent) {
       _.each(this.getTargets(), function (body) {
         if (body.butterfly && !body.going) {
           body.going = true;
-          
+
           if (body.open) {
             body.view = body.images.closed;
             body.width = body.width / 2;

@@ -19,10 +19,18 @@ function createControl(game) {
           case 39: // →
             that.dir = 1;
             break;
-            
+
           case 38:
             that.jump = true;
             break;
+          }
+
+
+          if (dialog && dialog.remove) {
+            dialog.remove();
+          }
+          if (overlay && overlay.remove) {
+            overlay.remove();
           }
         });
 
@@ -60,7 +68,7 @@ function createControl(game) {
           } else {
             bodies[i].state.vel.set(this.dir * speed, vy);
           }
-          
+
           var jumpSize = -0.05;
 
           if (this.jump && game.player.grounded) {
@@ -76,4 +84,3 @@ function createControl(game) {
     };
   });
 }
-
