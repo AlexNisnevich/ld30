@@ -8,7 +8,7 @@ function Game(levels) {
 
   var beehavior = null;
   var zombiehavior = null;
-
+  
   var base = this.base = levels[currentLevel];
   var other = null;
 
@@ -228,11 +228,23 @@ function Game(levels) {
   physics.on("next-level", function () {
     sound_getKey.play();
     currentLevel++;
+
+    if (currentLevel > 10) {
+      physics.emit('the-end');
+      return;
+    }
     
     that.setOther(null);
     that.setBase(levels[currentLevel]);
     that.resetObjects();
   });
+
+  physics.on("the-end", function () {
+    that.setOther(null);
+    that.setBase(null);
+    physics.remove(die);
+    physics.remove(control);
+  })
 
   createControl(this);
   var control = null;

@@ -100,6 +100,8 @@ function collisions(that) {
           sound_playerHit.play();
         } else if (obj.bee) {
           sound_eatenByBees.play();
+        } else if (obj.bear) {
+          sound_bear.play();
         } else {
           sound_playerHit.play();
         }
