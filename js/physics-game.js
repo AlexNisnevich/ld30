@@ -24,12 +24,12 @@ var levels = [
   // two
   world({
     levelNum : 2,
-    start : { x : 515, y : 280 },
+    start : { x : 515, y : 180 },
     bg : 'assets/zombie_bg.png'
   }, [
     zombiePlatform({
       x           : 515,
-      y           : 300,
+      y           : 200,
       length      : 30
     }),
     exit({
@@ -271,9 +271,46 @@ var levels = [
     })
   ]),
 
-  // ten
+  // nine
   world({
     levelNum : 9,
+    start    : { x : 150, y : 50 },
+    bg       : "assets/nature_bg.png"
+  }, [
+    tree({
+      x : 100,
+      y : 320
+    }),
+    branch('Small2', {
+      x      : 140,
+      y      : 100,
+      length : 70
+    }),
+    branch('Big', {
+      x      : 30,
+      y      : 300,
+      length : 140
+    }),
+    branch('Small', {
+      x      : 55,
+      y      : 500,
+      length : 70
+    }),
+    butterfly({
+      x : 350,
+      y : 500
+    }),
+    exit({
+      x : 600,
+      y : 100
+    })
+  ], [
+    Physics.behavior("butterfly")
+  ]),
+
+  // ten
+  world({
+    levelNum : 10,
     start : { x : 730, y : 200 },
     bg : 'assets/polar_bg.png'
   }, [
@@ -306,7 +343,7 @@ var levels = [
   // twelve
   world({
     start : { x : 200, y : 380 },
-    levelNum : 10,
+    levelNum : 11,
     bg : 'assets/zombie_bg.png'
   }, [
     zombiePlatform({
