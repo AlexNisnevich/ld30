@@ -32,7 +32,11 @@ function exit(options) {
   var defaults = {
     goal      : true,
     treatment : "static",
-    view      : image("assets/magicKey.png", options.length),
+    view      : image("assets/key0.png", options.length),
+    images    : {
+      0 : image("assets/key0.png", options.length),
+      1 : image("assets/key1.png", options.length)
+    },
     baseOnly  : true
   };
 
