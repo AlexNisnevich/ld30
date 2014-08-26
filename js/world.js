@@ -226,6 +226,7 @@ function Game(levels) {
   });
 
   physics.on("next-level", function () {
+    sound_getKey.play();
     currentLevel++;
     
     that.setOther(null);
@@ -274,6 +275,7 @@ function Game(levels) {
       that.setOther(null);
       that.setBase(base);
     } else if (typeof level == "number" && level < currentLevel) {
+      sound_levelOverlay.play();
       if (other == levels[level]) {
         that.setOther(null);
       } else {
