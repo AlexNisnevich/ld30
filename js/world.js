@@ -9,7 +9,7 @@ function Game(levels) {
   var beehavior = null;
   var zombiehavior = null;
 
-  var currentLevel = 2;
+  var currentLevel = 0;
 
   var base = this.base = levels[currentLevel];
   var other = null;
@@ -42,6 +42,8 @@ function Game(levels) {
 
   this.physics = physics;
   this.player = null;
+
+  physics.add(Physics.behavior('animateExit'));
 
   this.setBase = function (newBase) {
     _.each(base.behaviors, function (b) { physics.remove(b) });
