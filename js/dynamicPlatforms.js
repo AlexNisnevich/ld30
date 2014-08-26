@@ -6,8 +6,10 @@ function fallingPlatform(game) {
           if (game.gravity._acc.y > 0.0005) {
             target.treatment = "kinematic";
             target.state.acc.set(target.state.acc.x, 0.000012);
+            sound_asteroidFalls.play();
           } else {
             target.treatment = "static";
+            sound_asteroidFalls.pause();
             target.state.acc.set(target.state.acc.x, 0);
             target.state.vel.set(target.state.vel.x, 0);
           }
