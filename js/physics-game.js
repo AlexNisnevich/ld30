@@ -339,6 +339,57 @@ var levels = [
     exit({
       x : 20,
       y : 160
+    }),
+    icePlatform({
+      x      : 40,
+      y      : 10,
+      length : 180,
+      killer : true
+    }),
+    icePlatform({
+      x      : 180,
+      y      : 10,
+      length : 74,
+      view   : image("assets/polar_ice2.png"),
+      killer : true
+    }),
+    icePlatform({
+      x      : 300,
+      y      : 10,
+      length : 180,
+      killer : true
+    }),
+    icePlatform({
+      x      : 475,
+      y      : 10,
+      length : 180,
+      killer : true
+    }),
+    icePlatform({
+      x      : 580,
+      y      : 10,
+      length : 74,
+      view   : image("assets/polar_ice2.png"),
+      killer : true
+    }),
+    icePlatform({
+      x      : 720,
+      y      : 10,
+      length : 180,
+      killer : true
+    }),
+    icePlatform({
+      x      : 820,
+      y      : 10,
+      length : 74,
+      view   : image("assets/polar_ice2.png"),
+      killer : true
+    }),
+    icePlatform({
+      x      : 920,
+      y      : 10,
+      length : 180,
+      killer : true
     })
   ], [
     Physics.behavior("bear")
