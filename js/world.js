@@ -8,7 +8,7 @@ function Game(levels) {
 
   var beehavior = null;
   var zombiehavior = null;
-  
+
   var base = this.base = levels[currentLevel];
   var other = null;
 
@@ -27,7 +27,7 @@ function Game(levels) {
     56:  7,  // key: 8
     57:  8,  // key: 9
     48:  9,  // key: 0
-  }; 
+  };
 
   var settings = {
     timestep   : 1000 / 160,
@@ -71,7 +71,7 @@ function Game(levels) {
       grounded : false,
       view     : image("assets/char_face1.png")
     });
-   
+
     physics.add(this.player);
 
     if (control) {
@@ -132,7 +132,7 @@ function Game(levels) {
     if (flickerTimeouts) {
       _.map(flickerTimeouts, clearTimeout);
     }
-    
+
     if (other) {
       _.each(other.behaviors, function (b) { physics.remove(b) });
     }
@@ -233,17 +233,16 @@ function Game(levels) {
       physics.emit('the-end');
       return;
     }
-    
+
     that.setOther(null);
     that.setBase(levels[currentLevel]);
     that.resetObjects();
   });
 
   physics.on("the-end", function () {
-    that.setOther(null);
-    that.setBase(null);
-    physics.remove(die);
-    physics.remove(control);
+    showMessage(["The End", "Thanks for playing!"]);
+    $('canvas').remove();
+    physics = null;
   })
 
   createControl(this);
@@ -251,10 +250,6 @@ function Game(levels) {
   var die = null;
 
   physics.add(renderer());
-
-  physics.on("the-end", function () {
-    showMessage(["The End", "Thanks for playing!"]);
-  });
 
   this.setBase(base);
 
@@ -325,7 +320,7 @@ function image(url, length, height) {
 
   if (length) {
     img.width = length;
-  } 
+  }
 
   if (height) {
     img.height = height;
