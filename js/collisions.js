@@ -49,12 +49,14 @@ function collisions(that) {
             pieces.push(icePlatform(_.extend(miniOptions, {
               x         : x - (main.length / numPieces * i),
               y         : y + 20,
-              npcKiller : 2
+              npcKiller : 2,
+              view      : image("assets/polar_iceShard.png", 10 + 25 * Math.random(), 30 + 20 * Math.random())
             }))());
             pieces.push(icePlatform(_.extend(miniOptions, {
               x         : x + (main.length / numPieces * i),
               y         : y + 20,
-              npckiller : 2
+              npckiller : 2,
+              view      : image("assets/polar_iceShard.png", 10 + 25 * Math.random(), 30 + 20 * Math.random())
             }))());
           }
 
