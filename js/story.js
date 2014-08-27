@@ -120,18 +120,18 @@ var stories = [
 
 var dialog = null;
 var overlay = null;
+var dialogDisplayTime = Date.now();
+var gameOver = false;
+
 function showMessage(lines) {
   dialog = $("<div class='story-text game-text'>");
   overlay = $("<div class='story-overlay'>");
 
-  dialog.click(function () {
-    dialog.remove();
-    overlay.remove();
-  });
-  overlay.click(function () {
-    dialog.remove();
-    overlay.remove();
-  });
+  dialogDisplayTime = Date.now();
+
+  dialog.click(removePopup);
+  overlay.click(removePopup);
+
   $("body").append(overlay);
   $("body").append(dialog);
 
@@ -152,4 +152,15 @@ function showStory() {
 
 function showHint() {
   showMessage(stories[currentLevel].hint);
+}
+
+function removePopup() {
+  if (!gameOver && Date.now() - dialogDisplayTime > 1000) {
+    if (dialog && dialog.remove) {
+      dialog.remove();
+    }
+    if (overlay && overlay.remove) {
+      overlay.remove();
+    }
+  }
 }

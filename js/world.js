@@ -243,6 +243,7 @@ function Game(levels) {
     showMessage(["The End", "Thanks for playing!"]);
     $('canvas').remove();
     physics = null;
+    gameOver = true;
   })
 
   createControl(this);

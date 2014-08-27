@@ -25,13 +25,7 @@ function createControl(game) {
             break;
           }
 
-
-          if (dialog && dialog.remove) {
-            dialog.remove();
-          }
-          if (overlay && overlay.remove) {
-            overlay.remove();
-          }
+          removePopup();
         });
 
         $(document).keyup(function (e) {
